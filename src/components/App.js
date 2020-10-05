@@ -1,4 +1,5 @@
 import React from "react";
+import SignupForm from "../containers/SignupForm";
 import styles from "../styles/App.module.css";
 
 class App extends React.Component {
@@ -9,9 +10,8 @@ class App extends React.Component {
   render() {
     return (
       <div className={styles.appContainer}>
-        <h1>logo</h1>
-        <h2>Sign In</h2>
-        <h2>Sign Up</h2>
+        <div>logo</div>
+        <SignupForm />
       </div>
     );
   }
