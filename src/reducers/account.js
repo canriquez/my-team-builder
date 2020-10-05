@@ -6,6 +6,8 @@ const accountDefault = {
   role: null,
   avatar: null,
   loggedIn: false,
+  tokenPresent: false,
+  tokenExpired: false,
 };
 
 const account = (state = accountDefault, action) => {

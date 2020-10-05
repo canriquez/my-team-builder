@@ -1,6 +1,6 @@
 import deepFreeze from "deep-freeze";
 import account from "../reducers/account";
-import { updateAccountData } from "../actions/account";
+import { updateAccountData } from "../actions/index";
 
 it("updates account data", () => {
   const stateBefore = {
