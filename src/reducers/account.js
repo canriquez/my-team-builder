@@ -1,4 +1,4 @@
-import { UPDATES_ACCOUNT_DATA } from "../helpers/help";
+import { UPDATE_ACCOUNT_DATA } from "../helpers/help";
 
 const accountDefault = {
   email: null,
@@ -12,7 +12,7 @@ const accountDefault = {
 
 const account = (state = accountDefault, action) => {
   switch (action.type) {
-    case UPDATES_ACCOUNT_DATA:
+    case UPDATE_ACCOUNT_DATA:
       // eslint-disable-next-line
       return {
         ...state,

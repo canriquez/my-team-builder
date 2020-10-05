@@ -1,4 +1,7 @@
 import React from "react";
+import { connect } from "react-redux";
+import { backendSignupAction } from "../actions/index";
+import { validEmail } from "../helpers/componentHelp";
 
 class SignupForm extends React.Component {
   constructor(props) {
@@ -11,6 +14,8 @@ class SignupForm extends React.Component {
       avatar: "",
       password: "",
       password_repeat: "",
+      valid_email: false,
+      password_match: false,
     };
 
     this.roles = ["admin", "user"];
@@ -27,6 +32,9 @@ class SignupForm extends React.Component {
     const formPasswordRepeat = document.getElementById("passwordRepeatValue")
       .value;
     const select = document.getElementById("role").value;
+    const valid_email = validEmail(formEmail);
+    const valid_password = formPassword === formPasswordRepeat;
+
     this.setState({
       name: formName,
       role: this.roles[select],
@@ -34,12 +42,26 @@ class SignupForm extends React.Component {
       avatar: "http://fronEndRole.com",
       password: formPassword,
       password_repeat: formPasswordRepeat,
+      valid_email: valid_email,
+      password_match: valid_password,
     });
+    if (formEmail.length > 5 && valid_email && valid_password) {
+      document.getElementById("submit-btn").disabled = false;
+    } else {
+      document.getElementById("submit-btn").disabled = true;
+    }
   }
 
   handleSubmit(e) {
     e.preventDefault();
+    const { fireBackendSignup } = this.props;
     console.log("click submit()");
+
+    const signupData = {
+      ...this.state,
+    };
+
+    fireBackendSignup(signupData);
     /*     
     const { onSubmitCreateBook } = this.props;
     const { title, role } = this.state;
@@ -73,6 +95,10 @@ class SignupForm extends React.Component {
             placeholder="Name"
           />
           <label htmlFor="emailValue">email</label>
+          <p className="error-field hide" id="email-error">
+            {" "}
+            ... a valid email please
+          </p>
           <input
             className="emailValue"
             type="text"
@@ -105,6 +131,9 @@ class SignupForm extends React.Component {
             autoComplete="new-password"
           />
           <label htmlFor="passwordRepeatValue">repeat password</label>
+          <p className="error-field hide" id="pass-error">
+            passwords don't match
+          </p>
           <input
             className="passwordRepeatValue"
             type="password"
@@ -126,4 +155,10 @@ class SignupForm extends React.Component {
   }
 }
 
-export default SignupForm;
+const mapDispatchToProps = (dispatch) => ({
+  fireBackendSignup: (newAccountData) => {
+    dispatch(backendSignupAction(newAccountData));
+  },
+});
+
+export default connect(null, mapDispatchToProps)(SignupForm);
