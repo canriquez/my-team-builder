@@ -3,4 +3,22 @@ const validEmail = (email) => {
   return emailcheck.test(email);
 };
 
-export { validEmail };
+const enableSubmit = (id) => {
+  const submitButton = document.getElementById(id);
+  submitButton.disabled = false;
+  if (submitButton.classList.contains("submit-disabled")) {
+    submitButton.classList.remove("submit-disabled");
+    submitButton.classList.add("submit-enabled");
+  }
+};
+
+const disableSubmit = (id) => {
+  const submitButton = document.getElementById(id);
+  submitButton.disabled = true;
+  if (submitButton.classList.contains("submit-enabled")) {
+    submitButton.classList.remove("submit-enabled");
+    submitButton.classList.add("submit-disabled");
+  }
+};
+
+export { validEmail, enableSubmit, disableSubmit };

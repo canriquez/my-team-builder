@@ -1,7 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
 import { backendSignupAction } from "../actions/index";
-import { validEmail } from "../helpers/componentHelp";
+import {
+  validEmail,
+  enableSubmit,
+  disableSubmit,
+} from "../helpers/componentHelp";
+import styles from "../styles/SignupForm.module.css";
 
 class SignupForm extends React.Component {
   constructor(props) {
@@ -33,7 +38,8 @@ class SignupForm extends React.Component {
       .value;
     const select = document.getElementById("role").value;
     const valid_email = validEmail(formEmail);
-    const valid_password = formPassword === formPasswordRepeat;
+    const valid_password =
+      formPassword === formPasswordRepeat && formPassword !== "";
 
     this.setState({
       name: formName,
@@ -46,9 +52,9 @@ class SignupForm extends React.Component {
       password_match: valid_password,
     });
     if (formEmail.length > 5 && valid_email && valid_password) {
-      document.getElementById("submit-btn").disabled = false;
+      enableSubmit("submit-btn");
     } else {
-      document.getElementById("submit-btn").disabled = true;
+      disableSubmit("submit-btn");
     }
   }
 
@@ -79,77 +85,78 @@ class SignupForm extends React.Component {
   render() {
     const { name, email, password, password_repeat } = this.state;
     return (
-      <div className="form-block">
-        <div className="form-title">
-          <h1>Sign up</h1>
-          <h3>Hi there, create a new account with us</h3>
+      <div className={styles.formblock}>
+        <div className={styles.formwrap}>
+          <div className={styles.formtitle}>
+            <h1>Sign up</h1>
+            <h3>Hi there, create a new account with us</h3>
+          </div>
+          <form
+            className={styles.formfields}
+            action="#"
+            onSubmit={this.handleSubmit}
+          >
+            <label htmlFor="namelValue">Your name</label>
+            <input
+              className="nameValue"
+              type="text"
+              onChange={this.handleChange}
+              value={name}
+              id="nameValue"
+            />
+            <label htmlFor="emailValue">email</label>
+            <p className={styles.errorfield + " hide"} id="email-error">
+              {" "}
+              ... a valid email please
+            </p>
+            <input
+              className="emailValue"
+              type="text"
+              onChange={this.handleChange}
+              value={email}
+              id="emailValue"
+              autoComplete="username"
+            />
+            <label htmlFor="role">Your role</label>
+            <select
+              className="role"
+              name="role"
+              id="role"
+              onChange={this.handleChange}
+            >
+              {this.roles.map((cat, id) => (
+                <option key={`opt_${id * 2}`} value={id}>
+                  {cat}
+                </option>
+              ))}
+            </select>
+            <label htmlFor="passwordValue">password</label>
+            <input
+              className="passwordValue"
+              type="password"
+              onChange={this.handleChange}
+              value={password}
+              id="passwordValue"
+              autoComplete="new-password"
+            />
+            <label htmlFor="passwordRepeatValue">repeat password</label>
+            <input
+              className="passwordRepeatValue"
+              type="password"
+              onChange={this.handleChange}
+              value={password_repeat}
+              id="passwordRepeatValue"
+              autoComplete="new-password"
+            />
+            <button
+              id="submit-btn"
+              className="Rectangle-2 submit-btn base-button submit-disabled"
+              type="submit"
+            >
+              Sign Up
+            </button>
+          </form>
         </div>
-        <form action="#" onSubmit={this.handleSubmit}>
-          <label htmlFor="nameValue">Name</label>
-          <input
-            className="nameValue"
-            type="text"
-            onChange={this.handleChange}
-            value={name}
-            id="nameValue"
-            placeholder="Name"
-          />
-          <label htmlFor="emailValue">email</label>
-          <p className="error-field hide" id="email-error">
-            {" "}
-            ... a valid email please
-          </p>
-          <input
-            className="emailValue"
-            type="text"
-            onChange={this.handleChange}
-            value={email}
-            id="emailValue"
-            autoComplete="username"
-            placeholder="email address"
-          />
-          <label htmlFor="role">Your role</label>
-          <select
-            className="role"
-            name="role"
-            id="role"
-            onChange={this.handleChange}
-          >
-            {this.roles.map((cat, id) => (
-              <option key={`opt_${id * 2}`} value={id}>
-                {cat}
-              </option>
-            ))}
-          </select>
-          <label htmlFor="passwordValue">password</label>
-          <input
-            className="passwordValue"
-            type="password"
-            onChange={this.handleChange}
-            value={password}
-            id="passwordValue"
-            autoComplete="new-password"
-          />
-          <label htmlFor="passwordRepeatValue">repeat password</label>
-          <p className="error-field hide" id="pass-error">
-            passwords don't match
-          </p>
-          <input
-            className="passwordRepeatValue"
-            type="password"
-            onChange={this.handleChange}
-            value={password_repeat}
-            id="passwordRepeatValue"
-            autoComplete="new-password"
-          />
-          <button
-            id="submit-btn"
-            className="Rectangle-2 submit-btn base-button"
-            type="submit"
-          >
-            <p>Sign Up</p>
-          </button>
-        </form>
       </div>
     );
   }

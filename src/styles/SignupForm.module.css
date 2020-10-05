@@ -1,0 +1,81 @@
+.formblock {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+}
+
+.formblock,
+.formfields {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.formwrap {
+  width: 320px;
+  height: 580px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: space-between;
+}
+
+.formtitle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 45px;
+}
+
+.formtitle h1 {
+  font-family: Lato, sans-serif;
+  font-weight: 300;
+  font-size: 38px;
+}
+
+.formtitle h3 {
+  width: 290px;
+  margin-top: 24px;
+  font-family: Lato, sans-serif;
+  font-weight: 300;
+  font-size: 17px;
+  text-align: center;
+}
+
+.formfields input,
+.formfields select {
+  width: 300px;
+  height: 42px;
+  border-radius: 14px;
+  border: solid 1px #c0c6cd;
+  padding-left: 20px;
+  font-family: Lato, sans-serif;
+  font-weight: 300;
+  font-size: 18px;
+  text-align: left;
+  color: black;
+  margin-bottom: 10px;
+}
+
+.formfields button {
+  color: #fff;
+  width: 150px;
+  height: 50px;
+  font-family: Lato, sans-serif;
+  font-weight: 300;
+  font-size: 18px;
+  border-radius: 14px;
+}
+
+.formfields label {
+  align-self: flex-start;
+  margin-left: 10px;
+  margin-bottom: 5px;
+  font-family: Lato, sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  text-align: left;
+}

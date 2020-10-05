@@ -1,9 +1,9 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
 }
 
 /* Fonts for all componenets */
@@ -13,40 +13,50 @@
 /* Generic classes */
 
 #root {
-    height: 100vh;
-    overflow: hidden;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .hide {
-    display: none;
+  display: none;
 }
 
 .show {
-    display: block;
+  display: block;
 }
 
 .flexCenter {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .flexCol {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
 }
 
 .flexColEnd {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-end;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.submit-enabled {
+  background-color: rgba(205, 86, 35, 1);
+  border: solid 1px rgba(205, 86, 35, 1);
+}
+
+.submit-disabled {
+  background-color: rgba(205, 86, 35, 0.5);
+  border: solid 1px rgba(205, 86, 35, 0.5);
 }
 
 @media screen and (min-width: 768px) {
-    html {
-        font-size: 28px;
-    }
+  html {
+    font-size: 28px;
+  }
 }
