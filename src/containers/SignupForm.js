@@ -58,9 +58,15 @@ class SignupForm extends React.Component {
     });
 
     if (valid_email && formEmail !== new_email && formEmail !== "") {
+      console.log("cheking email @API");
       checkBackendEmail({ email: formEmail });
     }
-    if (formEmail.length > 5 && valid_email && valid_password) {
+    if (
+      formEmail.length > 5 &&
+      valid_email &&
+      valid_password &&
+      formEmail == new_email
+    ) {
       enableSubmit("submit-btn");
     } else {
       disableSubmit("submit-btn");

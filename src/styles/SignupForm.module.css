@@ -1,23 +1,10 @@
-/* Icons */
-
-.formIcons {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 24px;
-}
-
-.waringIcon {
-  position: absolute;
-  top: 13px;
-  right: 12px;
-  width: 18px;
-}
 .formblock {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translateY(-50%) translateX(-50%);
+  background-color: rgba(255, 255, 255, 0.9);
+  max-width: 380px;
 }
 
 .formblock,
@@ -42,21 +29,21 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-bottom: 28px;
+  margin-bottom: 21px;
 }
 
 .formtitle h1 {
   font-family: Lato, sans-serif;
   font-weight: 300;
-  font-size: 38px;
+  font-size: 32px;
 }
 
 .formtitle h3 {
-  width: 290px;
-  margin-top: 24px;
+  width: 250px;
+  margin-top: 14px;
   font-family: Lato, sans-serif;
   font-weight: 300;
-  font-size: 17px;
+  font-size: 15px;
   text-align: center;
 }
 
@@ -69,8 +56,8 @@
 
 .formfields input,
 .formfields select {
-  width: 300px;
-  height: 42px;
+  width: 250px;
+  height: 38px;
   border-radius: 14px;
   border: solid 1px #c0c6cd;
   padding-left: 20px;
@@ -79,7 +66,9 @@
   font-size: 18px;
   text-align: left;
   color: black;
-  margin-bottom: 10px;
+  margin-bottom: 6px;
+
+  background: transparent;
 }
 
 .formfields button {
@@ -95,10 +84,26 @@
 
 .formfields label {
   align-self: flex-start;
-  margin-left: 10px;
+  margin-left: 40px;
   margin-bottom: 5px;
   font-family: Lato, sans-serif;
   font-weight: 300;
-  font-size: 16px;
+  font-size: 12px;
   text-align: left;
+}
+
+/* Icons */
+
+.formIcons {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 24px;
+}
+
+.waringIcon {
+  position: absolute;
+  top: 13px;
+  right: 12px;
+  width: 18px;
 }
