@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { backendSignupAction, checkApiEmail } from "../actions/index";
+import { backendSigninAction, checkApiEmail } from "../actions/index";
 import {
   validEmail,
   validPassword,
@@ -8,8 +8,6 @@ import {
   disableSubmit,
 } from "../helpers/componentHelp";
 import styles from "../styles/SigninForm.module.css";
-import okIcon from "../assets/icons/ok.svg";
-import warningIcon from "../assets/icons/warning.svg";
 
 class SigninForm extends React.Component {
   constructor(props) {
@@ -52,14 +50,14 @@ class SigninForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const { fireBackendSignup } = this.props;
+    const { fireBackendSignin } = this.props;
     console.log("click submit()");
 
-    const signupData = {
+    const signInData = {
       ...this.state,
     };
 
-    fireBackendSignup(signupData);
+    fireBackendSignin(signInData);
 
     //If signin successfull. We store the token and we send back to homepage for later go to index page
   }
@@ -91,24 +89,6 @@ class SigninForm extends React.Component {
                 id="emailValue"
                 autoComplete="username"
               />
-              <img
-                className={
-                  styles.formIcons +
-                  (new_email === email && email !== "" ? " show" : " hide")
-                }
-                src={okIcon}
-                alt="Logo"
-                id="ok-icon"
-              />
-              <img
-                className={
-                  styles.waringIcon +
-                  (new_email === "taken" ? " show" : " hide")
-                }
-                src={warningIcon}
-                alt="Logo"
-                id="warning-icon"
-              />
             </div>
 
             <label htmlFor="passwordValue">
@@ -123,15 +103,6 @@ class SigninForm extends React.Component {
                 value={password}
                 id="passwordValue"
                 autoComplete="new-password"
-              />
-              <img
-                className={
-                  styles.formIcons +
-                  (validPassword(password) ? " show" : " hide")
-                }
-                src={okIcon}
-                alt="Logo"
-                id="ok-icon"
               />
             </div>
             <button
@@ -149,8 +120,8 @@ class SigninForm extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  fireBackendSignup: (newAccountData) => {
-    dispatch(backendSignupAction(newAccountData));
+  fireBackendSignin: (accountData) => {
+    dispatch(backendSigninAction(accountData));
   },
   checkBackendEmail: (email) => {
     dispatch(checkApiEmail(email));
@@ -158,7 +129,8 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = (state) => ({
-  new_email: state.signup.email_available,
+  account: state.account,
+  secure: state.secure,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SigninForm);
