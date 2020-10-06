@@ -7,6 +7,12 @@
   width: 24px;
 }
 
+.waringIcon {
+  position: absolute;
+  top: 13px;
+  right: 12px;
+  width: 18px;
+}
 .formblock {
   position: absolute;
   top: 50%;

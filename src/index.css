@@ -55,6 +55,10 @@
   border: solid 1px rgba(205, 86, 35, 0.5);
 }
 
+.warning-icon {
+  fill: orange;
+}
+
 #emailValue {
   position: relative;
 }

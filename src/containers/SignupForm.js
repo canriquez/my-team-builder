@@ -10,6 +10,7 @@ import {
 } from "../helpers/componentHelp";
 import styles from "../styles/SignupForm.module.css";
 import okIcon from "../assets/icons/ok.svg";
+import warningIcon from "../assets/icons/warning.svg";
 
 class SignupForm extends React.Component {
   constructor(props) {
@@ -34,7 +35,7 @@ class SignupForm extends React.Component {
   }
 
   handleChange() {
-    const { checkBackendEmail } = this.props;
+    const { checkBackendEmail, new_email } = this.props;
     const formName = document.getElementById("nameValue").value;
     const formEmail = document.getElementById("emailValue").value;
     const formPassword = document.getElementById("passwordValue").value;
@@ -56,7 +57,7 @@ class SignupForm extends React.Component {
       password_match: valid_password,
     });
 
-    if (valid_email) {
+    if (valid_email && formEmail !== new_email && formEmail !== "") {
       checkBackendEmail({ email: formEmail });
     }
     if (formEmail.length > 5 && valid_email && valid_password) {
@@ -140,6 +141,15 @@ class SignupForm extends React.Component {
                 src={okIcon}
                 alt="Logo"
                 id="ok-icon"
+              />
+              <img
+                className={
+                  styles.waringIcon +
+                  (new_email === "taken" ? " show" : " hide")
+                }
+                src={warningIcon}
+                alt="Logo"
+                id="warning-icon"
               />
             </div>
             <label htmlFor="role">Your role (*only for demo)</label>

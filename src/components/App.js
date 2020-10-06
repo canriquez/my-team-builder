@@ -16,12 +16,6 @@ class App extends React.Component {
   }
 
   render() {
-    /*     return (
-      <div className={styles.appContainer}>
-        <div>logo</div>
-        <SignupForm />
-      </div>
-    ); */
     return (
       <Router>
         <div className={styles.appContainer}>

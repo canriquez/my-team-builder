@@ -1,8 +1,8 @@
 import "regenerator-runtime";
 
 const backEndSignup = async ({ email, name, role, avatar, password }) => {
-  //const baseUrl = "https://anriquez-my-team-api.herokuapp.com";
-  const baseUrl = "http://127.0.0.1:5000";
+  const baseUrl = "https://anriquez-my-team-api.herokuapp.com";
+  //const baseUrl = "http://127.0.0.1:5000";
   const endpoint = "/signup";
   const a = `?email=${email}`;
   const b = `&name=${name}`;
