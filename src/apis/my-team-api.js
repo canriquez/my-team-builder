@@ -1,8 +1,8 @@
 import "regenerator-runtime";
 
 const backEndSignup = async ({ email, name, role, avatar, password }) => {
-  const baseUrl = "https://anriquez-my-team-api.herokuapp.com";
-  //const baseUrl = "http://127.0.0.1:5000";
+  //const baseUrl = "https://anriquez-my-team-api.herokuapp.com";
+  const baseUrl = "http://127.0.0.1:5000";
   const endpoint = "/signup";
   const a = `?email=${email}`;
   const b = `&name=${name}`;
@@ -28,4 +28,28 @@ const backEndSignup = async ({ email, name, role, avatar, password }) => {
   }
 };
 
-export default backEndSignup;
+const backendCheckEmail = async ({ email }) => {
+  const baseUrl = "https://anriquez-my-team-api.herokuapp.com";
+  //const baseUrl = "http://127.0.0.1:5000";
+  const endpoint = "/adhome/check";
+  const a = `?email=${email}`;
+  const appURL = [baseUrl + endpoint + a];
+  const request = {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  };
+  try {
+    const response = await fetch(appURL, request);
+    const obj = await response.json();
+
+    // return complete list
+    return obj;
+  } catch (err) {
+    throw ("Something went wrong with fetching book list ", err);
+  }
+};
+
+export { backEndSignup, backendCheckEmail };

@@ -1,12 +1,15 @@
 import React from "react";
 import { connect } from "react-redux";
-import { backendSignupAction } from "../actions/index";
+import { backendSignupAction, checkApiEmail } from "../actions/index";
 import {
   validEmail,
+  validName,
+  validPassword,
   enableSubmit,
   disableSubmit,
 } from "../helpers/componentHelp";
 import styles from "../styles/SignupForm.module.css";
+import okIcon from "../assets/icons/ok.svg";
 
 class SignupForm extends React.Component {
   constructor(props) {
@@ -31,6 +34,7 @@ class SignupForm extends React.Component {
   }
 
   handleChange() {
+    const { checkBackendEmail } = this.props;
     const formName = document.getElementById("nameValue").value;
     const formEmail = document.getElementById("emailValue").value;
     const formPassword = document.getElementById("passwordValue").value;
@@ -51,6 +55,10 @@ class SignupForm extends React.Component {
       valid_email: valid_email,
       password_match: valid_password,
     });
+
+    if (valid_email) {
+      checkBackendEmail({ email: formEmail });
+    }
     if (formEmail.length > 5 && valid_email && valid_password) {
       enableSubmit("submit-btn");
     } else {
@@ -68,22 +76,19 @@ class SignupForm extends React.Component {
     };
 
     fireBackendSignup(signupData);
-    /*     
-    const { onSubmitCreateBook } = this.props;
-    const { title, role } = this.state;
-    if (title === "" || role === "role") {
-      return;
-    }
-
-    const book = {
-      ...this.state,
-      id: randomId(),
-    };
-    onSubmitCreateBook(book); */
   }
 
   render() {
-    const { name, email, password, password_repeat } = this.state;
+    const {
+      name,
+      email,
+      password,
+      password_repeat,
+      password_match,
+    } = this.state;
+    const { new_email } = this.props;
+    console.log(this.props);
+    console.log("new API email is :" + new_email);
     return (
       <div className={styles.formblock}>
         <div className={styles.formwrap}>
@@ -96,28 +101,48 @@ class SignupForm extends React.Component {
             action="#"
             onSubmit={this.handleSubmit}
           >
-            <label htmlFor="namelValue">Your name</label>
-            <input
-              className="nameValue"
-              type="text"
-              onChange={this.handleChange}
-              value={name}
-              id="nameValue"
-            />
+            <label htmlFor="namelValue">
+              Your name
+              {!validName(name) ? " (5 or more characters)" : ""}
+            </label>
+            <div className={styles.nameInputWrap}>
+              <input
+                className="nameValue"
+                type="text"
+                onChange={this.handleChange}
+                value={name}
+                id="nameValue"
+              />
+              <img
+                className={
+                  styles.formIcons + (validName(name) ? " show" : " hide")
+                }
+                src={okIcon}
+                alt="Logo"
+                id="ok-icon"
+              />
+            </div>
             <label htmlFor="emailValue">email</label>
-            <p className={styles.errorfield + " hide"} id="email-error">
-              {" "}
-              ... a valid email please
-            </p>
-            <input
-              className="emailValue"
-              type="text"
-              onChange={this.handleChange}
-              value={email}
-              id="emailValue"
-              autoComplete="username"
-            />
-            <label htmlFor="role">Your role</label>
+            <div className={styles.emailInputWrap}>
+              <input
+                className="emailValue"
+                type="text"
+                onChange={this.handleChange}
+                value={email}
+                id="emailValue"
+                autoComplete="username"
+              />
+              <img
+                className={
+                  styles.formIcons +
+                  (new_email === email && email !== "" ? " show" : " hide")
+                }
+                src={okIcon}
+                alt="Logo"
+                id="ok-icon"
+              />
+            </div>
+            <label htmlFor="role">Your role (*only for demo)</label>
             <select
               className="role"
               name="role"
@@ -130,24 +155,50 @@ class SignupForm extends React.Component {
                 </option>
               ))}
             </select>
-            <label htmlFor="passwordValue">password</label>
-            <input
-              className="passwordValue"
-              type="password"
-              onChange={this.handleChange}
-              value={password}
-              id="passwordValue"
-              autoComplete="new-password"
-            />
+
+            <label htmlFor="passwordValue">
+              password
+              {!validPassword(password) ? " (5 or more characters)" : ""}
+            </label>
+            <div className={styles.passInputWrap}>
+              <input
+                className="passwordValue"
+                type="password"
+                onChange={this.handleChange}
+                value={password}
+                id="passwordValue"
+                autoComplete="new-password"
+              />
+              <img
+                className={
+                  styles.formIcons +
+                  (validPassword(password) ? " show" : " hide")
+                }
+                src={okIcon}
+                alt="Logo"
+                id="ok-icon"
+              />
+            </div>
+
             <label htmlFor="passwordRepeatValue">repeat password</label>
-            <input
-              className="passwordRepeatValue"
-              type="password"
-              onChange={this.handleChange}
-              value={password_repeat}
-              id="passwordRepeatValue"
-              autoComplete="new-password"
-            />
+            <div className={styles.passRepeatInputWrap}>
+              <input
+                className="passwordRepeatValue"
+                type="password"
+                onChange={this.handleChange}
+                value={password_repeat}
+                id="passwordRepeatValue"
+                autoComplete="new-password"
+              />
+              <img
+                className={
+                  styles.formIcons + (password_match ? " show" : " hide")
+                }
+                src={okIcon}
+                alt="Logo"
+                id="ok-icon"
+              />
+            </div>
             <button
               id="submit-btn"
               className="Rectangle-2 submit-btn base-button submit-disabled"
@@ -166,6 +217,13 @@ const mapDispatchToProps = (dispatch) => ({
   fireBackendSignup: (newAccountData) => {
     dispatch(backendSignupAction(newAccountData));
   },
+  checkBackendEmail: (email) => {
+    dispatch(checkApiEmail(email));
+  },
 });
 
-export default connect(null, mapDispatchToProps)(SignupForm);
+const mapStateToProps = (state) => ({
+  new_email: state.signup.email_available,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignupForm);

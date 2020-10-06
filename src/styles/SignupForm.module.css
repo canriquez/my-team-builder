@@ -1,3 +1,12 @@
+/* Icons */
+
+.formIcons {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 24px;
+}
+
 .formblock {
   position: absolute;
   top: 50%;
@@ -27,7 +36,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-bottom: 45px;
+  margin-bottom: 28px;
 }
 
 .formtitle h1 {
@@ -43,6 +52,13 @@
   font-weight: 300;
   font-size: 17px;
   text-align: center;
+}
+
+.emailInputWrap,
+.nameInputWrap,
+.passInputWrap,
+.passRepeatInputWrap {
+  position: relative;
 }
 
 .formfields input,
@@ -68,6 +84,7 @@
   font-weight: 300;
   font-size: 18px;
   border-radius: 14px;
+  margin-top: 10px;
 }
 
 .formfields label {

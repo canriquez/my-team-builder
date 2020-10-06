@@ -55,6 +55,10 @@
   border: solid 1px rgba(205, 86, 35, 0.5);
 }
 
+#emailValue {
+  position: relative;
+}
+
 @media screen and (min-width: 768px) {
   html {
     font-size: 28px;

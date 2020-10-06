@@ -3,6 +3,14 @@ const validEmail = (email) => {
   return emailcheck.test(email);
 };
 
+const validName = (name) => {
+  return name.length >= 5;
+};
+
+const validPassword = (pass) => {
+  return pass.length >= 5;
+};
+
 const enableSubmit = (id) => {
   const submitButton = document.getElementById(id);
   submitButton.disabled = false;
@@ -21,4 +29,4 @@ const disableSubmit = (id) => {
   }
 };
 
-export { validEmail, enableSubmit, disableSubmit };
+export { validEmail, enableSubmit, disableSubmit, validName, validPassword };
