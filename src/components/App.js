@@ -19,7 +19,6 @@ class App extends React.Component {
     return (
       <Router>
         <div className={styles.appContainer}>
-          <h1 className={styles.brand}>My Team Builder</h1>
           <Switch>
             <Route exact path="/" component={HomePage} />
             {/*          <Route exact path='/asset' component={AssetDetails} /> */}

@@ -12,3 +12,30 @@
   justify-content: flex-end;
   align-items: center;
 }
+
+.brandWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 30% 0;
+}
+
+.brand {
+  font-family: Lato, sans-serif;
+  font-weight: 700;
+  font-size: 34px;
+  color: black;
+  background-color: rgba(255, 255, 255, 1);
+  border-radius: 10px;
+  padding: 8px;
+  mix-blend-mode: screen;
+}
+
+.logoWrap {
+  margin: 10px 0px 0px 5px;
+}
+
+.logoWrap img {
+  width: 100px;
+  color: white;
+}
