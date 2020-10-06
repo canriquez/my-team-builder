@@ -8,6 +8,7 @@ import {
   disableSubmit,
 } from "../helpers/componentHelp";
 import styles from "../styles/SigninForm.module.css";
+import { BrowserRouter as Router, Redirect } from "react-router-dom";
 
 class SigninForm extends React.Component {
   constructor(props) {
@@ -64,7 +65,7 @@ class SigninForm extends React.Component {
 
   render() {
     const { email, password } = this.state;
-    const { new_email } = this.props;
+    const { new_email, secure } = this.props;
     console.log(this.props);
     console.log("new API email is :" + new_email);
     return (
@@ -112,6 +113,7 @@ class SigninForm extends React.Component {
             >
               Sign In
             </button>
+            {secure.id ? <Redirect to="/" /> : ""}
           </form>
         </div>
       </div>
