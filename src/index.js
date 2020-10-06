@@ -4,10 +4,13 @@ import App from "./components/App";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import { createStore, applyMiddleware } from "redux";
-import rootReducer from "./reducers/index";
+import createRootReducer from "./reducers/index";
+import { ConnectedRouter } from "connected-react-router";
+import configureStore, { history } from "./store/configureStore";
 import "./index.css";
 
-const store = createStore(rootReducer, applyMiddleware(thunk));
+const store = configureStore(/* provide initial state if any */);
+/* const store = createStore(rootReducer, applyMiddleware(thunk)); */
 
 const Main = () => {
   React.useEffect(() => {
@@ -18,7 +21,9 @@ const Main = () => {
 
 ReactDOM.render(
   <Provider store={store}>
-    <Main />
+    <ConnectedRouter history={history}>
+      <Main history={history} />
+    </ConnectedRouter>
   </Provider>,
   document.getElementById("root")
 );

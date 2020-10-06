@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { push } from "connected-react-router";
 import { backendSigninAction, checkApiEmail } from "../actions/index";
 import {
   validEmail,
@@ -59,6 +60,12 @@ class SigninForm extends React.Component {
 
     fireBackendSignin(signInData);
 
+    //clear form
+    this.setState({
+      email: "",
+      valid_email: "",
+      password: "",
+    });
     //If signin successfull. We store the token and we send back to homepage for later go to index page
   }
 
@@ -121,7 +128,11 @@ class SigninForm extends React.Component {
 
 const mapDispatchToProps = (dispatch) => ({
   fireBackendSignin: (accountData) => {
-    dispatch(backendSigninAction(accountData));
+    dispatch(backendSigninAction(accountData)).then((response) => {
+      console.log("back in form");
+      console.log(response);
+      dispatch(push("/"));
+    });
   },
   checkBackendEmail: (email) => {
     dispatch(checkApiEmail(email));

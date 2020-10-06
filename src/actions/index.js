@@ -9,6 +9,7 @@ import {
   backEndSignin,
 } from "../apis/my-team-api";
 import jwt_decode from "jwt-decode";
+import { push } from "connected-react-router";
 
 /* Actions for Sync Store */
 
@@ -65,17 +66,17 @@ const backendSigninAction = (signUpIn) => (dispatch, getState) =>
         // fire update account information
         console.log(result);
         dispatch(updateAccountData(result["user"]["0"]));
-
+        dispatch(push("/"));
+        return { message: "success" };
+      } else {
         return result;
       }
       //else Show error message
-
-      console.log(result);
-      return result;
     })
     .catch((error) => {
       if (error == "TypeError: Failed to fetch") {
-        console.log("Server not available error");
+        const emessage = { message: "Server not available error" };
+        return emessage;
       }
       //throw error;
     });
