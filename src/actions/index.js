@@ -67,9 +67,12 @@ const backendSigninAction = (signUpIn) => (dispatch, getState) =>
         console.log(result);
         dispatch(updateAccountData(result["user"]["0"]));
 
-        dispatch(backendAdHome(result["auth_token"])).then((result) => {
-          console.log(result);
-        });
+        if (result["user"][0]["role"] === "admin") {
+          console.log("-----| Fetching Admin Info |-----");
+          dispatch(backendAdHome(result["auth_token"])).then((result) => {
+            console.log(result);
+          });
+        }
 
         //dispatch action to load full report
 
