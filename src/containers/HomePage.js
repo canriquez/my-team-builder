@@ -2,9 +2,10 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import styles from "../styles/HomePage.module.css";
-import Button from "./HomeButton";
+import Button from "../components/HomeButton";
 import logo from "../assets/icons/logo.svg";
 import menu from "../assets/icons/menu.svg";
+import AdminIndexList from "./AdminIndexList";
 
 const HomePage = ({ secure, admin }) => {
   return (
@@ -26,7 +27,7 @@ const HomePage = ({ secure, admin }) => {
         ) : (
           "USER LOGGED IN"
         )}
-        {admin.index_report ? <div>ADMIN MENU</div> : ""}
+        {admin.index_report ? <AdminIndexList /> : ""}
       </div>
       <div className={styles.brandWrapper}>
         <div className={styles.logoWrap}>

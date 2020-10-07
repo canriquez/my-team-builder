@@ -9,7 +9,7 @@ import {
   Redirect,
 } from "react-router-dom";
 
-import HomePage from "./HomePage";
+import HomePage from "../containers/HomePage";
 
 class App extends React.Component {
   constructor(props) {
