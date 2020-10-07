@@ -2,6 +2,8 @@ import {
   UPDATE_ACCOUNT_DATA,
   UPDATE_EMAIL_AVAILABLE,
   UPDATE_AUTH_KEY,
+  UPDATE_INDEX_REPORT,
+  KILL_INDEX_REPORT,
 } from "../helpers/help";
 import {
   backEndSignup,
@@ -31,6 +33,14 @@ const updateAuthToken = (payload) => ({
   then: payload.then,
 });
 
+const updateAdmIndexReport = (payload) => ({
+  type: UPDATE_INDEX_REPORT,
+  payload,
+});
+
+const killAdmIndexReport = () => ({
+  type: KILL_INDEX_REPORT,
+});
 /* Thunk thenable creators to manage Async requests (my-team-api.js API) */
 
 const backendSignupAction = (signUpData) => (dispatch, getState) =>
@@ -111,4 +121,6 @@ export {
   updateSignupEmail,
   checkApiEmail,
   updateAuthToken,
+  updateAdmIndexReport,
+  killAdmIndexReport,
 };
