@@ -1,3 +1,7 @@
+import TimeAgo from "javascript-time-ago";
+import en from "javascript-time-ago/locale/en";
+import dateFormat from "dateformat";
+
 const validEmail = (email) => {
   let emailcheck = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return emailcheck.test(email);
@@ -29,4 +33,37 @@ const disableSubmit = (id) => {
   }
 };
 
-export { validEmail, enableSubmit, disableSubmit, validName, validPassword };
+const cardObject = (object) => {
+  TimeAgo.addLocale(en);
+  const timeAgo = new TimeAgo("en-US");
+
+  const application_age = timeAgo.format(
+    new Date(object.aplication_date),
+    "round"
+  );
+  const job_age = timeAgo.format(new Date(object.jobpost_date), "round");
+
+  return {
+    app_id: object.applicant_id,
+    app_name: object.applicant_name,
+    app_age: application_age,
+    app_date: dateFormat(Date(object.aplication_date)),
+    likes: object.eval_like,
+    dislikes: object.eval_dislike,
+    job_id: object.job_id,
+    job_name: object.job_name,
+    job_date: dateFormat(Date(object.jobpost_date)),
+    job_age: job_age,
+    job_author: object.jobpost_author,
+    avatar: object.applicant_avatar,
+  };
+};
+
+export {
+  validEmail,
+  enableSubmit,
+  disableSubmit,
+  validName,
+  validPassword,
+  cardObject,
+};

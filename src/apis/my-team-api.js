@@ -77,6 +77,36 @@ const backendCheckEmail = async ({ email }) => {
   }
 };
 
+const backendAdminEvals = async ({ id, auth }) => {
+  //const baseUrl = "https://anriquez-my-team-api.herokuapp.com";
+  const baseUrl = "http://127.0.0.1:5000";
+  const endpoint = "/adhome/evals";
+  const a = `?id=${id}`;
+  const appURL = [baseUrl + endpoint + a];
+  const request = {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${auth}`,
+    },
+  };
+  try {
+    const response = await fetch(appURL, request);
+    const obj = await response.json();
+
+    // return complete list
+    console.log("AT API checking evaluations -- Result");
+    console.log({ obj });
+    console.log({ id });
+    console.log({ auth });
+    console.log({ appURL });
+    return obj;
+  } catch (err) {
+    throw ("Something went wrong with fetching book list ", err);
+  }
+};
+
 const backendAdHome = async (auth) => {
   //const baseUrl = "https://anriquez-my-team-api.herokuapp.com";
   const baseUrl = "http://127.0.0.1:5000";
@@ -102,4 +132,10 @@ const backendAdHome = async (auth) => {
   }
 };
 
-export { backEndSignup, backendCheckEmail, backEndSignin, backendAdHome };
+export {
+  backEndSignup,
+  backendCheckEmail,
+  backEndSignin,
+  backendAdHome,
+  backendAdminEvals,
+};

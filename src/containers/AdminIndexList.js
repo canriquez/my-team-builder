@@ -2,11 +2,10 @@ import React from "react";
 import { connect } from "react-redux";
 import styles from "../styles/AdminIndexList.module.css";
 import ApplicationCard from "../components/ApplicationCard";
-import TimeAgo from "javascript-time-ago";
-import en from "javascript-time-ago/locale/en";
-import dateFormat from "dateformat";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import { Link } from "react-router-dom";
+import { cardObject } from "../helpers/componentHelp";
 
 const AdminIndexList = ({ index_report }) => {
   const responsive = {
@@ -29,32 +28,16 @@ const AdminIndexList = ({ index_report }) => {
     },
   };
 
-  const cardObject = (object) => {
-    TimeAgo.addLocale(en);
-    const timeAgo = new TimeAgo("en-US");
-    const application_age = timeAgo.format(
-      new Date(object.aplication_date),
-      "round"
-    );
-
-    return {
-      job_name: object.job_name,
-      avatar: object.applicant_avatar,
-      app_name: object.applicant_name,
-      app_age: application_age,
-      app_date: dateFormat(Date(object.aplication_date)),
-    };
-  };
-
   return (
     <div className={styles.carroucelContainer}>
       <Carousel responsive={responsive}>
         {index_report.map((object, id) => {
           return (
-            <ApplicationCard
-              key={"child" + id}
-              cardObject={cardObject(object)}
-            />
+            <React.Fragment key={"child" + id}>
+              <Link className={styles.routerLink} to={`/applications/${id}`}>
+                <ApplicationCard cardObject={cardObject(object)} />
+              </Link>
+            </React.Fragment>
           );
         })}
       </Carousel>

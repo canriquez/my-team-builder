@@ -10,6 +10,7 @@ import {
   backendCheckEmail,
   backEndSignin,
   backendAdHome,
+  backendAdminEvals,
 } from "../apis/my-team-api";
 import jwt_decode from "jwt-decode";
 
@@ -84,6 +85,17 @@ const backendSigninAction = (signUpIn) => (dispatch, getState) =>
             console.log("---> this is after adhome API response");
             console.log(result);
             dispatch(updateAdmIndexReport(result));
+
+            //Load admin's evaluations
+
+            backendAdminEvals({
+              id: payload.id,
+              auth: payload.token,
+            }).then((result) => {
+              console.log("---> now Loading Admin's evaluations");
+              console.log(result);
+              dispatch(updateAccountData({ evals: result }));
+            });
           });
         }
 
