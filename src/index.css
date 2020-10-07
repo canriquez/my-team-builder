@@ -75,6 +75,30 @@
   position: relative;
 }
 
+h2 {
+  padding: 5px 10px;
+  font-family: Lato, sans-serif;
+  font-weight: 800;
+  font-size: 18px;
+  color: #999999;
+}
+
+h3 {
+  padding: 5px 10px;
+  font-family: Lato, sans-serif;
+  font-weight: 800;
+  font-size: 16px;
+  color: #999999;
+}
+
+h4 {
+  padding: 5px 10px;
+  font-family: Lato, sans-serif;
+  font-weight: 300;
+  font-size: 14px;
+  color: #999999;
+}
+
 @media screen and (min-width: 768px) {
   html {
     font-size: 28px;
