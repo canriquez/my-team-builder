@@ -7,6 +7,7 @@ import {
   backEndSignup,
   backendCheckEmail,
   backEndSignin,
+  backendAdHome,
 } from "../apis/my-team-api";
 import jwt_decode from "jwt-decode";
 
@@ -65,6 +66,12 @@ const backendSigninAction = (signUpIn) => (dispatch, getState) =>
         // fire update account information
         console.log(result);
         dispatch(updateAccountData(result["user"]["0"]));
+
+        dispatch(backendAdHome(result["auth_token"])).then((result) => {
+          console.log(result);
+        });
+
+        //dispatch action to load full report
 
         return result;
       }

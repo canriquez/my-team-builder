@@ -77,4 +77,29 @@ const backendCheckEmail = async ({ email }) => {
   }
 };
 
-export { backEndSignup, backendCheckEmail, backEndSignin };
+const backendAdHome = async (auth) => {
+  //const baseUrl = "https://anriquez-my-team-api.herokuapp.com";
+  const baseUrl = "http://127.0.0.1:5000";
+  const endpoint = "/adhome";
+  const appURL = [baseUrl + endpoint];
+  const request = {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${auth}`,
+    },
+  };
+  try {
+    const response = await fetch(appURL, request);
+    const obj = await response.json();
+
+    console.log(obj);
+    // return complete list
+    return obj;
+  } catch (err) {
+    throw ("Something went wrong with fetching book list ", err);
+  }
+};
+
+export { backEndSignup, backendCheckEmail, backEndSignin, backendAdHome };

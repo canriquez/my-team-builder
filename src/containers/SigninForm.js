@@ -18,7 +18,6 @@ class SigninForm extends React.Component {
       email: "",
       password: "",
       valid_email: false,
-      avatar: "",
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -57,6 +56,11 @@ class SigninForm extends React.Component {
     const signInData = {
       ...this.state,
     };
+    this.setState({
+      email: "",
+      valid_email: false,
+      password: "",
+    });
 
     fireBackendSignin(signInData);
 
@@ -64,7 +68,7 @@ class SigninForm extends React.Component {
   }
 
   render() {
-    const { email, password } = this.state;
+    const { email, valid_email, password } = this.state;
     const { new_email, secure } = this.props;
     console.log(this.props);
     console.log("new API email is :" + new_email);
