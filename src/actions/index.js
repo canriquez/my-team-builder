@@ -77,10 +77,13 @@ const backendSigninAction = (signUpIn) => (dispatch, getState) =>
         console.log(result);
         dispatch(updateAccountData(result["user"]["0"]));
 
+        // ONLY FOR ADMIN ACTIONS
         if (result["user"][0]["role"] === "admin") {
           console.log("-----| Fetching Admin Info |-----");
-          dispatch(backendAdHome(result["auth_token"])).then((result) => {
+          backendAdHome(result["auth_token"]).then((result) => {
+            console.log("---> this is after adhome API response");
             console.log(result);
+            dispatch(updateAdmIndexReport(result));
           });
         }
 
@@ -90,7 +93,7 @@ const backendSigninAction = (signUpIn) => (dispatch, getState) =>
       }
       //else Show error message
 
-      console.log(result);
+      //console.log(result);
       return result;
     })
     .catch((error) => {

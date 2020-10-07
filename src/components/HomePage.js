@@ -6,7 +6,7 @@ import Button from "./HomeButton";
 import logo from "../assets/icons/logo.svg";
 import menu from "../assets/icons/menu.svg";
 
-const HomePage = ({ secure }) => {
+const HomePage = ({ secure, admin }) => {
   return (
     <div className={styles.pageContainer}>
       <div className={styles.buttonWrap}>
@@ -26,6 +26,7 @@ const HomePage = ({ secure }) => {
         ) : (
           "USER LOGGED IN"
         )}
+        {admin.index_report ? <div>ADMIN MENU</div> : ""}
       </div>
       <div className={styles.brandWrapper}>
         <div className={styles.logoWrap}>
@@ -40,6 +41,7 @@ const HomePage = ({ secure }) => {
 const mapStateToProps = (state) => ({
   account: state.account,
   secure: state.secure,
+  admin: state.admin,
 });
 
 export default connect(mapStateToProps, null)(HomePage);

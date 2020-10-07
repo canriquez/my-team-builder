@@ -94,7 +94,7 @@ const backendAdHome = async (auth) => {
     const response = await fetch(appURL, request);
     const obj = await response.json();
 
-    console.log(obj);
+    //console.log(obj);
     // return complete list
     return obj;
   } catch (err) {

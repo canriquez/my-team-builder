@@ -57,9 +57,9 @@ class SigninForm extends React.Component {
       ...this.state,
     };
     this.setState({
-      email: "",
+      email: "jwt4@jwt.com",
       valid_email: false,
-      password: "",
+      password: "12345",
     });
 
     fireBackendSignin(signInData);
