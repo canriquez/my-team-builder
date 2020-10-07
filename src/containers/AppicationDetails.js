@@ -1,7 +1,7 @@
 import React from "react";
-import styles from "../styles/ApplicationCard.module.css";
+import styles from "../styles/ApplicationDetails.module.css";
 
-const ApplicationCard = ({ cardObject }) => {
+const ApplicationDetails = ({ cardObject }) => {
   const { avatar, app_name, job_name, app_date, app_age } = cardObject;
   return (
     <div className={styles.cardContainer}>
@@ -26,4 +26,4 @@ const ApplicationCard = ({ cardObject }) => {
   );
 };
 
-export default ApplicationCard;
+export default ApplicationDetails;
