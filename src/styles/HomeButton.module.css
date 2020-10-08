@@ -6,12 +6,12 @@
   font-weight: 800;
   font-size: 14px;
   border-radius: 25px;
-  margin-top: 10px;
   text-transform: uppercase;
   background-color: rgba(112, 112, 112, 0.4);
   border: 1px solid rgba(112, 112, 112, 0.4);
   margin: 0 10px;
 }
+
 .homeButton:hover {
   background-color: rgba(112, 112, 112, 0.9);
 }

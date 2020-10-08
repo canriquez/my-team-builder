@@ -6,13 +6,13 @@
   background-color: rgba(255, 255, 255, 0.9);
   max-width: 380px;
 }
+
 .formwrap {
   width: 320px;
   height: 580px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: space-between;
 }
 
 .formtitle {
@@ -34,12 +34,9 @@
   font-weight: 600;
   font-size: 24px;
   border-radius: 14px;
-  margin-top: 10px;
-
-  background-color: #999999;
+  background-color: #999;
   color: white;
-  border-color: #999999;
-
+  border-color: #999;
   margin: 40px auto;
 }
 
@@ -48,7 +45,6 @@
 .boxIcon {
   margin: 0 auto;
   width: 100%;
-
   display: flex;
   flex-direction: row;
   justify-content: center;
