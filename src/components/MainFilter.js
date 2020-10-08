@@ -5,7 +5,13 @@ import mainFilterCat from "../config/appConfig";
 
 const MainFilter = ({ changeMainFilter }) => {
   const handleChange = (e) => {
-    changeMainFilter(e.target.value);
+    let result;
+    if (e.target.value === "all") {
+      result = "all";
+    } else {
+      result = parseInt(e.target.value, 10);
+    }
+    changeMainFilter(result);
   };
 
   return (
