@@ -1,12 +1,35 @@
 import React from "react";
 import styles from "../styles/ApplicationCard.module.css";
+import approved from "../assets/icons/approved.svg";
+import declined from "../assets/icons/declined.svg";
 
 const ApplicationCard = ({ cardObject }) => {
-  const { avatar, app_name, job_name, app_date, app_age } = cardObject;
+  const {
+    avatar,
+    app_name,
+    job_name,
+    app_date,
+    app_age,
+    admin_eval,
+  } = cardObject;
   return (
     <div className={styles.cardContainer}>
       <div className={styles.cardHeading}>
         <h1>{job_name}</h1>
+        {admin_eval === 0 ? (
+          <div className={styles.evalIcon}>
+            <img className={styles.approvedIcon} src={declined} alt="Logo" />
+          </div>
+        ) : (
+          ""
+        )}
+        {admin_eval === 1 ? (
+          <div className={styles.evalIcon}>
+            <img className={styles.approvedIcon} src={approved} alt="Logo" />
+          </div>
+        ) : (
+          ""
+        )}
       </div>
       <div className={styles.sectionTitle}>
         <h2>Applicant General Information</h2>

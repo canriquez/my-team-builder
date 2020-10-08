@@ -6,7 +6,11 @@ import ApplicationCard from "../components/ApplicationCard";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { Link } from "react-router-dom";
-import { cardObject, checkFilter } from "../helpers/componentHelp";
+import {
+  cardObject,
+  filterIndex_list,
+  humanFilter,
+} from "../helpers/componentHelp";
 import {
   backendRefreshAdmin,
   filterUpdate,
@@ -85,7 +89,9 @@ class AdminIndexList extends React.Component {
   }
 
   render() {
-    const { secure, mainFilter, index_report } = this.props;
+    const { secure, mainFilter, index_report, filteredReport } = this.props;
+    const totRecords = index_report.length;
+    const filRecords = filteredReport.length;
     if (!secure.id) {
       return <Redirect to="/" />;
     }
@@ -93,28 +99,45 @@ class AdminIndexList extends React.Component {
       <>
         <div className={styles.navBar}>
           <div className={styles.menuIcon}>
-            <button onClick={this.logout}>Log Out</button>
+            <button className={styles.signoutButton} onClick={this.logout}>
+              Log Out
+            </button>
             <MainFilter changeMainFilter={this.changeMainFilter} />
-            <h2>{this.account.name}</h2>
+            <div className={styles.userWrap}>
+              <h2>{this.account.name}</h2>
+              <h4 className={styles.role}>{this.account.role}</h4>
+            </div>
           </div>
         </div>
         <div className={styles.carroucelContainer}>
+          <div className={styles.filterInfo}>
+            <h3>
+              Currently showing
+              <span className={styles.humanFilter}>
+                {humanFilter(mainFilter)}{" "}
+              </span>
+              records.
+            </h3>
+            <h4>
+              Showing <span> </span>
+              <span className={styles.humanFilter}>{filRecords}</span> out of
+              <span> </span>{" "}
+              <span className={styles.humanFilter}>{totRecords} </span>
+              total records
+            </h4>
+          </div>
           <Carousel responsive={this.responsive}>
-            {index_report.map((object, id) => {
-              const toRender = checkFilter(object, mainFilter);
-              console.log({ toRender });
-              if (toRender) {
-                return (
-                  <React.Fragment key={"child" + id}>
-                    <Link
-                      className={styles.routerLink}
-                      to={`/applications/${id}`}
-                    >
-                      <ApplicationCard cardObject={cardObject(object)} />
-                    </Link>
-                  </React.Fragment>
-                );
-              }
+            {filteredReport.map((object, id) => {
+              return (
+                <React.Fragment key={"child" + id}>
+                  <Link
+                    className={styles.routerLink}
+                    to={`/applications/${id}`}
+                  >
+                    <ApplicationCard cardObject={cardObject(object)} />
+                  </Link>
+                </React.Fragment>
+              );
             })}
           </Carousel>
         </div>
@@ -127,6 +150,7 @@ const mapStateToProps = (state) => ({
   account: state.account,
   secure: state.secure,
   index_report: state.admin.index_report,
+  filteredReport: filterIndex_list(state.admin.index_report, state.mainFilter),
   mainFilter: state.mainFilter,
 });
 

@@ -141,32 +141,21 @@ const ApplicationDetails = ({
           </h4>
           <h4> Application Id: {application_id}</h4>
           <h4>Published on: {job_date}</h4>
-          <h2>
-            {checkEval(evals, account.id, application_id, 0) ? (
-              <div className={styles.evalIcon}>
-                <img
-                  className={styles.approvedIcon}
-                  src={declined}
-                  alt="Logo"
-                />
-              </div>
-            ) : (
-              ""
-            )}
-          </h2>
-          <h2>
-            {checkEval(evals, account.id, application_id, 1) ? (
-              <div className={styles.evalIcon}>
-                <img
-                  className={styles.approvedIcon}
-                  src={approved}
-                  alt="Logo"
-                />
-              </div>
-            ) : (
-              ""
-            )}
-          </h2>
+
+          {checkEval(evals, account.id, application_id, 0) ? (
+            <div className={styles.evalIcon}>
+              <img className={styles.approvedIcon} src={declined} alt="Logo" />
+            </div>
+          ) : (
+            ""
+          )}
+          {checkEval(evals, account.id, application_id, 1) ? (
+            <div className={styles.evalIcon}>
+              <img className={styles.approvedIcon} src={approved} alt="Logo" />
+            </div>
+          ) : (
+            ""
+          )}
         </div>
         <div className={styles.sectionTitle}>
           <h2>Applicant General Information</h2>

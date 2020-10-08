@@ -56,6 +56,7 @@ const cardObject = (object) => {
     job_date: dateFormat(Date(object.jobpost_date)),
     job_age: job_age,
     job_author: object.jobpost_author,
+    admin_eval: object.current_admin_evaluation,
     avatar: object.applicant_avatar,
   };
 };
@@ -100,10 +101,23 @@ const checkFilter = (object, filter) => {
   return false;
 };
 
+const humanFilter = (filter) => {
+  if (filter === "all") {
+    return " all ";
+  }
+  if (filter === 0) {
+    return " declined ";
+  }
+  if (filter === 1) {
+    return " approved ";
+  }
+};
+
 const filterIndex_list = (list, filter) => {
-  list.filter((object) => {
+  const result = list.filter((object) => {
     return object.current_admin_evaluation === filter || filter === "all";
   });
+  return result;
 };
 
 export {
@@ -117,4 +131,5 @@ export {
   currentEval,
   checkFilter,
   filterIndex_list,
+  humanFilter,
 };
