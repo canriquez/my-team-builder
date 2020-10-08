@@ -1,14 +1,14 @@
 const mainFilterCat = [
   {
-    key: "all",
+    key: 'all',
     api: null,
   },
   {
-    key: "Approved",
+    key: 'Approved',
     api: 1,
   },
   {
-    key: "Declined",
+    key: 'Declined',
     api: 0,
   },
 ];

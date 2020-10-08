@@ -1,47 +1,45 @@
-import TimeAgo from "javascript-time-ago";
-import en from "javascript-time-ago/locale/en";
-import dateFormat from "dateformat";
+/* eslint-disable  camelcase */
+import TimeAgo from 'javascript-time-ago';
+import en from 'javascript-time-ago/locale/en';
+import dateFormat from 'dateformat';
 
-const validEmail = (email) => {
-  let emailcheck = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const validEmail = email => {
+  // eslint-disable-next-line
+  const emailcheck = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return emailcheck.test(email);
 };
 
-const validName = (name) => {
-  return name.length >= 5;
-};
+const validName = name => name.length >= 5;
 
-const validPassword = (pass) => {
-  return pass.length >= 5;
-};
+const validPassword = pass => pass.length >= 5;
 
-const enableSubmit = (id) => {
+const enableSubmit = id => {
   const submitButton = document.getElementById(id);
   submitButton.disabled = false;
-  if (submitButton.classList.contains("submit-disabled")) {
-    submitButton.classList.remove("submit-disabled");
-    submitButton.classList.add("submit-enabled");
+  if (submitButton.classList.contains('submit-disabled')) {
+    submitButton.classList.remove('submit-disabled');
+    submitButton.classList.add('submit-enabled');
   }
 };
 
-const disableSubmit = (id) => {
+const disableSubmit = id => {
   const submitButton = document.getElementById(id);
   submitButton.disabled = true;
-  if (submitButton.classList.contains("submit-enabled")) {
-    submitButton.classList.remove("submit-enabled");
-    submitButton.classList.add("submit-disabled");
+  if (submitButton.classList.contains('submit-enabled')) {
+    submitButton.classList.remove('submit-enabled');
+    submitButton.classList.add('submit-disabled');
   }
 };
 
-const cardObject = (object) => {
+const cardObject = object => {
   TimeAgo.addLocale(en);
-  const timeAgo = new TimeAgo("en-US");
+  const timeAgo = new TimeAgo('en-US');
 
   const application_age = timeAgo.format(
     new Date(object.aplication_date),
-    "round"
+    'round',
   );
-  const job_age = timeAgo.format(new Date(object.jobpost_date), "round");
+  const job_age = timeAgo.format(new Date(object.jobpost_date), 'round');
 
   return {
     application_id: object.application_id,
@@ -54,7 +52,7 @@ const cardObject = (object) => {
     job_id: object.job_id,
     job_name: object.job_name,
     job_date: dateFormat(Date(object.jobpost_date)),
-    job_age: job_age,
+    job_age,
     job_author: object.jobpost_author,
     admin_eval: object.current_admin_evaluation,
     avatar: object.applicant_avatar,
@@ -63,36 +61,34 @@ const cardObject = (object) => {
 
 const checkEval = (evals, adminId, applicationId, check) => {
   if (!evals) return null;
-  const result = evals.filter((ev) => {
-    return ev.application_id === applicationId && ev.admin_id === adminId;
-  });
+  const result = evals.filter(
+    ev => ev.application_id === applicationId && ev.admin_id === adminId,
+  );
 
   if (result[0]) {
     return result[0].evaluation === check;
-  } else {
-    return false;
   }
+  return false;
 };
 
 const currentEval = (evals, adminId, applicationId) => {
   if (!evals) return null;
-  const result = evals.filter((ev) => {
-    return ev.application_id === applicationId && ev.admin_id === adminId;
-  });
+  const result = evals.filter(
+    ev => ev.application_id === applicationId && ev.admin_id === adminId,
+  );
   if (result[0]) {
     return result[0];
-  } else {
-    return null;
   }
+  return null;
 };
 
 const checkFilter = (object, filter) => {
-  console.log("CHEKING FILTERED LIST");
+  console.log('CHEKING FILTERED LIST');
   console.log({ object });
   console.log(typeof filter);
   console.log(typeof object.current_admin_evaluation);
   console.log(object.current_admin_evaluation === filter);
-  if (filter === "all") {
+  if (filter === 'all') {
     return object;
   }
   if (filter === object.current_admin_evaluation) {
@@ -101,22 +97,23 @@ const checkFilter = (object, filter) => {
   return false;
 };
 
+// eslint-disable-next-line
 const humanFilter = (filter) => {
-  if (filter === "all") {
-    return " all ";
+  if (filter === 'all') {
+    return ' all ';
   }
   if (filter === 0) {
-    return " declined ";
+    return ' declined ';
   }
   if (filter === 1) {
-    return " approved ";
+    return ' approved ';
   }
 };
 
 const filterIndex_list = (list, filter) => {
-  const result = list.filter((object) => {
-    return object.current_admin_evaluation === filter || filter === "all";
-  });
+  const result = list.filter(
+    object => object.current_admin_evaluation === filter || filter === 'all',
+  );
   return result;
 };
 

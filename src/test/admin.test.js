@@ -1,27 +1,27 @@
-import deepFreeze from "deep-freeze";
-import admin from "../reducers/admin";
-import { updateAdmIndexReport, killAdmIndexReport } from "../actions/index";
+import deepFreeze from 'deep-freeze';
+import admin from '../reducers/admin';
+import { updateAdmIndexReport, killAdmIndexReport } from '../actions/index';
 
-it("updates admin index report array data", () => {
+it('updates admin index report array data', () => {
   const stateBefore = {
     other_property: null,
   };
   const payload = [
     {
-      report: "first",
+      report: 'first',
     },
     {
-      report: "second",
+      report: 'second',
     },
   ];
   const stateAfter = {
     other_property: null,
     index_report: [
       {
-        report: "first",
+        report: 'first',
       },
       {
-        report: "second",
+        report: 'second',
       },
     ],
   };
@@ -33,15 +33,15 @@ it("updates admin index report array data", () => {
   expect(admin(stateBefore, updateAdmIndexReport(payload))).toEqual(stateAfter);
 });
 
-it("kills admin index report array data", () => {
+it('kills admin index report array data', () => {
   const stateBefore = {
     other_property: null,
     index_report: [
       {
-        report: "first",
+        report: 'first',
       },
       {
-        report: "second",
+        report: 'second',
       },
     ],
   };

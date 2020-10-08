@@ -1,4 +1,4 @@
-import { UPDATE_ACCOUNT_DATA } from "../helpers/help";
+import { UPDATE_ACCOUNT_DATA } from '../helpers/help';
 
 const accountDefault = {
   email: null,

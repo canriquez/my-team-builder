@@ -1,5 +1,5 @@
-import { UPDATE_INDEX_REPORT, KILL_INDEX_REPORT } from "../helpers/help";
-import index_report from "../helpers/indexReportDummy";
+/* eslint-disable  camelcase */
+import { UPDATE_INDEX_REPORT, KILL_INDEX_REPORT } from '../helpers/help';
 
 // CHANGE DUMMY INDEX_REPORT TO NULL for final testing
 const defaultState = {
@@ -7,7 +7,7 @@ const defaultState = {
 };
 
 const admin = (state = defaultState, action) => {
-  console.log(" ||| in admin reducer now ||");
+  console.log(' ||| in admin reducer now ||');
   console.log(action);
 
   switch (action.type) {

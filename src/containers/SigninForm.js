@@ -1,39 +1,39 @@
-import React from "react";
-import { connect } from "react-redux";
-import { backendSigninAction, checkApiEmail } from "../actions/index";
+/* eslint-disable  camelcase, jsx-a11y/label-has-associated-control */
+import React from 'react';
+import { PropTypes } from 'prop-types';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import { backendSigninAction, checkApiEmail } from '../actions/index';
 import {
   validEmail,
   validPassword,
   enableSubmit,
   disableSubmit,
-} from "../helpers/componentHelp";
-import styles from "../styles/SigninForm.module.css";
-import { BrowserRouter as Router, Redirect } from "react-router-dom";
+} from '../helpers/componentHelp';
+import styles from '../styles/SigninForm.module.css';
 
 class SigninForm extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
       valid_email: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    // this.mapDispatchToProps = this.mapDispatchToProps.bind(this);
   }
 
   handleChange() {
-    const { checkBackendEmail, new_email } = this.props;
-    const formEmail = document.getElementById("emailValue").value;
-    const formPassword = document.getElementById("passwordValue").value;
+    const formEmail = document.getElementById('emailValue').value;
+    const formPassword = document.getElementById('passwordValue').value;
     const valid_email = validEmail(formEmail);
 
     this.setState({
       email: formEmail,
-      valid_email: valid_email,
+      valid_email,
       password: formPassword,
     });
 
@@ -42,36 +42,38 @@ class SigninForm extends React.Component {
       checkBackendEmail({ email: formEmail });
     } */
     if (formEmail.length > 5 && valid_email) {
-      enableSubmit("submit-btn");
+      enableSubmit('submit-btn');
     } else {
-      disableSubmit("submit-btn");
+      disableSubmit('submit-btn');
     }
   }
 
   handleSubmit(e) {
     e.preventDefault();
     const { fireBackendSignin } = this.props;
-    console.log("click submit()");
+    console.log('click submit()');
 
     const signInData = {
       ...this.state,
     };
     this.setState({
-      email: "admin1@gmail.com",
+      email: 'admin1@gmail.com',
       valid_email: false,
-      password: "12345",
+      password: '12345',
     });
 
     fireBackendSignin(signInData);
 
-    //If signin successfull. We store the token and we send back to homepage for later go to index page
+    // If signin successfull. We store the token and
+    // we send back to homepage for later go to index page
   }
 
   render() {
-    const { email, valid_email, password } = this.state;
+    const { email, password } = this.state;
     const { new_email, secure } = this.props;
     console.log(this.props);
-    console.log("new API email is :" + new_email);
+    console.log(`new API email is :${new_email}`);
+    // eslint-disable-next-line
     const { signup } = this.props.signup;
     return (
       <div className={styles.formblock}>
@@ -99,7 +101,7 @@ class SigninForm extends React.Component {
 
             <label htmlFor="passwordValue">
               password
-              {!validPassword(password) ? " (5 or more characters)" : ""}
+              {!validPassword(password) ? ' (5 or more characters)' : ''}
             </label>
             <div className={styles.passInputWrap}>
               <input
@@ -118,8 +120,8 @@ class SigninForm extends React.Component {
             >
               Sign In
             </button>
-            {secure.id ? <Redirect to="/" /> : ""}
-            {signup === "api_error" ? <Redirect to="/messages/2" /> : ""}
+            {secure.id ? <Redirect to="/" /> : ''}
+            {signup === 'api_error' ? <Redirect to="/messages/2" /> : ''}
           </form>
         </div>
       </div>
@@ -127,19 +129,34 @@ class SigninForm extends React.Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  fireBackendSignin: (accountData) => {
+const mapDispatchToProps = dispatch => ({
+  fireBackendSignin: accountData => {
     dispatch(backendSigninAction(accountData));
   },
-  checkBackendEmail: (email) => {
+  checkBackendEmail: email => {
     dispatch(checkApiEmail(email));
   },
 });
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   account: state.account,
   secure: state.secure,
   signup: state.signup,
 });
+
+SigninForm.propTypes = {
+  admin: PropTypes.shape({
+    index_report: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.object]))
+      .isRequired,
+  }).isRequired,
+  secure: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    now: PropTypes.string.isRequired,
+    then: PropTypes.string.isRequired,
+    token: PropTypes.string.isRequired,
+  }).isRequired,
+  new_email: PropTypes.string.isRequired,
+  fireBackendSignin: PropTypes.func.isRequired,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(SigninForm);

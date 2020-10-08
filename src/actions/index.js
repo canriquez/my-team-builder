@@ -1,3 +1,5 @@
+// eslint-disable-next-line
+import jwt_decode from "jwt-decode";
 import {
   UPDATE_ACCOUNT_DATA,
   UPDATE_EMAIL_AVAILABLE,
@@ -7,7 +9,7 @@ import {
   UPDATE_INDEX_REPORT,
   KILL_INDEX_REPORT,
   FILTER_UPDATE,
-} from "../helpers/help";
+} from '../helpers/help';
 import {
   backEndSignup,
   backendCheckEmail,
@@ -17,27 +19,26 @@ import {
   backendDestroyLikes,
   backendUpdateLikes,
   backendCreatesLikes,
-} from "../apis/my-team-api";
-import jwt_decode from "jwt-decode";
+} from '../apis/my-team-api';
 
 /* Actions for Sync Store */
 
-const updateAccountData = (accountData) => ({
+const updateAccountData = accountData => ({
   type: UPDATE_ACCOUNT_DATA,
   accountData,
 });
 
-const updateSignupEmail = (email) => ({
+const updateSignupEmail = email => ({
   type: UPDATE_EMAIL_AVAILABLE,
   email,
 });
 
-const updateSignupState = (state) => ({
+const updateSignupState = state => ({
   type: UPDATE_SIGNUP_STATE,
   state,
 });
 
-const updateAuthToken = (payload) => ({
+const updateAuthToken = payload => ({
   type: UPDATE_AUTH_KEY,
   token: payload.token,
   id: payload.id,
@@ -49,7 +50,7 @@ const killAuthToken = () => ({
   type: KILL_AUTH_KEY,
 });
 
-const updateAdmIndexReport = (payload) => ({
+const updateAdmIndexReport = payload => ({
   type: UPDATE_INDEX_REPORT,
   payload,
 });
@@ -60,192 +61,185 @@ const killAdmIndexReport = () => ({
 
 /*  home page - Filter update */
 
-const filterUpdate = (filter) => ({
+const filterUpdate = filter => ({
   type: FILTER_UPDATE,
   filter,
 });
 
 /* Thunk thenable creators to manage Async requests (my-team-api.js API) */
 
-const backendSignupAction = (signUpData) => (dispatch, getState) =>
-  backEndSignup(signUpData)
-    .then((result) => {
+const backendSignupAction = signUpData => dispatch => backEndSignup(signUpData)
+  .then(result => {
+    console.log(result);
+    const payload = {
+      signup: 'success',
+    };
+    dispatch(updateSignupState(payload));
+    return result;
+    // dispatch(updateAccountData({update object}));
+  })
+  .catch(error => {
+    const payload = {
+      signup: 'error',
+    };
+    dispatch(updateSignupState(payload));
+    throw error;
+  });
+
+const backendSigninAction = signUpIn => dispatch => backEndSignin(signUpIn)
+  .then(result => {
+    if (result.auth_token) {
+      console.log('authentication here');
+
+      const decoJwt = jwt_decode(result.auth_token);
+
+      const payload = {
+        token: result.auth_token,
+        id: decoJwt.user_id,
+        now: decoJwt.now,
+        then: decoJwt.then,
+      };
+
+      console.log(jwt_decode(result.auth_token));
+      // Fire store token in redux
+      dispatch(updateAuthToken(payload));
+
+      // fire update account information
       console.log(result);
-      const payload = {
-        signup: "success",
-      };
-      dispatch(updateSignupState(payload));
-      return result;
-      //dispatch(updateAccountData({update object}));
-    })
-    .catch((error) => {
-      const payload = {
-        signup: "error",
-      };
-      dispatch(updateSignupState(payload));
-      throw error;
-    });
+      dispatch(updateAccountData(result.user['0']));
 
-const backendSigninAction = (signUpIn) => (dispatch, getState) =>
-  backEndSignin(signUpIn)
-    .then((result) => {
-      if (result["auth_token"]) {
-        console.log("authentication here");
+      // ONLY FOR ADMIN ACTIONS
+      if (result.user[0].role === 'admin') {
+        console.log('-----| Fetching Admin Info |-----');
+        backendAdHome(result.auth_token).then(result => {
+          console.log('---> this is after adhome API response');
+          console.log(result);
+          dispatch(updateAdmIndexReport(result));
 
-        const decoJwt = jwt_decode(result["auth_token"]);
+          // Load admin's evaluations
 
-        const payload = {
-          token: result["auth_token"],
-          id: decoJwt["user_id"],
-          now: decoJwt["now"],
-          then: decoJwt["then"],
-        };
-
-        console.log(jwt_decode(result["auth_token"]));
-        //Fire store token in redux
-        dispatch(updateAuthToken(payload));
-
-        // fire update account information
-        console.log(result);
-        dispatch(updateAccountData(result["user"]["0"]));
-
-        // ONLY FOR ADMIN ACTIONS
-        if (result["user"][0]["role"] === "admin") {
-          console.log("-----| Fetching Admin Info |-----");
-          backendAdHome(result["auth_token"]).then((result) => {
-            console.log("---> this is after adhome API response");
+          backendAdminEvals({
+            id: payload.id,
+            auth: payload.token,
+          }).then(result => {
+            console.log("---> now Loading Admin's evaluations");
             console.log(result);
-            dispatch(updateAdmIndexReport(result));
-
-            //Load admin's evaluations
-
-            backendAdminEvals({
-              id: payload.id,
-              auth: payload.token,
-            }).then((result) => {
-              console.log("---> now Loading Admin's evaluations");
-              console.log(result);
-              dispatch(updateAccountData({ evals: result }));
-            });
+            dispatch(updateAccountData({ evals: result }));
           });
-        }
-
-        //dispatch action to load full report
-
-        return result;
+        });
       }
-      //else Show error message
 
-      //console.log(result);
+      // dispatch action to load full report
+
       return result;
-    })
-    .catch((error) => {
-      if (error == "TypeError: Failed to fetch") {
-        console.log("Server not available error");
-      }
+    }
+    // else Show error message
 
-      const payload = {
-        signup: "api_error",
-      };
-      dispatch(updateSignupState(payload));
-      //throw error;
-    });
+    // console.log(result);
+    return result;
+  })
+  .catch(error => {
+    if (error === 'TypeError: Failed to fetch') {
+      console.log('Server not available error');
+    }
 
-const backendRefreshAdmin = (payload) => (dispatch, getState) =>
-  backendAdHome(payload.token)
-    .then((result) => {
-      console.log("---> this is after adhome API response");
+    const payload = {
+      signup: 'api_error',
+    };
+    dispatch(updateSignupState(payload));
+    // throw error;
+  });
+
+const backendRefreshAdmin = payload => dispatch => backendAdHome(payload.token)
+  .then(result => {
+    console.log('---> this is after adhome API response');
+    console.log(result);
+    dispatch(updateAdmIndexReport(result));
+
+    // Load admin's evaluations
+
+    backendAdminEvals({
+      id: payload.id,
+      auth: payload.token,
+    }).then(result => {
+      console.log("---> now Loading Admin's evaluations");
       console.log(result);
-      dispatch(updateAdmIndexReport(result));
-
-      //Load admin's evaluations
-
-      backendAdminEvals({
-        id: payload.id,
-        auth: payload.token,
-      }).then((result) => {
-        console.log("---> now Loading Admin's evaluations");
-        console.log(result);
-        dispatch(updateAccountData({ evals: result }));
-      });
-
-      //dispatch(updateAccountData({update object}));
-    })
-    .catch((error) => {
-      throw error;
+      dispatch(updateAccountData({ evals: result }));
     });
 
-const backendLikeDestroyAction = (payload) => (dispatch, getState) =>
-  backendDestroyLikes(payload)
-    .then(() => {
-      backendAdminEvals({
-        id: payload.user_id,
-        auth: payload.token,
-      }).then((result) => {
-        console.log("---> now Loading Admin's evaluations");
-        console.log(result);
-        dispatch(updateAccountData({ evals: result }));
-      });
+    // dispatch(updateAccountData({update object}));
+  })
+  .catch(error => {
+    throw error;
+  });
 
-      //dispatch(updateAccountData({update object}));
-    })
-    .catch((error) => {
-      throw error;
+const backendLikeDestroyAction = payload => dispatch => backendDestroyLikes(payload)
+  .then(() => {
+    backendAdminEvals({
+      id: payload.user_id,
+      auth: payload.token,
+    }).then(result => {
+      console.log("---> now Loading Admin's evaluations");
+      console.log(result);
+      dispatch(updateAccountData({ evals: result }));
     });
 
-const backendLikeChangeAction = (payload) => (dispatch, getState) =>
-  backendUpdateLikes(payload)
-    .then(() => {
-      backendAdminEvals({
-        id: payload.user_id,
-        auth: payload.token,
-      }).then((result) => {
-        console.log("---> now Loading Admin's evaluations");
-        console.log(result);
-        dispatch(updateAccountData({ evals: result }));
-      });
+    // dispatch(updateAccountData({update object}));
+  })
+  .catch(error => {
+    throw error;
+  });
 
-      //dispatch(updateAccountData({update object}));
-    })
-    .catch((error) => {
-      throw error;
+const backendLikeChangeAction = payload => dispatch => backendUpdateLikes(payload)
+  .then(() => {
+    backendAdminEvals({
+      id: payload.user_id,
+      auth: payload.token,
+    }).then(result => {
+      console.log("---> now Loading Admin's evaluations");
+      console.log(result);
+      dispatch(updateAccountData({ evals: result }));
     });
 
-const backendLikeCreateAction = (payload) => (dispatch, getState) =>
-  backendCreatesLikes(payload)
-    .then(() => {
-      backendAdminEvals({
-        id: payload.user_id,
-        auth: payload.token,
-      }).then((result) => {
-        console.log("---> now Loading Admin's evaluations");
-        console.log(result);
-        dispatch(updateAccountData({ evals: result }));
-      });
+    // dispatch(updateAccountData({update object}));
+  })
+  .catch(error => {
+    throw error;
+  });
 
-      //dispatch(updateAccountData({update object}));
-    })
-    .catch((error) => {
-      throw error;
+const backendLikeCreateAction = payload => dispatch => backendCreatesLikes(payload)
+  .then(() => {
+    backendAdminEvals({
+      id: payload.user_id,
+      auth: payload.token,
+    }).then(result => {
+      console.log("---> now Loading Admin's evaluations");
+      console.log(result);
+      dispatch(updateAccountData({ evals: result }));
     });
 
-const checkApiEmail = (email) => (dispatch, getState) =>
-  backendCheckEmail(email)
-    .then((result) => {
-      const email = result["message"].split(" ");
-      console.log(email[0]);
-      const payload = {
-        email_available: email[0],
-      };
-      dispatch(updateSignupEmail(payload));
-    })
-    .catch((error) => {
-      const payload = {
-        signup: "api_error",
-      };
-      dispatch(updateSignupState(payload));
-      throw error;
-    });
+    // dispatch(updateAccountData({update object}));
+  })
+  .catch(error => {
+    throw error;
+  });
+
+const checkApiEmail = email => dispatch => backendCheckEmail(email)
+  .then(result => {
+    const email = result.message.split(' ');
+    console.log(email[0]);
+    const payload = {
+      email_available: email[0],
+    };
+    dispatch(updateSignupEmail(payload));
+  })
+  .catch(error => {
+    const payload = {
+      signup: 'api_error',
+    };
+    dispatch(updateSignupState(payload));
+    throw error;
+  });
 
 export {
   updateAccountData,

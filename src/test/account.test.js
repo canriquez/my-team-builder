@@ -1,13 +1,13 @@
-import deepFreeze from "deep-freeze";
-import account from "../reducers/account";
-import { updateAccountData } from "../actions/index";
+import deepFreeze from 'deep-freeze';
+import account from '../reducers/account';
+import { updateAccountData } from '../actions/index';
 
-it("updates account data", () => {
+it('updates account data', () => {
   const stateBefore = {
-    email: "test@test.com",
-    name: "Carlo Tester",
-    role: "admin",
-    avatar: "https://myavatart.com",
+    email: 'test@test.com',
+    name: 'Carlo Tester',
+    role: 'admin',
+    avatar: 'https://myavatart.com',
     loggedIn: false,
     tokenPresent: false,
     tokenExpired: false,
@@ -16,10 +16,10 @@ it("updates account data", () => {
     tokenExpired: true,
   };
   const stateAfter = {
-    email: "test@test.com",
-    name: "Carlo Tester",
-    role: "admin",
-    avatar: "https://myavatart.com",
+    email: 'test@test.com',
+    name: 'Carlo Tester',
+    role: 'admin',
+    avatar: 'https://myavatart.com',
     loggedIn: false,
     tokenPresent: false,
     tokenExpired: true,

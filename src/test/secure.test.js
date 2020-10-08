@@ -1,20 +1,20 @@
-import deepFreeze from "deep-freeze";
-import secure from "../reducers/secure";
-import { updateAuthToken, killAuthToken } from "../actions/index";
+import deepFreeze from 'deep-freeze';
+import secure from '../reducers/secure';
+import { updateAuthToken, killAuthToken } from '../actions/index';
 
-it("updates secure state store", () => {
+it('updates secure state store', () => {
   const stateBefore = {};
   const payload = {
     id: 2,
-    now: "now",
-    then: "then",
-    token: "alsdjflajksdfasdf.oijh8283eujds.iuwsdknoijcowdc",
+    now: 'now',
+    then: 'then',
+    token: 'alsdjflajksdfasdf.oijh8283eujds.iuwsdknoijcowdc',
   };
   const stateAfter = {
     id: 2,
-    now: "now",
-    then: "then",
-    token: "alsdjflajksdfasdf.oijh8283eujds.iuwsdknoijcowdc",
+    now: 'now',
+    then: 'then',
+    token: 'alsdjflajksdfasdf.oijh8283eujds.iuwsdknoijcowdc',
   };
 
   /* inmmutability check */
@@ -24,12 +24,12 @@ it("updates secure state store", () => {
   expect(secure(stateBefore, updateAuthToken(payload))).toEqual(stateAfter);
 });
 
-it("kills secure state store on logout", () => {
+it('kills secure state store on logout', () => {
   const stateBefore = {
     id: 2,
-    now: "now",
-    then: "then",
-    token: "alsdjflajksdfasdf.oijh8283eujds.iuwsdknoijcowdc",
+    now: 'now',
+    then: 'then',
+    token: 'alsdjflajksdfasdf.oijh8283eujds.iuwsdknoijcowdc',
   };
 
   const stateAfter = {};

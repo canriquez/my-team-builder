@@ -1,4 +1,4 @@
-import { UPDATE_AUTH_KEY, KILL_AUTH_KEY } from "../helpers/help";
+import { UPDATE_AUTH_KEY, KILL_AUTH_KEY } from '../helpers/help';
 
 const defaultState = {
   id: null,
@@ -8,7 +8,7 @@ const defaultState = {
 };
 
 const secure = (state = defaultState, action) => {
-  console.log(" ||| in auth reducer now ||");
+  console.log(' ||| in auth reducer now ||');
   console.log(action);
 
   switch (action.type) {
