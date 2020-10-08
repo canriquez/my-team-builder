@@ -8,6 +8,8 @@ import {
   backendLikeChangeAction,
   backendLikeCreateAction,
 } from "../actions/index";
+import approved from "../assets/icons/approved.svg";
+import declined from "../assets/icons/declined.svg";
 
 const ApplicationDetails = ({
   match,
@@ -127,9 +129,23 @@ const ApplicationDetails = ({
         <h4> Application Id: {application_id}</h4>
         <h4>Published on: {job_date}</h4>
         <h2>
-          {checkEval(evals, account.id, application_id, 0) ? "DISLIKE" : ""}
+          {checkEval(evals, account.id, application_id, 0) ? (
+            <div className={styles.evalIcon}>
+              <img className={styles.approvedIcon} src={declined} alt="Logo" />
+            </div>
+          ) : (
+            ""
+          )}
         </h2>
-        <h2>{checkEval(evals, account.id, application_id, 1) ? "LIKE" : ""}</h2>
+        <h2>
+          {checkEval(evals, account.id, application_id, 1) ? (
+            <div className={styles.evalIcon}>
+              <img className={styles.approvedIcon} src={approved} alt="Logo" />
+            </div>
+          ) : (
+            ""
+          )}
+        </h2>
       </div>
       <div className={styles.sectionTitle}>
         <h2>Applicant General Information</h2>
@@ -139,16 +155,31 @@ const ApplicationDetails = ({
         <h2>{app_name}</h2>
         <h4>applied {app_age}</h4>
       </div>
+      <h3>Evaluate this application</h3>
       <div className={styles.evaluation}>
-        <a href="#" className="like-button" onClick={() => handleLikeAction()}>
-          LIKE
+        <a
+          href="#"
+          className={styles.likeButton}
+          onClick={() => handleLikeAction()}
+        >
+          <button
+            className="Rectangle-2 submit-btn base-button submit-disabled"
+            type="button"
+          >
+            Approve
+          </button>
         </a>
         <a
           href="#"
-          className="dislike-button"
+          className={styles.dislikeButton}
           onClick={() => handleDisLikeAction()}
         >
-          DISLIKE
+          <button
+            className="Rectangle-2 submit-btn base-button submit-disabled"
+            type="button"
+          >
+            Decline
+          </button>
         </a>
       </div>
       <div className={styles.applicantInfoWrap}>

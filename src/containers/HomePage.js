@@ -11,10 +11,6 @@ const HomePage = ({ secure, admin }) => {
   return (
     <div className={styles.pageContainer}>
       <div className={styles.buttonWrap}>
-        <div className={styles.menuIcon}>
-          <img src={menu} alt="Logo" id="ok-icon" />
-        </div>
-
         {!secure.id ? (
           <>
             <Link className={styles.routerLink} to={`/signin`}>

@@ -7,6 +7,7 @@ import "react-multi-carousel/lib/styles.css";
 import { Link } from "react-router-dom";
 import { cardObject } from "../helpers/componentHelp";
 import { backendRefreshAdmin } from "../actions/index";
+import menu from "../assets/icons/menu.svg";
 
 class AdminIndexList extends React.Component {
   constructor(props) {
@@ -49,30 +50,32 @@ class AdminIndexList extends React.Component {
     console.log({ payload });
     this.fireBackendRefreshAdmin(payload);
   }
-  /*   React.useEffect(() => {
-    const payload = {
-      auth: secure.token,
-      token: secure.token,
-      id: account.id,
-    };
-    fireBackendRefreshAdmin(payload);
-  });
- */
+
   render() {
     return (
-      <div className={styles.carroucelContainer}>
-        <Carousel responsive={this.responsive}>
-          {this.index_report.map((object, id) => {
-            return (
-              <React.Fragment key={"child" + id}>
-                <Link className={styles.routerLink} to={`/applications/${id}`}>
-                  <ApplicationCard cardObject={cardObject(object)} />
-                </Link>
-              </React.Fragment>
-            );
-          })}
-        </Carousel>
-      </div>
+      <>
+        <div className={styles.navBar}>
+          <div className={styles.menuIcon}>
+            <img src={menu} alt="Logo" id="ok-icon" />
+          </div>
+        </div>
+        <div className={styles.carroucelContainer}>
+          <Carousel responsive={this.responsive}>
+            {this.index_report.map((object, id) => {
+              return (
+                <React.Fragment key={"child" + id}>
+                  <Link
+                    className={styles.routerLink}
+                    to={`/applications/${id}`}
+                  >
+                    <ApplicationCard cardObject={cardObject(object)} />
+                  </Link>
+                </React.Fragment>
+              );
+            })}
+          </Carousel>
+        </div>
+      </>
     );
   }
 }

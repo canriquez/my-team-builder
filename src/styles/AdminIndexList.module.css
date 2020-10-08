@@ -13,3 +13,16 @@
 .routerLink {
   text-decoration: none !important;
 }
+
+.navBar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background-color: white;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

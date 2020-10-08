@@ -4,6 +4,7 @@ import {
   UPDATE_AUTH_KEY,
   UPDATE_INDEX_REPORT,
   KILL_INDEX_REPORT,
+  FILTER_UPDATE,
 } from "../helpers/help";
 import {
   backEndSignup,
@@ -44,6 +45,13 @@ const updateAdmIndexReport = (payload) => ({
 
 const killAdmIndexReport = () => ({
   type: KILL_INDEX_REPORT,
+});
+
+/*  home page - Filter update */
+
+const filterUpdate = (filter) => ({
+  type: FILTER_UPDATE,
+  filter,
 });
 /* Thunk thenable creators to manage Async requests (my-team-api.js API) */
 
@@ -223,4 +231,5 @@ export {
   backendLikeChangeAction,
   backendLikeCreateAction,
   backendRefreshAdmin,
+  filterUpdate,
 };
