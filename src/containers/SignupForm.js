@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 import { backendSignupAction, checkApiEmail } from "../actions/index";
 import {
   validEmail,
@@ -11,6 +12,7 @@ import {
 import styles from "../styles/SignupForm.module.css";
 import okIcon from "../assets/icons/ok.svg";
 import warningIcon from "../assets/icons/warning.svg";
+import ActionMessage from "../components/ActionMessage";
 
 class SignupForm extends React.Component {
   constructor(props) {
@@ -96,6 +98,9 @@ class SignupForm extends React.Component {
     const { new_email } = this.props;
     console.log(this.props);
     console.log("new API email is :" + new_email);
+
+    const { signup } = this.props.signup;
+    console.log(signup);
     return (
       <div className={styles.formblock}>
         <div className={styles.formwrap}>
@@ -223,6 +228,7 @@ class SignupForm extends React.Component {
               Sign Up
             </button>
           </form>
+          {signup === "success" ? <Redirect to="/messages/0" /> : ""}
         </div>
       </div>
     );
@@ -240,6 +246,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state) => ({
   new_email: state.signup.email_available,
+  signup: state.signup,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignupForm);

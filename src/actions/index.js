@@ -71,6 +71,10 @@ const backendSignupAction = (signUpData) => (dispatch, getState) =>
   backEndSignup(signUpData)
     .then((result) => {
       console.log(result);
+      const payload = {
+        signup: "success",
+      };
+      dispatch(updateSignupState(payload));
       return result;
       //dispatch(updateAccountData({update object}));
     })

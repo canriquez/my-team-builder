@@ -12,6 +12,7 @@ import {
 
 import HomePage from "../containers/HomePage";
 import ApplicationDetails from "../components/AppicationDetails";
+import ActionMessage from "./ActionMessage";
 
 class App extends React.Component {
   constructor(props) {
@@ -43,6 +44,16 @@ class App extends React.Component {
               render={(props) => (
                 <ApplicationDetails
                   // eslint-disable-next-line
+                  {...props}
+                />
+              )}
+            />
+            <Route
+              path="/messages/:id"
+              render={(props) => (
+                <ActionMessage
+                  // eslint-disable-next-line
+                  validCall={true}
                   {...props}
                 />
               )}

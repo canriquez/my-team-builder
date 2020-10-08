@@ -2,6 +2,7 @@ import { UPDATE_EMAIL_AVAILABLE, UPDATE_SIGNUP_STATE } from "../helpers/help";
 
 const defaultState = {
   email_available: "",
+  signup: "",
 };
 
 const signup = (state = defaultState, action) => {
