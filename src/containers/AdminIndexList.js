@@ -102,7 +102,10 @@ class AdminIndexList extends React.Component {
             <button className={styles.signoutButton} onClick={this.logout}>
               Log Out
             </button>
-            <MainFilter changeMainFilter={this.changeMainFilter} />
+            <MainFilter
+              changeMainFilter={this.changeMainFilter}
+              mainFilter={mainFilter}
+            />
             <div className={styles.userWrap}>
               <h2>{this.account.name}</h2>
               <h4 className={styles.role}>{this.account.role}</h4>
@@ -113,16 +116,21 @@ class AdminIndexList extends React.Component {
           <div className={styles.filterInfo}>
             <h3>
               Currently showing
-              <span className={styles.humanFilter}>
+              <span className={styles.humanFilter + " txt-" + mainFilter}>
                 {humanFilter(mainFilter)}{" "}
               </span>
               records.
             </h3>
             <h4>
               Showing <span> </span>
-              <span className={styles.humanFilter}>{filRecords}</span> out of
+              <span className={styles.humanFilter + " txt-" + mainFilter}>
+                {filRecords}
+              </span>{" "}
+              out of
               <span> </span>{" "}
-              <span className={styles.humanFilter}>{totRecords} </span>
+              <span className={styles.humanFilter + " txt-" + mainFilter}>
+                {totRecords}{" "}
+              </span>
               total records
             </h4>
           </div>

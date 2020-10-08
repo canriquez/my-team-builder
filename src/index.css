@@ -111,6 +111,34 @@ h4 {
   height: 100% !important;
 }
 
+.filter-all {
+  background-color: rgba(112, 112, 112, 0.4);
+  color: white;
+  border-color: rgba(112, 112, 112, 0.4);
+}
+
+.filter-1 {
+  background-color: #3cba54;
+  border-color: #3cba54;
+}
+
+.filter-0 {
+  background-color: rgba(205, 86, 35, 1);
+  border-color: rgba(205, 86, 35, 1);
+}
+
+.txt-all {
+  color: #999999;
+}
+
+.txt-1 {
+  color: #3cba54;
+}
+
+.txt-0 {
+  color: rgba(205, 86, 35, 1);
+}
+
 @media screen and (min-width: 768px) {
   html {
     font-size: 28px;
