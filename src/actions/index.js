@@ -2,6 +2,7 @@ import {
   UPDATE_ACCOUNT_DATA,
   UPDATE_EMAIL_AVAILABLE,
   UPDATE_AUTH_KEY,
+  KILL_AUTH_KEY,
   UPDATE_INDEX_REPORT,
   KILL_INDEX_REPORT,
   FILTER_UPDATE,
@@ -38,6 +39,10 @@ const updateAuthToken = (payload) => ({
   then: payload.then,
 });
 
+const killAuthToken = () => ({
+  type: KILL_AUTH_KEY,
+});
+
 const updateAdmIndexReport = (payload) => ({
   type: UPDATE_INDEX_REPORT,
   payload,
@@ -53,6 +58,7 @@ const filterUpdate = (filter) => ({
   type: FILTER_UPDATE,
   filter,
 });
+
 /* Thunk thenable creators to manage Async requests (my-team-api.js API) */
 
 const backendSignupAction = (signUpData) => (dispatch, getState) =>
@@ -232,4 +238,5 @@ export {
   backendLikeCreateAction,
   backendRefreshAdmin,
   filterUpdate,
+  killAuthToken,
 };

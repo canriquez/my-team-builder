@@ -1,4 +1,4 @@
-import { UPDATE_AUTH_KEY } from "../helpers/help";
+import { UPDATE_AUTH_KEY, KILL_AUTH_KEY } from "../helpers/help";
 
 const defaultState = {
   id: null,
@@ -20,6 +20,9 @@ const secure = (state = defaultState, action) => {
         now: action.now,
         then: action.then,
       };
+    case KILL_AUTH_KEY:
+      // eslint-disable-next-line
+      return {};
     default:
       return state;
   }

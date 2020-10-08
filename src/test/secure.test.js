@@ -1,8 +1,8 @@
 import deepFreeze from "deep-freeze";
 import secure from "../reducers/secure";
-import { updateAuthToken } from "../actions/index";
+import { updateAuthToken, killAuthToken } from "../actions/index";
 
-it("updates email available result", () => {
+it("updates secure state store", () => {
   const stateBefore = {};
   const payload = {
     id: 2,
@@ -22,4 +22,21 @@ it("updates email available result", () => {
   deepFreeze(updateAuthToken); // makes sure reducer is pure function
 
   expect(secure(stateBefore, updateAuthToken(payload))).toEqual(stateAfter);
+});
+
+it("kills secure state store on logout", () => {
+  const stateBefore = {
+    id: 2,
+    now: "now",
+    then: "then",
+    token: "alsdjflajksdfasdf.oijh8283eujds.iuwsdknoijcowdc",
+  };
+
+  const stateAfter = {};
+
+  /* inmmutability check */
+  deepFreeze(stateBefore); // makes sure reducer is pure function
+  deepFreeze(killAuthToken); // makes sure reducer is pure function
+
+  expect(secure(stateBefore, killAuthToken())).toEqual(stateAfter);
 });

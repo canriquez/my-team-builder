@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import styles from "../styles/ApplicationDetails.module.css";
 import { cardObject, checkEval, currentEval } from "../helpers/componentHelp";
 import { BrowserRouter as Router, Redirect } from "react-router-dom";
@@ -10,6 +11,7 @@ import {
 } from "../actions/index";
 import approved from "../assets/icons/approved.svg";
 import declined from "../assets/icons/declined.svg";
+import { ReactComponent as GoBack } from "../assets/icons/pagePrev.svg";
 
 const ApplicationDetails = ({
   match,
@@ -120,75 +122,95 @@ const ApplicationDetails = ({
   };
 
   return (
-    <div className={styles.cardContainer}>
-      <div className={styles.cardHeading}>
-        <h1>{job_name}</h1>
-        <h4>
-          Job posted by: {job_author}, {job_age}
-        </h4>
-        <h4> Application Id: {application_id}</h4>
-        <h4>Published on: {job_date}</h4>
-        <h2>
-          {checkEval(evals, account.id, application_id, 0) ? (
-            <div className={styles.evalIcon}>
-              <img className={styles.approvedIcon} src={declined} alt="Logo" />
-            </div>
-          ) : (
-            ""
-          )}
-        </h2>
-        <h2>
-          {checkEval(evals, account.id, application_id, 1) ? (
-            <div className={styles.evalIcon}>
-              <img className={styles.approvedIcon} src={approved} alt="Logo" />
-            </div>
-          ) : (
-            ""
-          )}
-        </h2>
-      </div>
-      <div className={styles.sectionTitle}>
-        <h2>Applicant General Information</h2>
-      </div>
-      <div className={styles.applicantAvatar}>
-        <img src={avatar} alt="user avatar" />
-        <h2>{app_name}</h2>
-        <h4>applied {app_age}</h4>
-      </div>
-      <h3>Evaluate this application</h3>
-      <div className={styles.evaluation}>
-        <a
-          href="#"
-          className={styles.likeButton}
-          onClick={() => handleLikeAction()}
+    <>
+      <div className={styles.navBar}>
+        <div className={styles.menuIcon}></div>
+        <Link
+          to={{
+            pathname: "/",
+          }}
         >
-          <button
-            className="Rectangle-2 submit-btn base-button submit-disabled"
-            type="button"
-          >
-            Approve
-          </button>
-        </a>
-        <a
-          href="#"
-          className={styles.dislikeButton}
-          onClick={() => handleDisLikeAction()}
-        >
-          <button
-            className="Rectangle-2 submit-btn base-button submit-disabled"
-            type="button"
-          >
-            Decline
-          </button>
-        </a>
+          <GoBack className={styles.goBack} />
+        </Link>
       </div>
-      <div className={styles.applicantInfoWrap}>
-        <div className={styles.applicantData}>
-          <h3>Application Date</h3>
-          <h4>{app_date}</h4>
+      <div className={styles.cardContainer}>
+        <div className={styles.cardHeading}>
+          <h1>{job_name}</h1>
+          <h4>
+            Job posted by: {job_author}, {job_age}
+          </h4>
+          <h4> Application Id: {application_id}</h4>
+          <h4>Published on: {job_date}</h4>
+          <h2>
+            {checkEval(evals, account.id, application_id, 0) ? (
+              <div className={styles.evalIcon}>
+                <img
+                  className={styles.approvedIcon}
+                  src={declined}
+                  alt="Logo"
+                />
+              </div>
+            ) : (
+              ""
+            )}
+          </h2>
+          <h2>
+            {checkEval(evals, account.id, application_id, 1) ? (
+              <div className={styles.evalIcon}>
+                <img
+                  className={styles.approvedIcon}
+                  src={approved}
+                  alt="Logo"
+                />
+              </div>
+            ) : (
+              ""
+            )}
+          </h2>
+        </div>
+        <div className={styles.sectionTitle}>
+          <h2>Applicant General Information</h2>
+        </div>
+        <div className={styles.applicantAvatar}>
+          <img src={avatar} alt="user avatar" />
+          <h2>{app_name}</h2>
+          <h4>applied {app_age}</h4>
+        </div>
+        <h3>Evaluate this application</h3>
+        <div className={styles.evaluation}>
+          <a
+            href="#"
+            className={styles.likeButton}
+            onClick={() => handleLikeAction()}
+          >
+            <button
+              className="Rectangle-2 submit-btn base-button submit-disabled"
+              type="button"
+            >
+              Approve
+            </button>
+          </a>
+          <a
+            href="#"
+            className={styles.dislikeButton}
+            onClick={() => handleDisLikeAction()}
+          >
+            <button
+              className="Rectangle-2 submit-btn base-button submit-disabled"
+              type="button"
+            >
+              Decline
+            </button>
+          </a>
+        </div>
+        <div className={styles.applicantInfoWrap}>
+          <div className={styles.applicantData}>
+            <h3>Application Date</h3>
+            <h4>{app_date}</h4>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

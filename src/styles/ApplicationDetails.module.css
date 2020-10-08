@@ -1,5 +1,5 @@
 .cardContainer {
-  margin: 80px auto;
+  margin: 96px auto;
   width: 95%;
   height: 85%;
 
@@ -11,6 +11,7 @@
   border-radius: 4px;
   box-shadow: 6px 6px 11px #727272, -6px -6px 11px #ffffff;
   background-color: #f4f5f9;
+  z-index: 4;
 }
 
 .cardHeading {
@@ -98,4 +99,26 @@ h1 {
 
 .evalIcon img {
   width: 70px;
+}
+
+.navBar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background-color: white;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.goBack {
+  position: absolute;
+  top: 50%;
+  left: 2%;
+  width: 25px;
+  height: 25px;
+  fill: #000;
 }
