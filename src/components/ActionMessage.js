@@ -19,6 +19,11 @@ const ActionMessage = ({ match, validCall }) => {
       message: "There was an error, please try again later...",
       button: "to Home",
     },
+    {
+      message:
+        "There was an connectivity error with our signup services, please try again later...",
+      button: "to Home",
+    },
   ];
 
   return (
@@ -35,7 +40,7 @@ const ActionMessage = ({ match, validCall }) => {
         ) : (
           ""
         )}
-        {mindex === 1 ? (
+        {mindex === 1 || mindex === 2 ? (
           <div className={styles.boxIcon}>
             <img className={styles.errorIcon} src={error} alt="error" />
           </div>
@@ -57,7 +62,7 @@ const ActionMessage = ({ match, validCall }) => {
           ""
         )}
 
-        {mindex === 1 ? (
+        {mindex === 1 || mindex === 2 ? (
           <Link className={styles.routerLink} to={`/`}>
             <button
               id="submit-btn"

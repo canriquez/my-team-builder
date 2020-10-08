@@ -229,6 +229,8 @@ class SignupForm extends React.Component {
             </button>
           </form>
           {signup === "success" ? <Redirect to="/messages/0" /> : ""}
+          {signup === "error" ? <Redirect to="/messages/1" /> : ""}
+          {signup === "api_error" ? <Redirect to="/messages/2" /> : ""}
         </div>
       </div>
     );

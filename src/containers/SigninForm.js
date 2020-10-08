@@ -72,6 +72,7 @@ class SigninForm extends React.Component {
     const { new_email, secure } = this.props;
     console.log(this.props);
     console.log("new API email is :" + new_email);
+    const { signup } = this.props.signup;
     return (
       <div className={styles.formblock}>
         <div className={styles.formwrap}>
@@ -118,6 +119,7 @@ class SigninForm extends React.Component {
               Sign In
             </button>
             {secure.id ? <Redirect to="/" /> : ""}
+            {signup === "api_error" ? <Redirect to="/messages/2" /> : ""}
           </form>
         </div>
       </div>
@@ -137,6 +139,7 @@ const mapDispatchToProps = (dispatch) => ({
 const mapStateToProps = (state) => ({
   account: state.account,
   secure: state.secure,
+  signup: state.signup,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SigninForm);

@@ -79,6 +79,10 @@ const backendSignupAction = (signUpData) => (dispatch, getState) =>
       //dispatch(updateAccountData({update object}));
     })
     .catch((error) => {
+      const payload = {
+        signup: "error",
+      };
+      dispatch(updateSignupState(payload));
       throw error;
     });
 
@@ -139,6 +143,11 @@ const backendSigninAction = (signUpIn) => (dispatch, getState) =>
       if (error == "TypeError: Failed to fetch") {
         console.log("Server not available error");
       }
+
+      const payload = {
+        signup: "api_error",
+      };
+      dispatch(updateSignupState(payload));
       //throw error;
     });
 
@@ -231,6 +240,10 @@ const checkApiEmail = (email) => (dispatch, getState) =>
       dispatch(updateSignupEmail(payload));
     })
     .catch((error) => {
+      const payload = {
+        signup: "api_error",
+      };
+      dispatch(updateSignupState(payload));
       throw error;
     });
 
