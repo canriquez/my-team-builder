@@ -179,7 +179,7 @@ const ApplicationDetails = ({
             onClick={() => handleLikeAction()}
           >
             <button
-              className="Rectangle-2 submit-btn base-button submit-disabled"
+              className="Rectangle-2 submit-btn base-button"
               type="button"
             >
               Approve
@@ -191,7 +191,7 @@ const ApplicationDetails = ({
             onClick={() => handleDisLikeAction()}
           >
             <button
-              className="Rectangle-2 submit-btn base-button submit-disabled"
+              className="Rectangle-2 submit-btn base-button"
               type="button"
             >
               Decline

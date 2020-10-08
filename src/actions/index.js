@@ -1,6 +1,7 @@
 import {
   UPDATE_ACCOUNT_DATA,
   UPDATE_EMAIL_AVAILABLE,
+  UPDATE_SIGNUP_STATE,
   UPDATE_AUTH_KEY,
   KILL_AUTH_KEY,
   UPDATE_INDEX_REPORT,
@@ -29,6 +30,11 @@ const updateAccountData = (accountData) => ({
 const updateSignupEmail = (email) => ({
   type: UPDATE_EMAIL_AVAILABLE,
   email,
+});
+
+const updateSignupState = (state) => ({
+  type: UPDATE_SIGNUP_STATE,
+  state,
 });
 
 const updateAuthToken = (payload) => ({
@@ -229,6 +235,7 @@ export {
   backendSignupAction,
   backendSigninAction,
   updateSignupEmail,
+  updateSignupState,
   checkApiEmail,
   updateAuthToken,
   updateAdmIndexReport,

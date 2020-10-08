@@ -1,4 +1,4 @@
-import { UPDATE_EMAIL_AVAILABLE } from "../helpers/help";
+import { UPDATE_EMAIL_AVAILABLE, UPDATE_SIGNUP_STATE } from "../helpers/help";
 
 const defaultState = {
   email_available: "",
@@ -14,6 +14,13 @@ const signup = (state = defaultState, action) => {
       return {
         ...state,
         ...action.email,
+      };
+
+    case UPDATE_SIGNUP_STATE:
+      // eslint-disable-next-line
+      return {
+        ...state,
+        ...action.state,
       };
     default:
       return state;
