@@ -44,6 +44,7 @@ const cardObject = (object) => {
   const job_age = timeAgo.format(new Date(object.jobpost_date), "round");
 
   return {
+    application_id: object.application_id,
     app_id: object.applicant_id,
     app_name: object.applicant_name,
     app_age: application_age,
@@ -59,6 +60,31 @@ const cardObject = (object) => {
   };
 };
 
+const checkEval = (evals, adminId, applicationId, check) => {
+  if (!evals) return null;
+  const result = evals.filter((ev) => {
+    return ev.application_id === applicationId && ev.admin_id === adminId;
+  });
+
+  if (result[0]) {
+    return result[0].evaluation === check;
+  } else {
+    return false;
+  }
+};
+
+const currentEval = (evals, adminId, applicationId) => {
+  if (!evals) return null;
+  const result = evals.filter((ev) => {
+    return ev.application_id === applicationId && ev.admin_id === adminId;
+  });
+  if (result[0]) {
+    return result[0];
+  } else {
+    return null;
+  }
+};
+
 export {
   validEmail,
   enableSubmit,
@@ -66,4 +92,6 @@ export {
   validName,
   validPassword,
   cardObject,
+  checkEval,
+  currentEval,
 };

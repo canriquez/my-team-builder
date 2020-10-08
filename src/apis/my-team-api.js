@@ -132,10 +132,108 @@ const backendAdHome = async (auth) => {
   }
 };
 
+/* Like actions */
+
+const backendDestroyLikes = async ({ id, token }) => {
+  //const baseUrl = "https://anriquez-my-team-api.herokuapp.com";
+  const baseUrl = "http://127.0.0.1:5000";
+  const endpoint = "/likes/";
+  const a = `${id}`;
+  const appURL = [baseUrl + endpoint + a];
+  const request = {
+    method: "DELETE",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  try {
+    const response = await fetch(appURL, request);
+    const obj = await response.json();
+
+    // return complete list
+    console.log("AT API DELETING LIKE -- Result");
+    console.log({ obj });
+    console.log({ id });
+    console.log({ token });
+    console.log({ appURL });
+    return obj;
+  } catch (err) {
+    throw ("Something went wrong with fetching book list ", err);
+  }
+};
+
+const backendUpdateLikes = async ({
+  admin_id,
+  evaluation_id,
+  evaluation,
+  token,
+}) => {
+  //const baseUrl = "https://anriquez-my-team-api.herokuapp.com";
+  const baseUrl = "http://127.0.0.1:5000";
+  const endpoint = "/likes/";
+  const a = `${evaluation_id}`;
+  const b = `?application_id${evaluation_id}`;
+  const c = `&admin_id=${admin_id}`;
+  const e = `&evaluation=${evaluation}`;
+  const appURL = [baseUrl + endpoint + a + b + c + e];
+  const request = {
+    method: "PUT",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  try {
+    const response = await fetch(appURL, request);
+    const obj = await response.json();
+
+    return obj;
+  } catch (err) {
+    throw ("Something went wrong with fetching book list ", err);
+  }
+};
+
+const backendCreatesLikes = async ({
+  admin_id,
+  application_id,
+  evaluation,
+  token,
+}) => {
+  //const baseUrl = "https://anriquez-my-team-api.herokuapp.com";
+  const baseUrl = "http://127.0.0.1:5000";
+  const endpoint = "/likes";
+  const a = `?application_id=${application_id}`;
+  const b = `&admin_id=${admin_id}`;
+  const c = `&evaluation=${evaluation}`;
+  const appURL = [baseUrl + endpoint + a + b + c];
+  const request = {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  try {
+    const response = await fetch(appURL, request);
+    const obj = await response.json();
+
+    return obj;
+  } catch (err) {
+    throw ("Something went wrong with fetching book list ", err);
+  }
+};
+
 export {
   backEndSignup,
   backendCheckEmail,
   backEndSignin,
   backendAdHome,
   backendAdminEvals,
+  backendDestroyLikes,
+  backendUpdateLikes,
+  backendCreatesLikes,
 };

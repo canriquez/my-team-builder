@@ -17,10 +17,16 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
-    const { index_report, secure } = props;
+    const { index_report, secure, account } = props;
 
     this.index_report = index_report;
     this.secure = secure;
+    this.account = account;
+
+    console.log("[[[[[[ HERE AT APP CHECK THE PROPS ]]]]]]]");
+    console.log(this.index_report);
+    console.log(this.secure);
+    console.log(this.account);
   }
 
   render() {
@@ -36,8 +42,6 @@ class App extends React.Component {
               path="/applications/:id"
               render={(props) => (
                 <ApplicationDetails
-                  secure={this.secure}
-                  index_report={this.index_report}
                   // eslint-disable-next-line
                   {...props}
                 />

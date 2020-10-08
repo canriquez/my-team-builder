@@ -1,9 +1,28 @@
 import React from "react";
+import { connect } from "react-redux";
 import styles from "../styles/ApplicationDetails.module.css";
-import { cardObject } from "../helpers/componentHelp";
+import { cardObject, checkEval, currentEval } from "../helpers/componentHelp";
+import { BrowserRouter as Router, Redirect } from "react-router-dom";
+import {
+  backendLikeDestroyAction,
+  backendLikeChangeAction,
+  backendLikeCreateAction,
+} from "../actions/index";
 
-const ApplicationDetails = ({ match, secure, index_report }) => {
+const ApplicationDetails = ({
+  match,
+  secure,
+  index_report,
+  account,
+  fireEraseEvalAction,
+  fireChangeEvalAction,
+  fireCreateEvalAction,
+}) => {
+  if (!index_report) {
+    return <Redirect to="/" />;
+  }
   const {
+    application_id,
     app_id,
     app_name,
     app_age,
@@ -17,12 +36,87 @@ const ApplicationDetails = ({ match, secure, index_report }) => {
     job_author,
     avatar,
   } = cardObject(index_report[match.params.id]);
+  const { evals } = account;
 
-  console.log("AT APPLICATION DETAILS");
-  console.log({ avatar });
-  console.log({ match });
-  console.log({ cardObject });
-  console.log({ index_report });
+  const handleLikeAction = () => {
+    const current_eval = currentEval(evals, account.id, application_id);
+    console.log("===>>>>> in the handleLikeAction");
+    console.log({ current_eval });
+
+    if (!current_eval) {
+      const payload = {
+        token: secure.token,
+        user_id: account.id,
+        admin_id: account.id,
+        application_id: application_id,
+        evaluation: "like",
+      };
+      console.log({ payload });
+      fireCreateEvalAction(payload);
+      return;
+    }
+
+    if (current_eval.evaluation === 1) {
+      const payload = {
+        token: secure.token,
+        id: current_eval.id,
+        user_id: account.id,
+      };
+      console.log({ payload });
+      fireEraseEvalAction(payload);
+    }
+    if (current_eval.evaluation === 0) {
+      const payload = {
+        token: secure.token,
+        user_id: account.id,
+        admin_id: account.id,
+        evaluation_id: current_eval.id,
+        evaluation: "like",
+      };
+      console.log({ payload });
+      fireChangeEvalAction(payload);
+    }
+  };
+
+  const handleDisLikeAction = () => {
+    const current_eval = currentEval(evals, account.id, application_id);
+
+    if (!current_eval) {
+      const payload = {
+        token: secure.token,
+        user_id: account.id,
+        admin_id: account.id,
+        application_id: application_id,
+        evaluation: "dislike",
+      };
+      console.log({ payload });
+      fireCreateEvalAction(payload);
+      return;
+    }
+
+    if (current_eval.evaluation === 1) {
+      const payload = {
+        token: secure.token,
+        user_id: account.id,
+        admin_id: account.id,
+        evaluation_id: current_eval.id,
+        evaluation: "dislike",
+      };
+      console.log({ payload });
+      fireChangeEvalAction(payload);
+    }
+
+    if (current_eval.evaluation === 0) {
+      const payload = {
+        token: secure.token,
+        id: current_eval.id,
+        user_id: account.id,
+      };
+      console.log({ payload });
+      fireEraseEvalAction(payload);
+    }
+  };
+
   return (
     <div className={styles.cardContainer}>
       <div className={styles.cardHeading}>
@@ -30,7 +124,12 @@ const ApplicationDetails = ({ match, secure, index_report }) => {
         <h4>
           Job posted by: {job_author}, {job_age}
         </h4>
+        <h4> Application Id: {application_id}</h4>
         <h4>Published on: {job_date}</h4>
+        <h2>
+          {checkEval(evals, account.id, application_id, 0) ? "DISLIKE" : ""}
+        </h2>
+        <h2>{checkEval(evals, account.id, application_id, 1) ? "LIKE" : ""}</h2>
       </div>
       <div className={styles.sectionTitle}>
         <h2>Applicant General Information</h2>
@@ -39,6 +138,18 @@ const ApplicationDetails = ({ match, secure, index_report }) => {
         <img src={avatar} alt="user avatar" />
         <h2>{app_name}</h2>
         <h4>applied {app_age}</h4>
+      </div>
+      <div className={styles.evaluation}>
+        <a href="#" className="like-button" onClick={() => handleLikeAction()}>
+          LIKE
+        </a>
+        <a
+          href="#"
+          className="dislike-button"
+          onClick={() => handleDisLikeAction()}
+        >
+          DISLIKE
+        </a>
       </div>
       <div className={styles.applicantInfoWrap}>
         <div className={styles.applicantData}>
@@ -50,4 +161,22 @@ const ApplicationDetails = ({ match, secure, index_report }) => {
   );
 };
 
-export default ApplicationDetails;
+const mapStateToProps = (state) => ({
+  account: state.account,
+  secure: state.secure,
+  index_report: state.admin.index_report,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  fireEraseEvalAction: (payload) => {
+    dispatch(backendLikeDestroyAction(payload));
+  },
+  fireChangeEvalAction: (payload) => {
+    dispatch(backendLikeChangeAction(payload));
+  },
+  fireCreateEvalAction: (payload) => {
+    dispatch(backendLikeCreateAction(payload));
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ApplicationDetails);

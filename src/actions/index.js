@@ -11,6 +11,9 @@ import {
   backEndSignin,
   backendAdHome,
   backendAdminEvals,
+  backendDestroyLikes,
+  backendUpdateLikes,
+  backendCreatesLikes,
 } from "../apis/my-team-api";
 import jwt_decode from "jwt-decode";
 
@@ -115,6 +118,60 @@ const backendSigninAction = (signUpIn) => (dispatch, getState) =>
       //throw error;
     });
 
+const backendLikeDestroyAction = (payload) => (dispatch, getState) =>
+  backendDestroyLikes(payload)
+    .then(() => {
+      backendAdminEvals({
+        id: payload.user_id,
+        auth: payload.token,
+      }).then((result) => {
+        console.log("---> now Loading Admin's evaluations");
+        console.log(result);
+        dispatch(updateAccountData({ evals: result }));
+      });
+
+      //dispatch(updateAccountData({update object}));
+    })
+    .catch((error) => {
+      throw error;
+    });
+
+const backendLikeChangeAction = (payload) => (dispatch, getState) =>
+  backendUpdateLikes(payload)
+    .then(() => {
+      backendAdminEvals({
+        id: payload.user_id,
+        auth: payload.token,
+      }).then((result) => {
+        console.log("---> now Loading Admin's evaluations");
+        console.log(result);
+        dispatch(updateAccountData({ evals: result }));
+      });
+
+      //dispatch(updateAccountData({update object}));
+    })
+    .catch((error) => {
+      throw error;
+    });
+
+const backendLikeCreateAction = (payload) => (dispatch, getState) =>
+  backendCreatesLikes(payload)
+    .then(() => {
+      backendAdminEvals({
+        id: payload.user_id,
+        auth: payload.token,
+      }).then((result) => {
+        console.log("---> now Loading Admin's evaluations");
+        console.log(result);
+        dispatch(updateAccountData({ evals: result }));
+      });
+
+      //dispatch(updateAccountData({update object}));
+    })
+    .catch((error) => {
+      throw error;
+    });
+
 const checkApiEmail = (email) => (dispatch, getState) =>
   backendCheckEmail(email)
     .then((result) => {
@@ -138,4 +195,7 @@ export {
   updateAuthToken,
   updateAdmIndexReport,
   killAdmIndexReport,
+  backendLikeDestroyAction,
+  backendLikeChangeAction,
+  backendLikeCreateAction,
 };
