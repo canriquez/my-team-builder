@@ -140,7 +140,7 @@ class AdminIndexList extends React.Component {
                 <React.Fragment key={"child" + id}>
                   <Link
                     className={styles.routerLink}
-                    to={`/applications/${id}`}
+                    to={`/applications/${object.application_id}`}
                   >
                     <ApplicationCard cardObject={cardObject(object)} />
                   </Link>

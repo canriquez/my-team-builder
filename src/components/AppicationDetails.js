@@ -25,6 +25,12 @@ const ApplicationDetails = ({
   if (!index_report) {
     return <Redirect to="/" />;
   }
+  const selectedApplication = index_report.filter((record) => {
+    console.log(typeof record.application_id);
+    console.log(typeof match.params.id);
+    return record.application_id === parseInt(match.params.id, 10);
+  });
+  console.log({ selectedApplication });
   const {
     application_id,
     app_id,
@@ -39,7 +45,7 @@ const ApplicationDetails = ({
     job_age,
     job_author,
     avatar,
-  } = cardObject(index_report[match.params.id]);
+  } = cardObject(selectedApplication[0]);
   const { evals } = account;
 
   const handleLikeAction = () => {
