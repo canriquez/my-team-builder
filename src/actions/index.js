@@ -118,6 +118,30 @@ const backendSigninAction = (signUpIn) => (dispatch, getState) =>
       //throw error;
     });
 
+const backendRefreshAdmin = (payload) => (dispatch, getState) =>
+  backendAdHome(payload.token)
+    .then((result) => {
+      console.log("---> this is after adhome API response");
+      console.log(result);
+      dispatch(updateAdmIndexReport(result));
+
+      //Load admin's evaluations
+
+      backendAdminEvals({
+        id: payload.id,
+        auth: payload.token,
+      }).then((result) => {
+        console.log("---> now Loading Admin's evaluations");
+        console.log(result);
+        dispatch(updateAccountData({ evals: result }));
+      });
+
+      //dispatch(updateAccountData({update object}));
+    })
+    .catch((error) => {
+      throw error;
+    });
+
 const backendLikeDestroyAction = (payload) => (dispatch, getState) =>
   backendDestroyLikes(payload)
     .then(() => {
@@ -198,4 +222,5 @@ export {
   backendLikeDestroyAction,
   backendLikeChangeAction,
   backendLikeCreateAction,
+  backendRefreshAdmin,
 };
