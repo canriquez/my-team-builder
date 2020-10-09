@@ -1,24 +1,24 @@
 /* eslint-disable  camelcase, jsx-a11y/label-has-associated-control */
-import React from 'react';
-import { PropTypes } from 'prop-types';
-import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
-import { backendSigninAction, checkApiEmail } from '../actions/index';
+import React from "react";
+import { PropTypes } from "prop-types";
+import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
+import { backendSigninAction, checkApiEmail } from "../actions/index";
 import {
   validEmail,
   validPassword,
   enableSubmit,
   disableSubmit,
-} from '../helpers/componentHelp';
-import styles from '../styles/SigninForm.module.css';
+} from "../helpers/componentHelp";
+import styles from "../styles/SigninForm.module.css";
 
 class SigninForm extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
       valid_email: false,
     };
 
@@ -27,8 +27,8 @@ class SigninForm extends React.Component {
   }
 
   handleChange() {
-    const formEmail = document.getElementById('emailValue').value;
-    const formPassword = document.getElementById('passwordValue').value;
+    const formEmail = document.getElementById("emailValue").value;
+    const formPassword = document.getElementById("passwordValue").value;
     const valid_email = validEmail(formEmail);
 
     this.setState({
@@ -38,9 +38,9 @@ class SigninForm extends React.Component {
     });
 
     if (formEmail.length > 5 && valid_email) {
-      enableSubmit('submit-btn');
+      enableSubmit("submit-btn");
     } else {
-      disableSubmit('submit-btn');
+      disableSubmit("submit-btn");
     }
   }
 
@@ -52,9 +52,9 @@ class SigninForm extends React.Component {
       ...this.state,
     };
     this.setState({
-      email: '',
+      email: "",
       valid_email: false,
-      password: '',
+      password: "",
     });
 
     fireBackendSignin(signInData);
@@ -72,6 +72,10 @@ class SigninForm extends React.Component {
     return (
       <div className={styles.formblock}>
         <div className={styles.formwrap}>
+          <div className={styles.demoAccess}>
+            <p>Admin role: admin1@gmail.com | pass: 12345</p>
+            <p>User role: email3@gmail.com | pass: 12345</p>
+          </div>
           <div className={styles.formtitle}>
             <h1>Sign in</h1>
             <h3>Hi there, signin to your account</h3>
@@ -95,7 +99,7 @@ class SigninForm extends React.Component {
 
             <label htmlFor="passwordValue">
               password
-              {!validPassword(password) ? ' (5 or more characters)' : ''}
+              {!validPassword(password) ? " (5 or more characters)" : ""}
             </label>
             <div className={styles.passInputWrap}>
               <input
@@ -114,8 +118,8 @@ class SigninForm extends React.Component {
             >
               Sign In
             </button>
-            {secure.id ? <Redirect to="/" /> : ''}
-            {signup === 'api_error' ? <Redirect to="/messages/2" /> : ''}
+            {secure.id ? <Redirect to="/" /> : ""}
+            {signup === "api_error" ? <Redirect to="/messages/2" /> : ""}
           </form>
         </div>
       </div>
@@ -123,16 +127,16 @@ class SigninForm extends React.Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  fireBackendSignin: accountData => {
+const mapDispatchToProps = (dispatch) => ({
+  fireBackendSignin: (accountData) => {
     dispatch(backendSigninAction(accountData));
   },
-  checkBackendEmail: email => {
+  checkBackendEmail: (email) => {
     dispatch(checkApiEmail(email));
   },
 });
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   account: state.account,
   secure: state.secure,
   signup: state.signup,
