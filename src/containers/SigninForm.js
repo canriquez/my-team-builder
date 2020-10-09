@@ -74,7 +74,6 @@ class SigninForm extends React.Component {
         <div className={styles.formwrap}>
           <div className={styles.demoAccess}>
             <p>Admin role: admin1@gmail.com | pass: 12345</p>
-            <p>User role: email3@gmail.com | pass: 12345</p>
           </div>
           <div className={styles.formtitle}>
             <h1>Sign in</h1>
