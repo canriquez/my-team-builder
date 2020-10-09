@@ -13,7 +13,6 @@ This app is used by admins to review ACTIVE applicant's information and express 
 ## Built With
 
 - React.js, Redux, Webpack, Babel
-
 - HTML5/CSS3, Javascript ES6
 - JWT authentication (back end generated)
 - ESlint, Stylelint
@@ -21,7 +20,7 @@ This app is used by admins to review ACTIVE applicant's information and express 
 
 ## Live Demo @Netlify
 
-[Live Demo Link](https://anriquez-crypto-assets.netlify.app/)
+[Live Demo Link](https://my-team-builder.netlify.app/)
 
 ## User Story (Demo):
 
