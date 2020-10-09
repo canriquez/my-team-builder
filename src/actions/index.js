@@ -70,7 +70,6 @@ const filterUpdate = filter => ({
 
 const backendSignupAction = signUpData => dispatch => backEndSignup(signUpData)
   .then(result => {
-    console.log(result);
     const payload = {
       signup: 'success',
     };
@@ -89,8 +88,6 @@ const backendSignupAction = signUpData => dispatch => backEndSignup(signUpData)
 const backendSigninAction = signUpIn => dispatch => backEndSignin(signUpIn)
   .then(result => {
     if (result.auth_token) {
-      console.log('authentication here');
-
       const decoJwt = jwt_decode(result.auth_token);
 
       const payload = {
@@ -100,20 +97,15 @@ const backendSigninAction = signUpIn => dispatch => backEndSignin(signUpIn)
         then: decoJwt.then,
       };
 
-      console.log(jwt_decode(result.auth_token));
       // Fire store token in redux
       dispatch(updateAuthToken(payload));
 
       // fire update account information
-      console.log(result);
       dispatch(updateAccountData(result.user['0']));
 
       // ONLY FOR ADMIN ACTIONS
       if (result.user[0].role === 'admin') {
-        console.log('-----| Fetching Admin Info |-----');
         backendAdHome(result.auth_token).then(result => {
-          console.log('---> this is after adhome API response');
-          console.log(result);
           dispatch(updateAdmIndexReport(result));
 
           // Load admin's evaluations
@@ -122,8 +114,6 @@ const backendSigninAction = signUpIn => dispatch => backEndSignin(signUpIn)
             id: payload.id,
             auth: payload.token,
           }).then(result => {
-            console.log("---> now Loading Admin's evaluations");
-            console.log(result);
             dispatch(updateAccountData({ evals: result }));
           });
         });
@@ -135,25 +125,18 @@ const backendSigninAction = signUpIn => dispatch => backEndSignin(signUpIn)
     }
     // else Show error message
 
-    // console.log(result);
     return result;
   })
   .catch(error => {
-    if (error === 'TypeError: Failed to fetch') {
-      console.log('Server not available error');
-    }
-
     const payload = {
       signup: 'api_error',
     };
     dispatch(updateSignupState(payload));
-    // throw error;
+    throw error;
   });
 
 const backendRefreshAdmin = payload => dispatch => backendAdHome(payload.token)
   .then(result => {
-    console.log('---> this is after adhome API response');
-    console.log(result);
     dispatch(updateAdmIndexReport(result));
 
     // Load admin's evaluations
@@ -162,8 +145,6 @@ const backendRefreshAdmin = payload => dispatch => backendAdHome(payload.token)
       id: payload.id,
       auth: payload.token,
     }).then(result => {
-      console.log("---> now Loading Admin's evaluations");
-      console.log(result);
       dispatch(updateAccountData({ evals: result }));
     });
 
@@ -179,8 +160,6 @@ const backendLikeDestroyAction = payload => dispatch => backendDestroyLikes(payl
       id: payload.user_id,
       auth: payload.token,
     }).then(result => {
-      console.log("---> now Loading Admin's evaluations");
-      console.log(result);
       dispatch(updateAccountData({ evals: result }));
     });
 
@@ -196,8 +175,6 @@ const backendLikeChangeAction = payload => dispatch => backendUpdateLikes(payloa
       id: payload.user_id,
       auth: payload.token,
     }).then(result => {
-      console.log("---> now Loading Admin's evaluations");
-      console.log(result);
       dispatch(updateAccountData({ evals: result }));
     });
 
@@ -213,8 +190,6 @@ const backendLikeCreateAction = payload => dispatch => backendCreatesLikes(paylo
       id: payload.user_id,
       auth: payload.token,
     }).then(result => {
-      console.log("---> now Loading Admin's evaluations");
-      console.log(result);
       dispatch(updateAccountData({ evals: result }));
     });
 
@@ -227,7 +202,6 @@ const backendLikeCreateAction = payload => dispatch => backendCreatesLikes(paylo
 const checkApiEmail = email => dispatch => backendCheckEmail(email)
   .then(result => {
     const email = result.message.split(' ');
-    console.log(email[0]);
     const payload = {
       email_available: email[0],
     };

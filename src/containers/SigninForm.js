@@ -37,10 +37,6 @@ class SigninForm extends React.Component {
       password: formPassword,
     });
 
-    /*     if (valid_email && formEmail !== new_email && formEmail !== "") {
-      console.log("cheking email @API");
-      checkBackendEmail({ email: formEmail });
-    } */
     if (formEmail.length > 5 && valid_email) {
       enableSubmit('submit-btn');
     } else {
@@ -51,15 +47,14 @@ class SigninForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     const { fireBackendSignin } = this.props;
-    console.log('click submit()');
 
     const signInData = {
       ...this.state,
     };
     this.setState({
-      email: 'admin1@gmail.com',
+      email: '',
       valid_email: false,
-      password: '12345',
+      password: '',
     });
 
     fireBackendSignin(signInData);
@@ -70,9 +65,8 @@ class SigninForm extends React.Component {
 
   render() {
     const { email, password } = this.state;
-    const { new_email, secure } = this.props;
-    console.log(this.props);
-    console.log(`new API email is :${new_email}`);
+    const { secure } = this.props;
+
     // eslint-disable-next-line
     const { signup } = this.props.signup;
     return (
@@ -155,7 +149,6 @@ SigninForm.propTypes = {
     then: PropTypes.string.isRequired,
     token: PropTypes.string.isRequired,
   }).isRequired,
-  new_email: PropTypes.string.isRequired,
   fireBackendSignin: PropTypes.func.isRequired,
 };
 

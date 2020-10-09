@@ -73,15 +73,10 @@ class AdminIndexList extends React.Component {
       token: this.secure.token,
       id: this.account.id,
     };
-    console.log('||||===>>> AT COMPONENT DID MOUNT IN ADMIN_INDEX_LIST');
-    console.log({ payload });
     this.fireBackendRefreshAdmin(payload);
   }
 
   logout() {
-    console.log(
-      'ATTEMPT TO LOGOUT  ||||||||||||||||||&&&7777777777777&&&&&7777',
-    );
     this.logoutAction({
       id: null,
       name: null,

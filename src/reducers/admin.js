@@ -7,9 +7,6 @@ const defaultState = {
 };
 
 const admin = (state = defaultState, action) => {
-  console.log(' ||| in admin reducer now ||');
-  console.log(action);
-
   switch (action.type) {
     case UPDATE_INDEX_REPORT:
       // eslint-disable-next-line

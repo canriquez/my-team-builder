@@ -29,11 +29,8 @@ const ApplicationDetails = ({
   }
   // eslint-disable-next-line
   const selectedApplication = index_report.filter((record) => {
-    console.log(typeof record.application_id);
-    console.log(typeof match.params.id);
     return record.application_id === parseInt(match.params.id, 10);
   });
-  console.log({ selectedApplication });
   const {
     application_id,
     app_name,
@@ -49,8 +46,6 @@ const ApplicationDetails = ({
 
   const handleLikeAction = () => {
     const current_eval = currentEval(evals, account.id, application_id);
-    console.log('===>>>>> in the handleLikeAction');
-    console.log({ current_eval });
 
     if (!current_eval) {
       const payload = {
@@ -60,7 +55,6 @@ const ApplicationDetails = ({
         application_id,
         evaluation: 'like',
       };
-      console.log({ payload });
       fireCreateEvalAction(payload);
       return;
     }
@@ -71,7 +65,6 @@ const ApplicationDetails = ({
         id: current_eval.id,
         user_id: account.id,
       };
-      console.log({ payload });
       fireEraseEvalAction(payload);
     }
     if (current_eval.evaluation === 0) {
@@ -82,7 +75,6 @@ const ApplicationDetails = ({
         evaluation_id: current_eval.id,
         evaluation: 'like',
       };
-      console.log({ payload });
       fireChangeEvalAction(payload);
     }
   };
@@ -98,7 +90,6 @@ const ApplicationDetails = ({
         application_id,
         evaluation: 'dislike',
       };
-      console.log({ payload });
       fireCreateEvalAction(payload);
       return;
     }
@@ -111,7 +102,6 @@ const ApplicationDetails = ({
         evaluation_id: current_eval.id,
         evaluation: 'dislike',
       };
-      console.log({ payload });
       fireChangeEvalAction(payload);
     }
 
@@ -121,7 +111,6 @@ const ApplicationDetails = ({
         id: current_eval.id,
         user_id: account.id,
       };
-      console.log({ payload });
       fireEraseEvalAction(payload);
     }
   };

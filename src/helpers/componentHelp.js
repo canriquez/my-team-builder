@@ -83,11 +83,6 @@ const currentEval = (evals, adminId, applicationId) => {
 };
 
 const checkFilter = (object, filter) => {
-  console.log('CHEKING FILTERED LIST');
-  console.log({ object });
-  console.log(typeof filter);
-  console.log(typeof object.current_admin_evaluation);
-  console.log(object.current_admin_evaluation === filter);
   if (filter === 'all') {
     return object;
   }

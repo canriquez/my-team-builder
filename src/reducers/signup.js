@@ -6,9 +6,6 @@ const defaultState = {
 };
 
 const signup = (state = defaultState, action) => {
-  console.log(' ||| in reducer now ||');
-  console.log(action);
-
   switch (action.type) {
     case UPDATE_EMAIL_AVAILABLE:
       // eslint-disable-next-line

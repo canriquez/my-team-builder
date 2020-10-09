@@ -25,11 +25,6 @@ class App extends React.Component {
     this.index_report = index_report;
     this.secure = secure;
     this.account = account;
-
-    console.log('[[[[[[ HERE AT APP CHECK THE PROPS ]]]]]]]');
-    console.log(this.index_report);
-    console.log(this.secure);
-    console.log(this.account);
   }
 
   render() {

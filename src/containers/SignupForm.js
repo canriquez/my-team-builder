@@ -60,7 +60,6 @@ class SignupForm extends React.Component {
     });
 
     if (valid_email && formEmail !== new_email && formEmail !== '') {
-      console.log('cheking email @API');
       checkBackendEmail({ email: formEmail });
     }
     if (
@@ -78,11 +77,21 @@ class SignupForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     const { fireBackendSignup } = this.props;
-    console.log('click submit()');
 
     const signupData = {
       ...this.state,
     };
+
+    this.setState({
+      email: '',
+      name: '',
+      role: '',
+      avatar: '',
+      password: '',
+      password_repeat: '',
+      valid_email: false,
+      password_match: false,
+    });
 
     fireBackendSignup(signupData);
   }
@@ -96,11 +105,9 @@ class SignupForm extends React.Component {
       password_match,
     } = this.state;
     const { new_email } = this.props;
-    console.log(this.props);
-    console.log(`new API email is :${new_email}`);
+
     // eslint-disable-next-line
     const { signup } = this.props.signup;
-    console.log(signup);
     return (
       <div className={styles.formblock}>
         <div className={styles.formwrap}>
