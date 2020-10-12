@@ -4,8 +4,8 @@ import 'regenerator-runtime';
 const backEndSignup = async ({
   email, name, role, avatar, password,
 }) => {
-  const baseUrl = 'https://anriquez-my-team-api.herokuapp.com';
-  // const baseUrl = 'http://127.0.0.1:5000';
+  //const baseUrl = 'https://anriquez-my-team-api.herokuapp.com';
+  const baseUrl = 'http://127.0.0.1:5000';
   const endpoint = '/signup';
   const a = `?email=${email}`;
   const b = `&name=${name}`;
@@ -15,6 +15,7 @@ const backEndSignup = async ({
   const appURL = [baseUrl + endpoint + a + b + c + d + e];
   const request = {
     method: 'POST',
+    credentials: 'include',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
@@ -32,14 +33,16 @@ const backEndSignup = async ({
 };
 
 const backEndSignin = async ({ email, password }) => {
-  const baseUrl = 'https://anriquez-my-team-api.herokuapp.com';
-  // const baseUrl = 'http://127.0.0.1:5000';
+  //const baseUrl = 'https://anriquez-my-team-api.herokuapp.com';
+  const baseUrl = 'http://127.0.0.1:5000';
+  //const baseUrl = 'https://a9359bb09baa.ngrok.io';
   const endpoint = '/auth/login';
   const a = `?email=${email}`;
   const e = `&password=${password}`;
   const appURL = [baseUrl + endpoint + a + e];
   const request = {
     method: 'POST',
+    credentials: 'include',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
@@ -57,8 +60,8 @@ const backEndSignin = async ({ email, password }) => {
 };
 
 const backendCheckEmail = async ({ email }) => {
-  const baseUrl = 'https://anriquez-my-team-api.herokuapp.com';
-  // const baseUrl = 'http://127.0.0.1:5000';
+  //const baseUrl = 'https://anriquez-my-team-api.herokuapp.com';
+  const baseUrl = 'http://127.0.0.1:5000';
   const endpoint = '/adhome/check';
   const a = `?email=${email}`;
   const appURL = [baseUrl + endpoint + a];
@@ -81,8 +84,8 @@ const backendCheckEmail = async ({ email }) => {
 };
 
 const backendAdminEvals = async ({ id, auth }) => {
-  const baseUrl = 'https://anriquez-my-team-api.herokuapp.com';
-  // const baseUrl = 'http://127.0.0.1:5000';
+  //const baseUrl = 'https://anriquez-my-team-api.herokuapp.com';
+  const baseUrl = 'http://127.0.0.1:5000';
   const endpoint = '/adhome/evals';
   const a = `?id=${id}`;
   const appURL = [baseUrl + endpoint + a];
@@ -106,8 +109,8 @@ const backendAdminEvals = async ({ id, auth }) => {
 };
 
 const backendAdHome = async auth => {
-  const baseUrl = 'https://anriquez-my-team-api.herokuapp.com';
-  // const baseUrl = 'http://127.0.0.1:5000';
+  //const baseUrl = 'https://anriquez-my-team-api.herokuapp.com';
+  const baseUrl = 'http://127.0.0.1:5000';
   const endpoint = '/adhome';
   const appURL = [baseUrl + endpoint];
   const request = {
@@ -132,8 +135,8 @@ const backendAdHome = async auth => {
 /* Like actions */
 
 const backendDestroyLikes = async ({ id, token }) => {
-  const baseUrl = 'https://anriquez-my-team-api.herokuapp.com';
-  // const baseUrl = 'http://127.0.0.1:5000';
+  //const baseUrl = 'https://anriquez-my-team-api.herokuapp.com';
+  const baseUrl = 'http://127.0.0.1:5000';
   const endpoint = '/likes/';
   const a = `${id}`;
   const appURL = [baseUrl + endpoint + a];
@@ -162,8 +165,8 @@ const backendUpdateLikes = async ({
   evaluation,
   token,
 }) => {
-  const baseUrl = 'https://anriquez-my-team-api.herokuapp.com';
-  // const baseUrl = 'http://127.0.0.1:5000';
+  //const baseUrl = 'https://anriquez-my-team-api.herokuapp.com';
+  const baseUrl = 'http://127.0.0.1:5000';
   const endpoint = '/likes/';
   const a = `${evaluation_id}`;
   const b = `?application_id${evaluation_id}`;
@@ -194,8 +197,8 @@ const backendCreatesLikes = async ({
   evaluation,
   token,
 }) => {
-  const baseUrl = 'https://anriquez-my-team-api.herokuapp.com';
-  // const baseUrl = 'http://127.0.0.1:5000';
+  //const baseUrl = 'https://anriquez-my-team-api.herokuapp.com';
+  const baseUrl = 'http://127.0.0.1:5000';
   const endpoint = '/likes';
   const a = `?application_id=${application_id}`;
   const b = `&admin_id=${admin_id}`;
