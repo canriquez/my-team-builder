@@ -6,6 +6,6 @@ end
 
 group :development do
     gem 'capistrano'
-    gem 'capistrano-nvm'
-    gem 'capistrano-yarn'
+    gem 'capistrano-npm'
+
 end

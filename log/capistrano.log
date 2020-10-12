@@ -1,0 +1,21 @@
+# Logfile created on 2020-10-12 19:11:09 -0300 by logger.rb/66358
+  INFO ---------------------------------------------------------------------------
+  INFO START 2020-10-12 19:11:09 -0300 cap staging deploy
+  INFO ---------------------------------------------------------------------------
+  INFO [979cdaed] Running /usr/bin/env mkdir -p /tmp/my-team-builder/ on 54.157.185.107
+ DEBUG [979cdaed] Command: /usr/bin/env mkdir -p /tmp/my-team-builder/
+  INFO ---------------------------------------------------------------------------
+  INFO START 2020-10-12 19:13:41 -0300 cap staging deploy
+  INFO ---------------------------------------------------------------------------
+  INFO [24d3f2f7] Running /usr/bin/env mkdir -p /tmp/my-team-builder/ on 54.157.185.107
+ DEBUG [24d3f2f7] Command: /usr/bin/env mkdir -p /tmp/my-team-builder/
+  INFO ---------------------------------------------------------------------------
+  INFO START 2020-10-12 19:16:36 -0300 cap staging deploy
+  INFO ---------------------------------------------------------------------------
+  INFO [74fc04e4] Running /usr/bin/env mkdir -p /tmp/my-team-builder/ on 54.157.185.107
+ DEBUG [74fc04e4] Command: /usr/bin/env mkdir -p /tmp/my-team-builder/
+  INFO ---------------------------------------------------------------------------
+  INFO START 2020-10-12 19:17:16 -0300 cap staging deploy
+  INFO ---------------------------------------------------------------------------
+  INFO [0e4f0d9d] Running /usr/bin/env mkdir -p /tmp/my-team-builder/ on 54.157.185.107
+ DEBUG [0e4f0d9d] Command: /usr/bin/env mkdir -p /tmp/my-team-builder/
