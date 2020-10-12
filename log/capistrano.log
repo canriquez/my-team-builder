@@ -19,3 +19,151 @@
   INFO ---------------------------------------------------------------------------
   INFO [0e4f0d9d] Running /usr/bin/env mkdir -p /tmp/my-team-builder/ on 54.157.185.107
  DEBUG [0e4f0d9d] Command: /usr/bin/env mkdir -p /tmp/my-team-builder/
+  INFO ---------------------------------------------------------------------------
+  INFO START 2020-10-12 19:28:26 -0300 cap staging deploy
+  INFO ---------------------------------------------------------------------------
+  INFO [eb8343a5] Running /usr/bin/env mkdir -p /tmp as ubuntu@54.157.185.107
+ DEBUG [eb8343a5] Command: /usr/bin/env mkdir -p /tmp
+  INFO [eb8343a5] Finished in 2.502 seconds with exit status 0 (successful).
+ DEBUG Uploading /tmp/git-ssh-my-team-builder-staging-carlos.sh 0.0%
+  INFO Uploading /tmp/git-ssh-my-team-builder-staging-carlos.sh 100.0%
+  INFO [031d8ab4] Running /usr/bin/env chmod 700 /tmp/git-ssh-my-team-builder-staging-carlos.sh as ubuntu@54.157.185.107
+ DEBUG [031d8ab4] Command: /usr/bin/env chmod 700 /tmp/git-ssh-my-team-builder-staging-carlos.sh
+  INFO [031d8ab4] Finished in 0.522 seconds with exit status 0 (successful).
+  INFO [bd0390ee] Running /usr/bin/env git ls-remote git@github.com:canriquez/my-team-builder.git HEAD as ubuntu@54.157.185.107
+ DEBUG [bd0390ee] Command: ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-my-team-builder-staging-carlos.sh" ; /usr/bin/env git ls-remote git@github.com:canriquez/my-team-builder.git HEAD )
+ DEBUG [bd0390ee] 	f5d08f462a1503a3443437622d469a728b28b098	HEAD
+  INFO [bd0390ee] Finished in 1.249 seconds with exit status 0 (successful).
+  INFO [2c7b9fd6] Running /usr/bin/env mkdir -p /home/ubuntu/apps/my-team-builder/shared /home/ubuntu/apps/my-team-builder/releases as ubuntu@54.157.185.107
+ DEBUG [2c7b9fd6] Command: /usr/bin/env mkdir -p /home/ubuntu/apps/my-team-builder/shared /home/ubuntu/apps/my-team-builder/releases
+  INFO [2c7b9fd6] Finished in 0.521 seconds with exit status 0 (successful).
+ DEBUG [94de5945] Running [ -f /home/ubuntu/apps/my-team-builder/current/REVISION ] as ubuntu@54.157.185.107
+ DEBUG [94de5945] Command: [ -f /home/ubuntu/apps/my-team-builder/current/REVISION ]
+ DEBUG [94de5945] Finished in 0.519 seconds with exit status 1 (failed).
+ DEBUG [6cc9bb90] Running [ -f /home/ubuntu/apps/my-team-builder/repo/HEAD ] as ubuntu@54.157.185.107
+ DEBUG [6cc9bb90] Command: [ -f /home/ubuntu/apps/my-team-builder/repo/HEAD ]
+ DEBUG [6cc9bb90] Finished in 0.560 seconds with exit status 1 (failed).
+ DEBUG [60a94857] Running if test ! -d /home/ubuntu/apps/my-team-builder; then echo "Directory does not exist '/home/ubuntu/apps/my-team-builder'" 1>&2; false; fi as ubuntu@54.157.185.107
+ DEBUG [60a94857] Command: if test ! -d /home/ubuntu/apps/my-team-builder; then echo "Directory does not exist '/home/ubuntu/apps/my-team-builder'" 1>&2; false; fi
+ DEBUG [60a94857] Finished in 0.521 seconds with exit status 0 (successful).
+  INFO [13de42d2] Running /usr/bin/env git clone --mirror git@github.com:canriquez/my-team-builder.git /home/ubuntu/apps/my-team-builder/repo as ubuntu@54.157.185.107
+ DEBUG [13de42d2] Command: cd /home/ubuntu/apps/my-team-builder && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-my-team-builder-staging-carlos.sh" ; /usr/bin/env git clone --mirror git@github.com:canriquez/my-team-builder.git /home/ubuntu/apps/my-team-builder/repo )
+ DEBUG [13de42d2] 	Cloning into bare repository '/home/ubuntu/apps/my-team-builder/repo'...
+  INFO [13de42d2] Finished in 1.656 seconds with exit status 0 (successful).
+ DEBUG [042b5921] Running if test ! -d /home/ubuntu/apps/my-team-builder/repo; then echo "Directory does not exist '/home/ubuntu/apps/my-team-builder/repo'" 1>&2; false; fi as ubuntu@54.157.185.107
+ DEBUG [042b5921] Command: if test ! -d /home/ubuntu/apps/my-team-builder/repo; then echo "Directory does not exist '/home/ubuntu/apps/my-team-builder/repo'" 1>&2; false; fi
+ DEBUG [042b5921] Finished in 0.450 seconds with exit status 0 (successful).
+  INFO [96469112] Running /usr/bin/env git remote set-url origin git@github.com:canriquez/my-team-builder.git as ubuntu@54.157.185.107
+ DEBUG [96469112] Command: cd /home/ubuntu/apps/my-team-builder/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-my-team-builder-staging-carlos.sh" ; /usr/bin/env git remote set-url origin git@github.com:canriquez/my-team-builder.git )
+  INFO [96469112] Finished in 0.571 seconds with exit status 0 (successful).
+  INFO [a0f2983f] Running /usr/bin/env git remote update --prune as ubuntu@54.157.185.107
+ DEBUG [a0f2983f] Command: cd /home/ubuntu/apps/my-team-builder/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-my-team-builder-staging-carlos.sh" ; /usr/bin/env git remote update --prune )
+ DEBUG [a0f2983f] 	Fetching origin
+  INFO [a0f2983f] Finished in 1.093 seconds with exit status 0 (successful).
+ DEBUG [ab74cb59] Running if test ! -d /home/ubuntu/apps/my-team-builder/repo; then echo "Directory does not exist '/home/ubuntu/apps/my-team-builder/repo'" 1>&2; false; fi as ubuntu@54.157.185.107
+ DEBUG [ab74cb59] Command: if test ! -d /home/ubuntu/apps/my-team-builder/repo; then echo "Directory does not exist '/home/ubuntu/apps/my-team-builder/repo'" 1>&2; false; fi
+ DEBUG [ab74cb59] Finished in 0.516 seconds with exit status 0 (successful).
+  INFO [733fdda7] Running /usr/bin/env mkdir -p /home/ubuntu/apps/my-team-builder/releases/20201012222833 as ubuntu@54.157.185.107
+ DEBUG [733fdda7] Command: cd /home/ubuntu/apps/my-team-builder/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-my-team-builder-staging-carlos.sh" ; /usr/bin/env mkdir -p /home/ubuntu/apps/my-team-builder/releases/20201012222833 )
+  INFO [733fdda7] Finished in 0.624 seconds with exit status 0 (successful).
+  INFO [598df17b] Running /usr/bin/env git archive feat_persistance | /usr/bin/env tar -x -f - -C /home/ubuntu/apps/my-team-builder/releases/20201012222833 as ubuntu@54.157.185.107
+ DEBUG [598df17b] Command: cd /home/ubuntu/apps/my-team-builder/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-my-team-builder-staging-carlos.sh" ; /usr/bin/env git archive feat_persistance | /usr/bin/env tar -x -f - -C /home/ubuntu/apps/my-team-builder/releases/20201012222833 )
+  INFO [598df17b] Finished in 0.562 seconds with exit status 0 (successful).
+ DEBUG [aa556d8a] Running if test ! -d /home/ubuntu/apps/my-team-builder/repo; then echo "Directory does not exist '/home/ubuntu/apps/my-team-builder/repo'" 1>&2; false; fi as ubuntu@54.157.185.107
+ DEBUG [aa556d8a] Command: if test ! -d /home/ubuntu/apps/my-team-builder/repo; then echo "Directory does not exist '/home/ubuntu/apps/my-team-builder/repo'" 1>&2; false; fi
+ DEBUG [aa556d8a] Finished in 0.563 seconds with exit status 0 (successful).
+ DEBUG [77bec2d5] Running /usr/bin/env git rev-list --max-count=1 feat_persistance as ubuntu@54.157.185.107
+ DEBUG [77bec2d5] Command: cd /home/ubuntu/apps/my-team-builder/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-my-team-builder-staging-carlos.sh" ; /usr/bin/env git rev-list --max-count=1 feat_persistance )
+ DEBUG [77bec2d5] 	6f568d1af0f1005284699194ab2fcea2602c2149
+ DEBUG [77bec2d5] Finished in 0.522 seconds with exit status 0 (successful).
+ DEBUG [02e537aa] Running if test ! -d /home/ubuntu/apps/my-team-builder/releases/20201012222833; then echo "Directory does not exist '/home/ubuntu/apps/my-team-builder/releases/20201012222833'" 1>&2; false; fi as ubuntu@54.157.185.107
+ DEBUG [02e537aa] Command: if test ! -d /home/ubuntu/apps/my-team-builder/releases/20201012222833; then echo "Directory does not exist '/home/ubuntu/apps/my-team-builder/releases/20201012222833'" 1>&2; false; fi
+ DEBUG [02e537aa] Finished in 0.561 seconds with exit status 0 (successful).
+  INFO [300502cb] Running /usr/bin/env echo "6f568d1af0f1005284699194ab2fcea2602c2149" > REVISION as ubuntu@54.157.185.107
+ DEBUG [300502cb] Command: cd /home/ubuntu/apps/my-team-builder/releases/20201012222833 && /usr/bin/env echo "6f568d1af0f1005284699194ab2fcea2602c2149" > REVISION
+  INFO [300502cb] Finished in 0.524 seconds with exit status 0 (successful).
+ DEBUG [83c5588d] Running if test ! -d /home/ubuntu/apps/my-team-builder/releases/20201012222833; then echo "Directory does not exist '/home/ubuntu/apps/my-team-builder/releases/20201012222833'" 1>&2; false; fi as ubuntu@54.157.185.107
+ DEBUG [83c5588d] Command: if test ! -d /home/ubuntu/apps/my-team-builder/releases/20201012222833; then echo "Directory does not exist '/home/ubuntu/apps/my-team-builder/releases/20201012222833'" 1>&2; false; fi
+ DEBUG [83c5588d] Finished in 0.564 seconds with exit status 0 (successful).
+  INFO [f01685bb] Running /usr/bin/env npm install --silent --no-progress as ubuntu@54.157.185.107
+ DEBUG [f01685bb] Command: cd /home/ubuntu/apps/my-team-builder/releases/20201012222833 && /usr/bin/env npm install --silent --no-progress
+ DEBUG [f01685bb] 	/usr/bin/env: 
+ DEBUG [f01685bb] 	'npm'
+ DEBUG [f01685bb] 	: No such file or directory
+ DEBUG [f01685bb] 	
+  INFO ---------------------------------------------------------------------------
+  INFO START 2020-10-12 19:30:45 -0300 cap staging deploy
+  INFO ---------------------------------------------------------------------------
+  INFO [ac5726ae] Running /usr/bin/env mkdir -p /tmp as ubuntu@54.157.185.107
+ DEBUG [ac5726ae] Command: /usr/bin/env mkdir -p /tmp
+  INFO [ac5726ae] Finished in 3.227 seconds with exit status 0 (successful).
+ DEBUG Uploading /tmp/git-ssh-my-team-builder-staging-carlos.sh 0.0%
+  INFO Uploading /tmp/git-ssh-my-team-builder-staging-carlos.sh 100.0%
+  INFO [40981f5e] Running /usr/bin/env chmod 700 /tmp/git-ssh-my-team-builder-staging-carlos.sh as ubuntu@54.157.185.107
+ DEBUG [40981f5e] Command: /usr/bin/env chmod 700 /tmp/git-ssh-my-team-builder-staging-carlos.sh
+  INFO [40981f5e] Finished in 0.590 seconds with exit status 0 (successful).
+  INFO [1409970b] Running /usr/bin/env git ls-remote git@github.com:canriquez/my-team-builder.git HEAD as ubuntu@54.157.185.107
+ DEBUG [1409970b] Command: ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-my-team-builder-staging-carlos.sh" ; /usr/bin/env git ls-remote git@github.com:canriquez/my-team-builder.git HEAD )
+ DEBUG [1409970b] 	f5d08f462a1503a3443437622d469a728b28b098	HEAD
+  INFO [1409970b] Finished in 1.380 seconds with exit status 0 (successful).
+  INFO [06117e85] Running /usr/bin/env mkdir -p /home/ubuntu/apps/my-team-builder/shared /home/ubuntu/apps/my-team-builder/releases as ubuntu@54.157.185.107
+ DEBUG [06117e85] Command: /usr/bin/env mkdir -p /home/ubuntu/apps/my-team-builder/shared /home/ubuntu/apps/my-team-builder/releases
+  INFO [06117e85] Finished in 0.611 seconds with exit status 0 (successful).
+ DEBUG [c6d3d279] Running [ -f /home/ubuntu/apps/my-team-builder/current/REVISION ] as ubuntu@54.157.185.107
+ DEBUG [c6d3d279] Command: [ -f /home/ubuntu/apps/my-team-builder/current/REVISION ]
+ DEBUG [c6d3d279] Finished in 0.588 seconds with exit status 1 (failed).
+ DEBUG [ad9aaafd] Running [ -f /home/ubuntu/apps/my-team-builder/repo/HEAD ] as ubuntu@54.157.185.107
+ DEBUG [ad9aaafd] Command: [ -f /home/ubuntu/apps/my-team-builder/repo/HEAD ]
+ DEBUG [ad9aaafd] Finished in 0.640 seconds with exit status 0 (successful).
+  INFO The repository mirror is at /home/ubuntu/apps/my-team-builder/repo
+ DEBUG [fd682bc2] Running if test ! -d /home/ubuntu/apps/my-team-builder/repo; then echo "Directory does not exist '/home/ubuntu/apps/my-team-builder/repo'" 1>&2; false; fi as ubuntu@54.157.185.107
+ DEBUG [fd682bc2] Command: if test ! -d /home/ubuntu/apps/my-team-builder/repo; then echo "Directory does not exist '/home/ubuntu/apps/my-team-builder/repo'" 1>&2; false; fi
+ DEBUG [fd682bc2] Finished in 0.586 seconds with exit status 0 (successful).
+  INFO [9fce5b1a] Running /usr/bin/env git remote set-url origin git@github.com:canriquez/my-team-builder.git as ubuntu@54.157.185.107
+ DEBUG [9fce5b1a] Command: cd /home/ubuntu/apps/my-team-builder/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-my-team-builder-staging-carlos.sh" ; /usr/bin/env git remote set-url origin git@github.com:canriquez/my-team-builder.git )
+  INFO [9fce5b1a] Finished in 0.637 seconds with exit status 0 (successful).
+  INFO [9b0b606c] Running /usr/bin/env git remote update --prune as ubuntu@54.157.185.107
+ DEBUG [9b0b606c] Command: cd /home/ubuntu/apps/my-team-builder/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-my-team-builder-staging-carlos.sh" ; /usr/bin/env git remote update --prune )
+ DEBUG [9b0b606c] 	Fetching origin
+  INFO [9b0b606c] Finished in 1.231 seconds with exit status 0 (successful).
+ DEBUG [55d93040] Running if test ! -d /home/ubuntu/apps/my-team-builder/repo; then echo "Directory does not exist '/home/ubuntu/apps/my-team-builder/repo'" 1>&2; false; fi as ubuntu@54.157.185.107
+ DEBUG [55d93040] Command: if test ! -d /home/ubuntu/apps/my-team-builder/repo; then echo "Directory does not exist '/home/ubuntu/apps/my-team-builder/repo'" 1>&2; false; fi
+ DEBUG [55d93040] Finished in 0.584 seconds with exit status 0 (successful).
+  INFO [355915db] Running /usr/bin/env mkdir -p /home/ubuntu/apps/my-team-builder/releases/20201012223053 as ubuntu@54.157.185.107
+ DEBUG [355915db] Command: cd /home/ubuntu/apps/my-team-builder/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-my-team-builder-staging-carlos.sh" ; /usr/bin/env mkdir -p /home/ubuntu/apps/my-team-builder/releases/20201012223053 )
+  INFO [355915db] Finished in 0.720 seconds with exit status 0 (successful).
+  INFO [9b2e0356] Running /usr/bin/env git archive feat_persistance | /usr/bin/env tar -x -f - -C /home/ubuntu/apps/my-team-builder/releases/20201012223053 as ubuntu@54.157.185.107
+ DEBUG [9b2e0356] Command: cd /home/ubuntu/apps/my-team-builder/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-my-team-builder-staging-carlos.sh" ; /usr/bin/env git archive feat_persistance | /usr/bin/env tar -x -f - -C /home/ubuntu/apps/my-team-builder/releases/20201012223053 )
+  INFO [9b2e0356] Finished in 0.656 seconds with exit status 0 (successful).
+ DEBUG [5469a7f1] Running if test ! -d /home/ubuntu/apps/my-team-builder/repo; then echo "Directory does not exist '/home/ubuntu/apps/my-team-builder/repo'" 1>&2; false; fi as ubuntu@54.157.185.107
+ DEBUG [5469a7f1] Command: if test ! -d /home/ubuntu/apps/my-team-builder/repo; then echo "Directory does not exist '/home/ubuntu/apps/my-team-builder/repo'" 1>&2; false; fi
+ DEBUG [5469a7f1] Finished in 0.629 seconds with exit status 0 (successful).
+ DEBUG [48c05bce] Running /usr/bin/env git rev-list --max-count=1 feat_persistance as ubuntu@54.157.185.107
+ DEBUG [48c05bce] Command: cd /home/ubuntu/apps/my-team-builder/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-my-team-builder-staging-carlos.sh" ; /usr/bin/env git rev-list --max-count=1 feat_persistance )
+ DEBUG [48c05bce] 	6f568d1af0f1005284699194ab2fcea2602c2149
+ DEBUG [48c05bce] Finished in 0.590 seconds with exit status 0 (successful).
+ DEBUG [15b157eb] Running if test ! -d /home/ubuntu/apps/my-team-builder/releases/20201012223053; then echo "Directory does not exist '/home/ubuntu/apps/my-team-builder/releases/20201012223053'" 1>&2; false; fi as ubuntu@54.157.185.107
+ DEBUG [15b157eb] Command: if test ! -d /home/ubuntu/apps/my-team-builder/releases/20201012223053; then echo "Directory does not exist '/home/ubuntu/apps/my-team-builder/releases/20201012223053'" 1>&2; false; fi
+ DEBUG [15b157eb] Finished in 0.633 seconds with exit status 0 (successful).
+  INFO [3ffde953] Running /usr/bin/env echo "6f568d1af0f1005284699194ab2fcea2602c2149" > REVISION as ubuntu@54.157.185.107
+ DEBUG [3ffde953] Command: cd /home/ubuntu/apps/my-team-builder/releases/20201012223053 && /usr/bin/env echo "6f568d1af0f1005284699194ab2fcea2602c2149" > REVISION
+  INFO [3ffde953] Finished in 0.592 seconds with exit status 0 (successful).
+ DEBUG [ea7cb030] Running if test ! -d /home/ubuntu/apps/my-team-builder/releases/20201012223053; then echo "Directory does not exist '/home/ubuntu/apps/my-team-builder/releases/20201012223053'" 1>&2; false; fi as ubuntu@54.157.185.107
+ DEBUG [ea7cb030] Command: if test ! -d /home/ubuntu/apps/my-team-builder/releases/20201012223053; then echo "Directory does not exist '/home/ubuntu/apps/my-team-builder/releases/20201012223053'" 1>&2; false; fi
+ DEBUG [ea7cb030] Finished in 0.626 seconds with exit status 0 (successful).
+  INFO [a85a26c3] Running /usr/bin/env npm install --silent --no-progress as ubuntu@54.157.185.107
+ DEBUG [a85a26c3] Command: cd /home/ubuntu/apps/my-team-builder/releases/20201012223053 && /usr/bin/env npm install --silent --no-progress
+ DEBUG [a85a26c3] 	added 2021 packages from 843 contributors and audited 2030 packages in 55.884s
+ DEBUG [a85a26c3] 	
+120 packages are looking for funding
+  run `npm fund` for details
+
+ DEBUG [a85a26c3] 	found 3639 low severity vulnerabilities
+  run `npm audit fix` to fix them, or `npm audit` for details
+  INFO [a85a26c3] Finished in 59.266 seconds with exit status 0 (successful).
+  INFO [eb07b38a] Running /usr/bin/env ln -s /home/ubuntu/apps/my-team-builder/releases/20201012223053 /home/ubuntu/apps/my-team-builder/releases/current as ubuntu@54.157.185.107
+ DEBUG [eb07b38a] Command: /usr/bin/env ln -s /home/ubuntu/apps/my-team-builder/releases/20201012223053 /home/ubuntu/apps/my-team-builder/releases/current
+  INFO [eb07b38a] Finished in 0.718 seconds with exit status 0 (successful).
+  INFO [9d99da12] Running /usr/bin/env mv /home/ubuntu/apps/my-team-builder/releases/current /home/ubuntu/apps/my-team-builder as ubuntu@54.157.185.107
+ DEBUG [9d99da12] Command: /usr/bin/env mv /home/ubuntu/apps/my-team-builder/releases/current /home/ubuntu/apps/my-team-builder
+  INFO [9d99da12] Finished in 0.597 seconds with exit status 0 (successful).
