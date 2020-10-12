@@ -1,7 +1,7 @@
 server '54.157.185.107', port: 22, roles: [:web, :app, :db], primary: true
 #set :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
-set :branch,        :feat_init
+set :branch,        :feat_persistance
 
 # config valid for current version and patch releases of Capistrano
 lock "~> 3.14.1"
