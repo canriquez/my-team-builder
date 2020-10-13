@@ -40,7 +40,7 @@ const App  = ({
 
     return (
       <Router>
-        <div className={styles.appContainer}>
+        <main className={styles.appContainer}>
           <Switch>
             <Route exact path="/" component={HomePage} />
             <Route path="/signin" render={() => <SigninForm />} />
@@ -66,7 +66,7 @@ const App  = ({
             />
             <Route path={'/*'} render={() => <Redirect to="/" />} />
           </Switch>
-        </div>
+        </main>
       </Router>
     );
   }

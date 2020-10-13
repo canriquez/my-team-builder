@@ -105,8 +105,8 @@ class SignupForm extends React.Component {
     const { signup } = this.props;
     const {action, emailVal} = signup 
     return (
-      <div className={styles.formblock}>
-        <div className={styles.formwrap}>
+      <section className={styles.formblock}>
+        <article className={styles.formwrap}>
         <div className={styles.exitIcon}>
         <Link to="/" className={styles.exitBtn}>
         <img
@@ -251,8 +251,8 @@ class SignupForm extends React.Component {
           {action === 'success' ? <Redirect to="/messages/0" /> : ''}
           {action === 'error' ? <Redirect to="/messages/1" /> : ''}
           {action === 'api_error' ? <Redirect to="/messages/2" /> : ''}
-        </div>
-      </div>
+        </article>
+      </section>
     );
   }
 }

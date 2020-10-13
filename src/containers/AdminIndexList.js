@@ -101,8 +101,8 @@ class AdminIndexList extends React.Component {
     }
     return (
       <>
-        <div className={styles.navBar}>
-          <div className={styles.menuIcon}>
+        <header className={styles.navBar}>
+          <nav className={styles.menuIcon}>
             <button className={styles.signoutButton} onClick={this.logout}>
               Log Out
             </button>
@@ -114,10 +114,10 @@ class AdminIndexList extends React.Component {
               <h2>{this.account.name}</h2>
               <h4 className={styles.role}>{this.account.role}</h4>
             </div>
-          </div>
-        </div>
-        <div className={styles.carroucelContainer}>
-          <div className={styles.filterInfo}>
+          </nav>
+        </header>
+        <section className={styles.carroucelContainer}>
+          <article className={styles.filterInfo}>
             <h3>
               Currently showing
               <span className={`${styles.humanFilter} txt-${mainFilter}`}>
@@ -143,7 +143,7 @@ class AdminIndexList extends React.Component {
               </span>
               total records
             </h4>
-          </div>
+          </article>
           <Carousel responsive={this.responsive}>
             {filteredReport.map((object, id) => (
               <React.Fragment key={`child${id}`}>
@@ -156,7 +156,7 @@ class AdminIndexList extends React.Component {
               </React.Fragment>
             ))}
           </Carousel>
-        </div>
+        </section>
       </>
     );
   }

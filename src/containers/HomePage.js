@@ -10,7 +10,7 @@ import UserIndexList from '../components/UserIndexList'
 
 const HomePage = ({ secure, admin, account }) => (
   <div className={styles.pageContainer}>
-    <div className={styles.buttonWrap}>
+    <nav className={styles.buttonWrap}>
       {!secure.id ? (
         <>
           <Link className={styles.routerLink} to="/signin">
@@ -25,13 +25,13 @@ const HomePage = ({ secure, admin, account }) => (
       )}
       {admin.index_report ? <AdminIndexList /> : ''}
       {account.role === 'user' ? <UserIndexList /> : ''}
-    </div>
-    <div className={styles.brandWrapper}>
+    </nav>
+    <article className={styles.brandWrapper}>
       <div className={styles.logoWrap}>
         <img src={logo} alt="Logo" id="ok-icon" />
       </div>
       <h1 className={styles.brand}>My Team Builder</h1>
-    </div>
+    </article>
   </div>
 );
 

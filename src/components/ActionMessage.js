@@ -39,8 +39,8 @@ const ActionMessage = ({ match, validCall, cleanSignupState}) => {
   ];
 
   return (
-    <div className={styles.formblock}>
-      <div className={styles.formwrap}>
+    <section className={styles.formblock}>
+      <article className={styles.formwrap}>
         <div className={styles.formtitle}>
           <h1>{messages[mindex].message}</h1>
         </div>
@@ -87,8 +87,8 @@ const ActionMessage = ({ match, validCall, cleanSignupState}) => {
         ) : (
           ''
         )}
-      </div>
-    </div>
+      </article>
+    </section>
   );
 };
 

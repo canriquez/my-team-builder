@@ -15,7 +15,7 @@ const ApplicationCard = ({ cardObject }) => {
     admin_eval,
   } = cardObject;
   return (
-    <div className={styles.cardContainer}>
+    <article className={styles.cardContainer}>
       <div className={styles.cardHeading}>
         <h1>{job_name}</h1>
         {admin_eval === 0 ? (
@@ -50,7 +50,7 @@ const ApplicationCard = ({ cardObject }) => {
           <h4>{app_date}</h4>
         </div>
       </div>
-    </div>
+    </article>
   );
 };
 
