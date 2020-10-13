@@ -98,6 +98,7 @@ class SignupForm extends React.Component {
       password,
       password_repeat,
       password_match,
+      valid_email
     } = this.state;
     const { new_email, history } = this.props;
 
@@ -167,7 +168,7 @@ class SignupForm extends React.Component {
               <img
                 className={
                   styles.formIcons
-                  + (new_email === email && email !== '' ? ' show' : ' hide')
+                  + (valid_email && email !== '' ? ' show' : ' hide')
                 }
                 src={okIcon}
                 alt="Logo"

@@ -3,7 +3,7 @@ import React from 'react';
 import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
-import { backendSigninAction, checkApiEmail } from '../actions/index';
+import { backendSigninAction, checkApiEmail, updateSignupState } from '../actions/index';
 import {
   validEmail,
   validPassword,
@@ -28,6 +28,8 @@ class SigninForm extends React.Component {
   }
 
   handleChange() {
+    const {cleanSignupState} = this.props
+    cleanSignupState();
     const formEmail = document.getElementById('emailValue').value;
     const formPassword = document.getElementById('passwordValue').value;
     const valid_email = validEmail(formEmail);
@@ -69,7 +71,8 @@ class SigninForm extends React.Component {
     const { secure } = this.props;
 
     // eslint-disable-next-line
-    const { signup } = this.props.signup;
+    const { signup } = this.props;
+    const {action, signInVal} = signup 
     return (
       <div className={styles.formblock}>
         <div className={styles.formwrap}>
@@ -87,6 +90,14 @@ class SigninForm extends React.Component {
           <div className={styles.formtitle}>
             <h1>Sign in</h1>
             <h3>Hi there, signin to your account</h3>
+            <h2>
+            {
+              signInVal ? 
+              <span className={styles.credentialsError}>{" "}{signInVal}</span>
+              :
+              ""
+            }
+            </h2>
           </div>
           <form
             className={styles.formfields}
@@ -127,7 +138,7 @@ class SigninForm extends React.Component {
               Sign In
             </button>
             {secure.id ? <Redirect to="/" /> : ''}
-            {signup === 'api_error' ? <Redirect to="/messages/2" /> : ''}
+            {action === 'api_error' ? <Redirect to="/messages/2" /> : ''}
           </form>
         </div>
       </div>
@@ -141,6 +152,9 @@ const mapDispatchToProps = dispatch => ({
   },
   checkBackendEmail: email => {
     dispatch(checkApiEmail(email));
+  },
+  cleanSignupState: ()=>{
+    dispatch(updateSignupState({newSignup: '', action:'', signInVal: null}))
   },
 });
 

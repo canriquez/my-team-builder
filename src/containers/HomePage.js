@@ -7,8 +7,12 @@ import Button from '../components/HomeButton';
 import logo from '../assets/icons/logo.svg';
 import AdminIndexList from './AdminIndexList';
 import UserIndexList from '../components/UserIndexList'
+import { updateSignupState } from '../actions/index';
 
-const HomePage = ({ secure, admin, account }) => (
+const HomePage = ({ secure, admin, account, cleanSignupState }) =>{
+  cleanSignupState();
+return (
+
   <div className={styles.pageContainer}>
     <nav className={styles.buttonWrap}>
       {!secure.id ? (
@@ -33,12 +37,18 @@ const HomePage = ({ secure, admin, account }) => (
       <h1 className={styles.brand}>My Team Builder</h1>
     </article>
   </div>
-);
+)};
 
 const mapStateToProps = state => ({
   account: state.account,
   secure: state.secure,
   admin: state.admin,
+});
+
+const mapDispatchToProps = dispatch => ({
+  cleanSignupState: ()=>{
+    dispatch(updateSignupState({newSignup: '', action:'', signInVal: null}))
+  }
 });
 
 HomePage.propTypes = {
@@ -56,4 +66,4 @@ HomePage.propTypes = {
   }).isRequired,
 };
 
-export default connect(mapStateToProps, null)(HomePage);
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

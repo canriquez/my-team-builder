@@ -188,6 +188,23 @@ const backendSigninAction = signUpIn => dispatch => backEndSignin(signUpIn)
       return result;
     }
     // else Show error message
+    console.log(result)
+    let payload = {};
+    if (result.message.includes("Invalid credentials")){
+        const messages = "Invalid credentials, please try again."
+        payload = {
+          newSignup: 'done',
+          signup: 'validation',
+          signInVal: messages,
+        };
+      } else {
+        payload = {
+        newSignup: 'done',
+        action: 'success',
+        message: result.message,
+      };
+    }
+    dispatch(updateSignupState(payload));
 
     return result;
   })

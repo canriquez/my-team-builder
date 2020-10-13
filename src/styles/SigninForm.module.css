@@ -128,5 +128,9 @@
   right: 15px;
 }
 
+.credentialsError {
+  color: red;
+}
+
 
 
