@@ -74,9 +74,23 @@ const filterUpdate = filter => ({
 
 const backendSignupAction = signUpData => dispatch => backEndSignup(signUpData)
   .then(result => {
-    const payload = {
-      signup: 'success',
-    };
+    console.log('Signup result:');
+    console.log(result)
+    let payload = {};
+    if (result.message.includes("Validation failed")){
+        const messages = result.message.substring(19,result.message.length )
+        payload = {
+          newSignup: 'done',
+          signup: 'validation',
+          emailVal: messages,
+        };
+      } else {
+        payload = {
+        newSignup: 'done',
+        action: 'success',
+        message: result.message,
+      };
+    }
     dispatch(updateSignupState(payload));
     return result;
     // dispatch(updateAccountData({update object}));

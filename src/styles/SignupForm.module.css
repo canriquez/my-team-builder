@@ -105,3 +105,17 @@
   right: 12px;
   width: 18px;
 }
+
+
+.valError{
+  color: red;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+input .emailVal{
+  color: red!important;
+  font-weight: 400!important;
+  font-size: 14px!important;
+}
+

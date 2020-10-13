@@ -3,7 +3,7 @@ import React from 'react';
 import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { backendSignupAction, checkApiEmail } from '../actions/index';
+import { backendSignupAction, checkApiEmail, updateSignupState } from '../actions/index';
 import {
   validEmail,
   validName,
@@ -37,6 +37,10 @@ class SignupForm extends React.Component {
     // this.mapDispatchToProps = this.mapDispatchToProps.bind(this);
   }
 
+  componentDidMount() {
+
+  }
+
   handleChange() {
     const { checkBackendEmail, new_email } = this.props;
     const formName = document.getElementById('nameValue').value;
@@ -60,13 +64,13 @@ class SignupForm extends React.Component {
     });
 
     if (valid_email && formEmail !== new_email && formEmail !== '') {
-      checkBackendEmail({ email: formEmail });
+      //checkBackendEmail({ email: formEmail });
     }
     if (
       formEmail.length > 5
       && valid_email
       && valid_password
-      && formEmail === new_email
+      //&& formEmail === new_email
     ) {
       enableSubmit('submit-btn');
     } else {
@@ -82,17 +86,6 @@ class SignupForm extends React.Component {
       ...this.state,
     };
 
-    this.setState({
-      email: '',
-      name: '',
-      role: '',
-      avatar: '',
-      password: '',
-      password_repeat: '',
-      valid_email: false,
-      password_match: false,
-    });
-
     fireBackendSignup(signupData);
   }
 
@@ -107,7 +100,8 @@ class SignupForm extends React.Component {
     const { new_email } = this.props;
 
     // eslint-disable-next-line
-    const { signup } = this.props.signup;
+    const { signup } = this.props;
+    const {action, emailVal} = signup 
     return (
       <div className={styles.formblock}>
         <div className={styles.formwrap}>
@@ -141,10 +135,17 @@ class SignupForm extends React.Component {
                 id="ok-icon"
               />
             </div>
-            <label htmlFor="emailValue">email</label>
+            <label htmlFor="emailValue">email 
+            {
+              emailVal ? 
+              <span className={styles.valError}>{" | "}{emailVal}</span>
+              :
+              ""
+            }
+            </label>
             <div className={styles.emailInputWrap}>
               <input
-                className="emailValue"
+                className={(emailVal ? ' emailVal' : '')}
                 type="text"
                 onChange={this.handleChange}
                 value={email}
@@ -235,9 +236,9 @@ class SignupForm extends React.Component {
               Sign Up
             </button>
           </form>
-          {signup === 'success' ? <Redirect to="/messages/0" /> : ''}
-          {signup === 'error' ? <Redirect to="/messages/1" /> : ''}
-          {signup === 'api_error' ? <Redirect to="/messages/2" /> : ''}
+          {action === 'success' ? <Redirect to="/messages/0" /> : ''}
+          {action === 'error' ? <Redirect to="/messages/1" /> : ''}
+          {action === 'api_error' ? <Redirect to="/messages/2" /> : ''}
         </div>
       </div>
     );
@@ -251,6 +252,9 @@ const mapDispatchToProps = dispatch => ({
   checkBackendEmail: email => {
     dispatch(checkApiEmail(email));
   },
+  cleanSignupState: (payload)=>{
+    dispatch(updateSignupState({newSignup: 'pending'}))
+  }
 });
 
 const mapStateToProps = state => ({
