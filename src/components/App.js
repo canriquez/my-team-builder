@@ -21,7 +21,8 @@ import {fetchLocalRecord} from '../helpers/componentHelp'
 
 const App  = ({
   secure, 
-  updateAdminSession
+  updateAdminSession,
+  updateUserSession,
 })=>{
 
   useEffect(()=> {
@@ -30,6 +31,9 @@ const App  = ({
     if (!localUser) return
     if (!secure.id && localUser.role === 'admin' && validToken && isMounted) {
       updateAdminSession(fetchLocalRecord());
+    }else if(!secure.id && localUser.role === 'user' && validToken && isMounted)
+    {
+      updateUserSession(fetchLocalRecord())
     }
     return () => { isMounted = false };
   })
@@ -83,6 +87,11 @@ const mapDispatchToProps = dispatch => ({
     dispatch(updateAdmIndexReport(payload.localAdmIndex));
     dispatch(updateAuthToken(payload.localAuth));
     dispatch(updateAccountData({evals: payload.localAdmEval}));
+
+  },
+  updateUserSession: (payload) =>{
+    dispatch(updateAccountData(payload.localUser));
+    dispatch(updateAuthToken(payload.localAuth));
 
   }
 });

@@ -94,7 +94,7 @@ class AdminIndexList extends React.Component {
     const totRecords = index_report.length;
     // eslint-disable-next-line
     const filRecords = filteredReport.length;
-    if (!secure.id) {
+    if (!secure.id ) {
       return <Redirect to="/" />;
     }
     return (

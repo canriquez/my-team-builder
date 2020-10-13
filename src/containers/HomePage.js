@@ -6,8 +6,9 @@ import styles from '../styles/HomePage.module.css';
 import Button from '../components/HomeButton';
 import logo from '../assets/icons/logo.svg';
 import AdminIndexList from './AdminIndexList';
+import UserIndexList from '../components/UserIndexList'
 
-const HomePage = ({ secure, admin }) => (
+const HomePage = ({ secure, admin, account }) => (
   <div className={styles.pageContainer}>
     <div className={styles.buttonWrap}>
       {!secure.id ? (
@@ -23,6 +24,7 @@ const HomePage = ({ secure, admin }) => (
         'USER LOGGED IN'
       )}
       {admin.index_report ? <AdminIndexList /> : ''}
+      {account.role === 'user' ? <UserIndexList /> : ''}
     </div>
     <div className={styles.brandWrapper}>
       <div className={styles.logoWrap}>
