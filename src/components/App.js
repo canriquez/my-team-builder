@@ -1,5 +1,5 @@
 /*  eslint-disable  camelcase */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import {
   BrowserRouter as Router,
@@ -15,53 +15,81 @@ import styles from '../styles/App.module.css';
 import HomePage from '../containers/HomePage';
 import ApplicationDetails from './AppicationDetails';
 import ActionMessage from './ActionMessage';
+import { updateAuthToken, updateAdmIndexReport, updateAccountData } from '../actions/index';
+import { fetchLocalRecord } from '../helpers/componentHelp';
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
+const App = ({
+  secure,
+  updateAdminSession,
+  updateUserSession,
+}) => {
+  useEffect(() => {
+    let isMounted = true;
+    const { localUser, validToken } = fetchLocalRecord();
+    if (!localUser) return;
+    if (!secure.id && localUser.role === 'admin' && validToken && isMounted) {
+      updateAdminSession(fetchLocalRecord());
+    } else if (!secure.id && localUser.role === 'user' && validToken && isMounted) {
+      updateUserSession(fetchLocalRecord());
+    }
+    // eslint-disable-next-line
+    return () => { isMounted = false; };
+  });
 
-    const { index_report, secure, account } = props;
-
-    this.index_report = index_report;
-    this.secure = secure;
-    this.account = account;
-  }
-
-  render() {
-    return (
-      <Router>
-        <div className={styles.appContainer}>
-          <Switch>
-            <Route exact path="/" component={HomePage} />
-            {/*          <Route exact path='/asset' component={AssetDetails} /> */}
-            <Route path="/signin" render={() => <SigninForm />} />
-            <Route path="/signup" render={() => <SignupForm />} />
-            <Route
-              path="/applications/:id"
-              render={props => (
-                <ApplicationDetails
+  return (
+    <Router>
+      <main className={styles.appContainer}>
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route path="/signin" render={() => <SigninForm />} />
+          <Route path="/signup" render={() => <SignupForm />} />
+          <Route
+            path="/applications/:id"
+            render={props => (
+              <ApplicationDetails
                   // eslint-disable-next-line
                   {...props}
-                />
-              )}
-            />
-            <Route
-              path="/messages/:id"
-              render={props => (
-                <ActionMessage
-                  validCall
+              />
+            )}
+          />
+          <Route
+            path="/messages/:id"
+            render={props => (
+              <ActionMessage
+                validCall
                   // eslint-disable-next-line
                   {...props}
-                />
-              )}
-            />
-            <Route path={'/*'} render={() => <Redirect to="/" />} />
-          </Switch>
-        </div>
-      </Router>
-    );
-  }
-}
+              />
+            )}
+          />
+          <Route path={'/*'} render={() => <Redirect to="/" />} />
+        </Switch>
+      </main>
+    </Router>
+  );
+};
+
+const mapDispatchToProps = dispatch => ({
+  fireUpdateAuthToken: payload => {
+    dispatch(updateAuthToken(payload));
+  },
+  fireUpdateIndex: payload => {
+    dispatch(updateAdmIndexReport(payload));
+  },
+  fireUpdateEvalsData: payload => {
+    dispatch(updateAccountData({ evals: payload }));
+  },
+  updateAdminSession: payload => {
+    dispatch(updateAccountData(payload.localUser));
+    dispatch(updateAdmIndexReport(payload.localAdmIndex));
+    dispatch(updateAuthToken(payload.localAuth));
+    dispatch(updateAccountData({ evals: payload.localAdmEval }));
+  },
+  updateUserSession: payload => {
+    dispatch(updateAccountData(payload.localUser));
+    dispatch(updateAuthToken(payload.localAuth));
+  },
+});
 
 const mapStateToProps = state => ({
   account: state.account,
@@ -87,6 +115,9 @@ App.propTypes = {
     then: PropTypes.string.isRequired,
     token: PropTypes.string.isRequired,
   }).isRequired,
+  updateAdminSession: PropTypes.func.isRequired,
+  updateUserSession: PropTypes.func.isRequired,
+
 };
 
-export default connect(mapStateToProps, null)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -9,6 +9,10 @@ import {
   UPDATE_INDEX_REPORT,
   KILL_INDEX_REPORT,
   FILTER_UPDATE,
+  AUTH_RECORD,
+  USER_RECORD,
+  ADM_INDEX_RECORD,
+  ADM_EVALS_RECORD,
 } from '../helpers/help';
 import {
   backEndSignup,
@@ -70,9 +74,21 @@ const filterUpdate = filter => ({
 
 const backendSignupAction = signUpData => dispatch => backEndSignup(signUpData)
   .then(result => {
-    const payload = {
-      signup: 'success',
-    };
+    let payload = {};
+    if (result.message.includes('Validation failed')) {
+      const messages = result.message.substring(19, result.message.length);
+      payload = {
+        newSignup: 'done',
+        signup: 'validation',
+        emailVal: messages,
+      };
+    } else {
+      payload = {
+        newSignup: 'done',
+        action: 'success',
+        message: result.message,
+      };
+    }
     dispatch(updateSignupState(payload));
     return result;
     // dispatch(updateAccountData({update object}));
@@ -97,6 +113,11 @@ const backendSigninAction = signUpIn => dispatch => backEndSignin(signUpIn)
         then: decoJwt.then,
       };
 
+      // Update Local Storage auth information
+
+      localStorage.setItem(AUTH_RECORD, JSON.stringify(payload));
+      localStorage.setItem(USER_RECORD, JSON.stringify(result.user['0']));
+
       // Fire store token in redux
       dispatch(updateAuthToken(payload));
 
@@ -107,14 +128,15 @@ const backendSigninAction = signUpIn => dispatch => backEndSignin(signUpIn)
       if (result.user[0].role === 'admin') {
         backendAdHome(result.auth_token).then(result => {
           dispatch(updateAdmIndexReport(result));
+          localStorage.setItem(ADM_INDEX_RECORD, JSON.stringify(result));
 
           // Load admin's evaluations
-
           backendAdminEvals({
             id: payload.id,
             auth: payload.token,
           }).then(result => {
             dispatch(updateAccountData({ evals: result }));
+            localStorage.setItem(ADM_EVALS_RECORD, JSON.stringify(result));
           });
         });
       }
@@ -124,6 +146,22 @@ const backendSigninAction = signUpIn => dispatch => backEndSignin(signUpIn)
       return result;
     }
     // else Show error message
+    let payload = {};
+    if (result.message.includes('Invalid credentials')) {
+      const messages = 'Invalid credentials, please try again.';
+      payload = {
+        newSignup: 'done',
+        signup: 'validation',
+        signInVal: messages,
+      };
+    } else {
+      payload = {
+        newSignup: 'done',
+        action: 'success',
+        message: result.message,
+      };
+    }
+    dispatch(updateSignupState(payload));
 
     return result;
   })
@@ -146,6 +184,7 @@ const backendRefreshAdmin = payload => dispatch => backendAdHome(payload.token)
       auth: payload.token,
     }).then(result => {
       dispatch(updateAccountData({ evals: result }));
+      localStorage.setItem(ADM_EVALS_RECORD, JSON.stringify(result));
     });
 
     // dispatch(updateAccountData({update object}));

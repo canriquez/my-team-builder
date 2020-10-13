@@ -1,13 +1,18 @@
 import { UPDATE_ACCOUNT_DATA } from '../helpers/help';
 
 const accountDefault = {
-  email: null,
-  name: null,
-  role: null,
-  avatar: null,
+  email: '',
+  name: '',
+  id: 0,
+  role: '',
+  evals: [{}],
+  avatar: '',
   loggedIn: false,
   tokenPresent: false,
   tokenExpired: false,
+  admin: {
+    index_report: [{}],
+  },
 };
 
 const account = (state = accountDefault, action) => {

@@ -15,7 +15,7 @@ const ApplicationCard = ({ cardObject }) => {
     admin_eval,
   } = cardObject;
   return (
-    <div className={styles.cardContainer}>
+    <article className={styles.cardContainer}>
       <div className={styles.cardHeading}>
         <h1>{job_name}</h1>
         {admin_eval === 0 ? (
@@ -50,7 +50,7 @@ const ApplicationCard = ({ cardObject }) => {
           <h4>{app_date}</h4>
         </div>
       </div>
-    </div>
+    </article>
   );
 };
 
@@ -62,13 +62,12 @@ ApplicationCard.propTypes = {
     app_age: PropTypes.string.isRequired,
     app_date: PropTypes.string.isRequired,
     likes: PropTypes.number.isRequired,
-    dislikes: PropTypes.number.isRequired,
     job_id: PropTypes.number.isRequired,
     job_name: PropTypes.string.isRequired,
     job_date: PropTypes.string.isRequired,
     job_age: PropTypes.string.isRequired,
     job_author: PropTypes.string.isRequired,
-    admin_eval: PropTypes.number.isRequired,
+    admin_eval: PropTypes.number,
     avatar: PropTypes.string.isRequired,
   }).isRequired,
 };

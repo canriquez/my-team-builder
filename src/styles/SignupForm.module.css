@@ -105,3 +105,15 @@
   right: 12px;
   width: 18px;
 }
+
+.valError {
+  color: red;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.exitBtn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+}

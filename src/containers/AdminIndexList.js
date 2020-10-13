@@ -12,6 +12,7 @@ import {
   cardObject,
   filterIndex_list,
   humanFilter,
+  clearLocalSession,
 } from '../helpers/componentHelp';
 import {
   backendRefreshAdmin,
@@ -73,7 +74,9 @@ class AdminIndexList extends React.Component {
       token: this.secure.token,
       id: this.account.id,
     };
-    this.fireBackendRefreshAdmin(payload);
+    if (this.secure.token && this.account.id && this.account.role === 'admin') {
+      this.fireBackendRefreshAdmin(payload);
+    }
   }
 
   logout() {
@@ -83,22 +86,23 @@ class AdminIndexList extends React.Component {
       evals: null,
     });
     this.killsLoginInfo();
+    clearLocalSession();
   }
 
   render() {
     const {
-      secure, mainFilter, index_report, filteredReport,
+      secure, mainFilter, index_report, filteredReport, account,
     } = this.props;
     const totRecords = index_report.length;
     // eslint-disable-next-line
     const filRecords = filteredReport.length;
-    if (!secure.id) {
+    if (!secure.id || account.role === 'user' || index_report.length === 0) {
       return <Redirect to="/" />;
     }
     return (
       <>
-        <div className={styles.navBar}>
-          <div className={styles.menuIcon}>
+        <header className={styles.navBar}>
+          <nav className={styles.menuIcon}>
             <button className={styles.signoutButton} onClick={this.logout}>
               Log Out
             </button>
@@ -107,13 +111,13 @@ class AdminIndexList extends React.Component {
               mainFilter={mainFilter}
             />
             <div className={styles.userWrap}>
-              <h2>{this.account.name}</h2>
-              <h4 className={styles.role}>{this.account.role}</h4>
+              <h2>{account.name}</h2>
+              <h4 className={styles.role}>{account.role}</h4>
             </div>
-          </div>
-        </div>
-        <div className={styles.carroucelContainer}>
-          <div className={styles.filterInfo}>
+          </nav>
+        </header>
+        <section className={styles.carroucelContainer}>
+          <article className={styles.filterInfo}>
             <h3>
               Currently showing
               <span className={`${styles.humanFilter} txt-${mainFilter}`}>
@@ -139,7 +143,7 @@ class AdminIndexList extends React.Component {
               </span>
               total records
             </h4>
-          </div>
+          </article>
           <Carousel responsive={this.responsive}>
             {filteredReport.map((object, id) => (
               <React.Fragment key={`child${id}`}>
@@ -152,7 +156,7 @@ class AdminIndexList extends React.Component {
               </React.Fragment>
             ))}
           </Carousel>
-        </div>
+        </section>
       </>
     );
   }
@@ -207,6 +211,6 @@ AdminIndexList.propTypes = {
   fireBackendRefreshAdmin: PropTypes.func.isRequired,
   logoutAction: PropTypes.func.isRequired,
   killsLoginInfo: PropTypes.func.isRequired,
-  filteredReport: PropTypes.func.isRequired,
+  filteredReport: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.object])).isRequired,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(AdminIndexList);

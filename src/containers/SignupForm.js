@@ -2,8 +2,8 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
-import { backendSignupAction, checkApiEmail } from '../actions/index';
+import { Redirect, Link } from 'react-router-dom';
+import { backendSignupAction, checkApiEmail, updateSignupState } from '../actions/index';
 import {
   validEmail,
   validName,
@@ -13,6 +13,7 @@ import {
 } from '../helpers/componentHelp';
 import styles from '../styles/SignupForm.module.css';
 import okIcon from '../assets/icons/ok.svg';
+import exitIcon from '../assets/icons/exit.svg';
 import warningIcon from '../assets/icons/warning.svg';
 
 class SignupForm extends React.Component {
@@ -34,11 +35,15 @@ class SignupForm extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    // this.mapDispatchToProps = this.mapDispatchToProps.bind(this);
+  }
+
+  componentDidMount() {
+    const { cleanSignupState } = this.props;
+    cleanSignupState();
   }
 
   handleChange() {
-    const { checkBackendEmail, new_email } = this.props;
+    const { new_email } = this.props;
     const formName = document.getElementById('nameValue').value;
     const formEmail = document.getElementById('emailValue').value;
     const formPassword = document.getElementById('passwordValue').value;
@@ -60,13 +65,13 @@ class SignupForm extends React.Component {
     });
 
     if (valid_email && formEmail !== new_email && formEmail !== '') {
-      checkBackendEmail({ email: formEmail });
+      // checkBackendEmail({ email: formEmail });
     }
     if (
       formEmail.length > 5
       && valid_email
       && valid_password
-      && formEmail === new_email
+      // && formEmail === new_email
     ) {
       enableSubmit('submit-btn');
     } else {
@@ -82,17 +87,6 @@ class SignupForm extends React.Component {
       ...this.state,
     };
 
-    this.setState({
-      email: '',
-      name: '',
-      role: '',
-      avatar: '',
-      password: '',
-      password_repeat: '',
-      valid_email: false,
-      password_match: false,
-    });
-
     fireBackendSignup(signupData);
   }
 
@@ -103,14 +97,26 @@ class SignupForm extends React.Component {
       password,
       password_repeat,
       password_match,
+      valid_email,
     } = this.state;
     const { new_email } = this.props;
 
     // eslint-disable-next-line
-    const { signup } = this.props.signup;
+    const { signup } = this.props;
+    const { action, emailVal } = signup;
     return (
-      <div className={styles.formblock}>
-        <div className={styles.formwrap}>
+      <section className={styles.formblock}>
+        <article className={styles.formwrap}>
+          <div className={styles.exitIcon}>
+            <Link to="/" className={styles.exitBtn}>
+              <img
+                className={styles.exitSvg}
+                src={exitIcon}
+                alt="exit icon"
+                id="exit-icon"
+              />
+            </Link>
+          </div>
           <div className={styles.formtitle}>
             <h1>Sign up</h1>
             <h3>Hi there, create a new account with us</h3>
@@ -141,10 +147,22 @@ class SignupForm extends React.Component {
                 id="ok-icon"
               />
             </div>
-            <label htmlFor="emailValue">email</label>
+            <label htmlFor="emailValue">
+              email
+              {
+              emailVal
+                ? (
+                  <span className={styles.valError}>
+                    {' | '}
+                    {emailVal}
+                  </span>
+                )
+                : ''
+            }
+            </label>
             <div className={styles.emailInputWrap}>
               <input
-                className="emailValue"
+                className={(emailVal ? ' emailVal' : '')}
                 type="text"
                 onChange={this.handleChange}
                 value={email}
@@ -154,7 +172,7 @@ class SignupForm extends React.Component {
               <img
                 className={
                   styles.formIcons
-                  + (new_email === email && email !== '' ? ' show' : ' hide')
+                  + (valid_email && email !== '' ? ' show' : ' hide')
                 }
                 src={okIcon}
                 alt="Logo"
@@ -235,11 +253,11 @@ class SignupForm extends React.Component {
               Sign Up
             </button>
           </form>
-          {signup === 'success' ? <Redirect to="/messages/0" /> : ''}
-          {signup === 'error' ? <Redirect to="/messages/1" /> : ''}
-          {signup === 'api_error' ? <Redirect to="/messages/2" /> : ''}
-        </div>
-      </div>
+          {action === 'success' ? <Redirect to="/messages/0" /> : ''}
+          {action === 'error' ? <Redirect to="/messages/1" /> : ''}
+          {action === 'api_error' ? <Redirect to="/messages/2" /> : ''}
+        </article>
+      </section>
     );
   }
 }
@@ -250,6 +268,9 @@ const mapDispatchToProps = dispatch => ({
   },
   checkBackendEmail: email => {
     dispatch(checkApiEmail(email));
+  },
+  cleanSignupState: () => {
+    dispatch(updateSignupState({ newSignup: 'pending' }));
   },
 });
 
@@ -270,12 +291,15 @@ SignupForm.propTypes = {
     token: PropTypes.string.isRequired,
   }).isRequired,
   new_email: PropTypes.string.isRequired,
-  checkBackendEmail: PropTypes.func.isRequired,
   fireBackendSignup: PropTypes.func.isRequired,
   signup: PropTypes.shape({
     email_available: PropTypes.string.isRequired,
     signup: PropTypes.string.isRequired,
+    emailVal: PropTypes.string.isRequired,
+    action: PropTypes.string.isRequired,
   }).isRequired,
+  cleanSignupState: PropTypes.func.isRequired,
+
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignupForm);
