@@ -1,5 +1,5 @@
-import React from 'react';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
+
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
@@ -9,9 +9,7 @@ import success from '../assets/icons/success.svg';
 import error from '../assets/icons/error.svg';
 import { updateSignupState } from '../actions/index';
 
-
-const ActionMessage = ({ match, validCall, cleanSignupState}) => {
-
+const ActionMessage = ({ match, validCall, cleanSignupState }) => {
   useEffect(() => {
     cleanSignupState();
   });
@@ -19,7 +17,6 @@ const ActionMessage = ({ match, validCall, cleanSignupState}) => {
   if (!validCall) {
     return <Redirect to="/" />;
   }
-
 
   const mindex = parseInt(match.params.id, 10);
   const messages = [
@@ -97,9 +94,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  cleanSignupState: ()=>{
-    dispatch(updateSignupState({newSignup: '', action:''}))
-  }
+  cleanSignupState: () => {
+    dispatch(updateSignupState({ newSignup: '', action: '' }));
+  },
 });
 
 ActionMessage.propTypes = {
@@ -112,6 +109,7 @@ ActionMessage.propTypes = {
     url: PropTypes.string.isRequired,
   }).isRequired,
   validCall: PropTypes.bool.isRequired,
+  cleanSignupState: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ActionMessage);

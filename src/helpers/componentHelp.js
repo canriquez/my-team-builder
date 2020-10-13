@@ -2,8 +2,10 @@
 import TimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en';
 import dateFormat from 'dateformat';
-import {AUTH_RECORD, USER_RECORD,  ADM_INDEX_RECORD,
-  ADM_EVALS_RECORD} from '../helpers/help'
+import {
+  AUTH_RECORD, USER_RECORD, ADM_INDEX_RECORD,
+  ADM_EVALS_RECORD,
+} from './help';
 
 const validEmail = email => {
   // eslint-disable-next-line
@@ -50,7 +52,6 @@ const cardObject = object => {
     app_age: application_age,
     app_date: dateFormat(Date(object.aplication_date)),
     likes: object.eval_like,
-    dislikes: object.eval_dislike,
     job_id: object.job_id,
     job_name: object.job_name,
     job_date: dateFormat(Date(object.jobpost_date)),
@@ -115,26 +116,27 @@ const filterIndex_list = (list, filter) => {
 };
 
 const fetchLocalRecord = () => {
-  const localAuth  = JSON.parse(localStorage.getItem(AUTH_RECORD));
-  const localUser = JSON.parse(localStorage.getItem(USER_RECORD));  
-  const localAdmIndex  = JSON.parse(localStorage.getItem(ADM_INDEX_RECORD));
-  const localAdmEval  = JSON.parse(localStorage.getItem(ADM_EVALS_RECORD));
-  console.log('now cheking local Payload: AUTH_RECORD')
+  const localAuth = JSON.parse(localStorage.getItem(AUTH_RECORD));
+  const localUser = JSON.parse(localStorage.getItem(USER_RECORD));
+  const localAdmIndex = JSON.parse(localStorage.getItem(ADM_INDEX_RECORD));
+  const localAdmEval = JSON.parse(localStorage.getItem(ADM_EVALS_RECORD));
   if (localAuth) {
     const valThen = new Date(localAuth.then);
     const valNow = new Date();
-    return {localAuth, localUser, validToken:(valNow < valThen), localAdmIndex, localAdmEval}
+    return {
+      localAuth, localUser, validToken: (valNow < valThen), localAdmIndex, localAdmEval,
+    };
   }
-  return false
-}
+  return false;
+};
 
 const clearLocalSession = () => {
   localStorage.removeItem(AUTH_RECORD);
   localStorage.removeItem(USER_RECORD);
   localStorage.removeItem(ADM_EVALS_RECORD);
   localStorage.removeItem(ADM_INDEX_RECORD);
-  return true
-}
+  return true;
+};
 
 export {
   validEmail,
@@ -149,5 +151,5 @@ export {
   filterIndex_list,
   humanFilter,
   fetchLocalRecord,
-  clearLocalSession
+  clearLocalSession,
 };

@@ -1,10 +1,10 @@
 import { UPDATE_AUTH_KEY, KILL_AUTH_KEY } from '../helpers/help';
 
 const defaultState = {
-  id: null,
-  now: null,
-  then: null,
-  token: null,
+  id: 0,
+  now: '',
+  then: '',
+  token: '',
 };
 
 const secure = (state = defaultState, action) => {

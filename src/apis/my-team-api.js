@@ -81,8 +81,6 @@ const backendCheckEmail = async ({ email }) => {
 };
 
 const backendAdminEvals = async ({ id, auth }) => {
-  console.log(`@API id: ${id}, auth: ${auth}`)
-
   const baseUrl = 'https://anriquez-my-team-api.herokuapp.com';
   // const baseUrl = 'http://127.0.0.1:5000';
   const endpoint = '/adhome/evals';

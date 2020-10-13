@@ -38,13 +38,12 @@ class SignupForm extends React.Component {
   }
 
   componentDidMount() {
-    const {cleanSignupState} = this.props;
+    const { cleanSignupState } = this.props;
     cleanSignupState();
   }
 
-
   handleChange() {
-    const { checkBackendEmail, new_email } = this.props;
+    const { new_email } = this.props;
     const formName = document.getElementById('nameValue').value;
     const formEmail = document.getElementById('emailValue').value;
     const formPassword = document.getElementById('passwordValue').value;
@@ -66,13 +65,13 @@ class SignupForm extends React.Component {
     });
 
     if (valid_email && formEmail !== new_email && formEmail !== '') {
-      //checkBackendEmail({ email: formEmail });
+      // checkBackendEmail({ email: formEmail });
     }
     if (
       formEmail.length > 5
       && valid_email
       && valid_password
-      //&& formEmail === new_email
+      // && formEmail === new_email
     ) {
       enableSubmit('submit-btn');
     } else {
@@ -98,26 +97,26 @@ class SignupForm extends React.Component {
       password,
       password_repeat,
       password_match,
-      valid_email
+      valid_email,
     } = this.state;
-    const { new_email, history } = this.props;
+    const { new_email } = this.props;
 
     // eslint-disable-next-line
     const { signup } = this.props;
-    const {action, emailVal} = signup 
+    const { action, emailVal } = signup;
     return (
       <section className={styles.formblock}>
         <article className={styles.formwrap}>
-        <div className={styles.exitIcon}>
-        <Link to="/" className={styles.exitBtn}>
-        <img
-          className={styles.exitSvg}
-          src={exitIcon}
-          alt="exit icon"
-          id="exit-icon"
-        />
-        </Link>
-        </div>
+          <div className={styles.exitIcon}>
+            <Link to="/" className={styles.exitBtn}>
+              <img
+                className={styles.exitSvg}
+                src={exitIcon}
+                alt="exit icon"
+                id="exit-icon"
+              />
+            </Link>
+          </div>
           <div className={styles.formtitle}>
             <h1>Sign up</h1>
             <h3>Hi there, create a new account with us</h3>
@@ -148,12 +147,17 @@ class SignupForm extends React.Component {
                 id="ok-icon"
               />
             </div>
-            <label htmlFor="emailValue">email 
-            {
-              emailVal ? 
-              <span className={styles.valError}>{" | "}{emailVal}</span>
-              :
-              ""
+            <label htmlFor="emailValue">
+              email
+              {
+              emailVal
+                ? (
+                  <span className={styles.valError}>
+                    {' | '}
+                    {emailVal}
+                  </span>
+                )
+                : ''
             }
             </label>
             <div className={styles.emailInputWrap}>
@@ -265,9 +269,9 @@ const mapDispatchToProps = dispatch => ({
   checkBackendEmail: email => {
     dispatch(checkApiEmail(email));
   },
-  cleanSignupState: (payload)=>{
-    dispatch(updateSignupState({newSignup: 'pending'}))
-  }
+  cleanSignupState: () => {
+    dispatch(updateSignupState({ newSignup: 'pending' }));
+  },
 });
 
 const mapStateToProps = state => ({
@@ -287,12 +291,15 @@ SignupForm.propTypes = {
     token: PropTypes.string.isRequired,
   }).isRequired,
   new_email: PropTypes.string.isRequired,
-  checkBackendEmail: PropTypes.func.isRequired,
   fireBackendSignup: PropTypes.func.isRequired,
   signup: PropTypes.shape({
     email_available: PropTypes.string.isRequired,
     signup: PropTypes.string.isRequired,
+    emailVal: PropTypes.string.isRequired,
+    action: PropTypes.string.isRequired,
   }).isRequired,
+  cleanSignupState: PropTypes.func.isRequired,
+
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignupForm);

@@ -3,7 +3,7 @@ import { UPDATE_INDEX_REPORT, KILL_INDEX_REPORT } from '../helpers/help';
 
 // CHANGE DUMMY INDEX_REPORT TO NULL for final testing
 const defaultState = {
-  index_report: null,
+  index_report: [{}],
 };
 
 const admin = (state = defaultState, action) => {

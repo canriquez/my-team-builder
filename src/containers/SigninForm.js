@@ -28,7 +28,7 @@ class SigninForm extends React.Component {
   }
 
   handleChange() {
-    const {cleanSignupState} = this.props
+    const { cleanSignupState } = this.props;
     cleanSignupState();
     const formEmail = document.getElementById('emailValue').value;
     const formPassword = document.getElementById('passwordValue').value;
@@ -72,18 +72,18 @@ class SigninForm extends React.Component {
 
     // eslint-disable-next-line
     const { signup } = this.props;
-    const {action, signInVal} = signup 
+    const { action, signInVal } = signup;
     return (
       <div className={styles.formblock}>
         <div className={styles.formwrap}>
-        <Link to="/" className={styles.exitBtn}>
-          <img
-            className={styles.exitSvg}
-            src={exitIcon}
-            alt="exit icon"
-            id="exit-icon"
-          />
-        </Link>
+          <Link to="/" className={styles.exitBtn}>
+            <img
+              className={styles.exitSvg}
+              src={exitIcon}
+              alt="exit icon"
+              id="exit-icon"
+            />
+          </Link>
           <div className={styles.demoAccess}>
             <p>Admin role: admin1@gmail.com | pass: 12345</p>
           </div>
@@ -91,11 +91,15 @@ class SigninForm extends React.Component {
             <h1>Sign in</h1>
             <h3>Hi there, signin to your account</h3>
             <h2>
-            {
-              signInVal ? 
-              <span className={styles.credentialsError}>{" "}{signInVal}</span>
-              :
-              ""
+              {
+              signInVal
+                ? (
+                  <span className={styles.credentialsError}>
+                    {' '}
+                    {signInVal}
+                  </span>
+                )
+                : ''
             }
             </h2>
           </div>
@@ -153,8 +157,8 @@ const mapDispatchToProps = dispatch => ({
   checkBackendEmail: email => {
     dispatch(checkApiEmail(email));
   },
-  cleanSignupState: ()=>{
-    dispatch(updateSignupState({newSignup: '', action:'', signInVal: null}))
+  cleanSignupState: () => {
+    dispatch(updateSignupState({ newSignup: '', action: '', signInVal: null }));
   },
 });
 
@@ -176,6 +180,11 @@ SigninForm.propTypes = {
     token: PropTypes.string.isRequired,
   }).isRequired,
   fireBackendSignin: PropTypes.func.isRequired,
+  cleanSignupState: PropTypes.func.isRequired,
+  signup: PropTypes.shape({
+    action: PropTypes.string.isRequired,
+    signInVal: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SigninForm);

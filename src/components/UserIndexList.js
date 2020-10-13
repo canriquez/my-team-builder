@@ -2,12 +2,11 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
-import { Redirect, Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import styles from '../styles/AdminIndexList.module.css';
 import 'react-multi-carousel/lib/styles.css';
 
 import {
-  filterIndex_list,
   clearLocalSession,
 } from '../helpers/componentHelp';
 import {
@@ -16,7 +15,6 @@ import {
   updateAccountData,
   killAuthToken,
 } from '../actions/index';
-
 
 class UserIndexList extends React.Component {
   constructor(props) {
@@ -36,9 +34,7 @@ class UserIndexList extends React.Component {
     this.logout = this.logout.bind(this);
     this.logoutAction = logoutAction;
     this.killsLoginInfo = killsLoginInfo;
-
   }
-
 
   logout() {
     this.logoutAction({
@@ -51,8 +47,8 @@ class UserIndexList extends React.Component {
   }
 
   render() {
-    const {secure, account} = this.props;
-    if (!secure.id ) {
+    const { secure, account } = this.props;
+    if (!secure.id) {
       return <Redirect to="/" />;
     }
     return (
@@ -94,8 +90,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 UserIndexList.propTypes = {
-  index_report: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.object]))
-    .isRequired,
   account: PropTypes.shape({
     id: PropTypes.number.isRequired,
     avatar: PropTypes.string.isRequired,
@@ -114,11 +108,7 @@ UserIndexList.propTypes = {
     then: PropTypes.string.isRequired,
     token: PropTypes.string.isRequired,
   }).isRequired,
-  mainFilter: PropTypes.string.isRequired,
-  changeMainFilter: PropTypes.func.isRequired,
-  fireBackendRefreshAdmin: PropTypes.func.isRequired,
   logoutAction: PropTypes.func.isRequired,
   killsLoginInfo: PropTypes.func.isRequired,
-  filteredReport: PropTypes.func.isRequired,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(UserIndexList);

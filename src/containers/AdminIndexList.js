@@ -74,7 +74,7 @@ class AdminIndexList extends React.Component {
       token: this.secure.token,
       id: this.account.id,
     };
-    if (this.secure.token && this.account.id) {
+    if (this.secure.token && this.account.id && this.account.role === 'admin') {
       this.fireBackendRefreshAdmin(payload);
     }
   }
@@ -91,12 +91,12 @@ class AdminIndexList extends React.Component {
 
   render() {
     const {
-      secure, mainFilter, index_report, filteredReport,
+      secure, mainFilter, index_report, filteredReport, account,
     } = this.props;
     const totRecords = index_report.length;
     // eslint-disable-next-line
     const filRecords = filteredReport.length;
-    if (!secure.id ) {
+    if (!secure.id || account.role === 'user' || index_report.length === 0) {
       return <Redirect to="/" />;
     }
     return (
@@ -111,8 +111,8 @@ class AdminIndexList extends React.Component {
               mainFilter={mainFilter}
             />
             <div className={styles.userWrap}>
-              <h2>{this.account.name}</h2>
-              <h4 className={styles.role}>{this.account.role}</h4>
+              <h2>{account.name}</h2>
+              <h4 className={styles.role}>{account.role}</h4>
             </div>
           </nav>
         </header>
@@ -211,6 +211,6 @@ AdminIndexList.propTypes = {
   fireBackendRefreshAdmin: PropTypes.func.isRequired,
   logoutAction: PropTypes.func.isRequired,
   killsLoginInfo: PropTypes.func.isRequired,
-  filteredReport: PropTypes.func.isRequired,
+  filteredReport: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.object])).isRequired,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(AdminIndexList);
