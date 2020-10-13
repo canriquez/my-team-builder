@@ -12,6 +12,7 @@ import {
   cardObject,
   filterIndex_list,
   humanFilter,
+  clearLocalSession,
 } from '../helpers/componentHelp';
 import {
   backendRefreshAdmin,
@@ -83,6 +84,7 @@ class AdminIndexList extends React.Component {
       evals: null,
     });
     this.killsLoginInfo();
+    clearLocalSession();
   }
 
   render() {

@@ -27,6 +27,7 @@ const App  = ({
   useEffect(()=> {
     let isMounted = true;
     const {localUser, validToken } = fetchLocalRecord();
+    if (!localUser) return
     if (!secure.id && localUser.role === 'admin' && validToken && isMounted) {
       updateAdminSession(fetchLocalRecord());
     }

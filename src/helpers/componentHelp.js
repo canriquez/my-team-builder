@@ -128,6 +128,14 @@ const fetchLocalRecord = () => {
   return false
 }
 
+const clearLocalSession = () => {
+  localStorage.removeItem(AUTH_RECORD);
+  localStorage.removeItem(USER_RECORD);
+  localStorage.removeItem(ADM_EVALS_RECORD);
+  localStorage.removeItem(ADM_INDEX_RECORD);
+  return true
+}
+
 export {
   validEmail,
   enableSubmit,
@@ -140,5 +148,6 @@ export {
   checkFilter,
   filterIndex_list,
   humanFilter,
-  fetchLocalRecord
+  fetchLocalRecord,
+  clearLocalSession
 };
