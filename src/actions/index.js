@@ -9,6 +9,10 @@ import {
   UPDATE_INDEX_REPORT,
   KILL_INDEX_REPORT,
   FILTER_UPDATE,
+  AUTH_RECORD,
+  USER_RECORD,
+  ADM_INDEX_RECORD,
+  ADM_EVALS_RECORD
 } from '../helpers/help';
 import {
   backEndSignup,
@@ -85,6 +89,39 @@ const backendSignupAction = signUpData => dispatch => backEndSignup(signUpData)
     throw error;
   });
 
+const fetchAuthRecord = () =>dispatch => {
+  //check Local Storage. If present and valid, and user is admin, we fire the admin index report
+  const localAuth  = JSON.parse(localStorage.getItem(AUTH_RECORD));
+  const localUser = JSON.parse(localStorage.getItem(USER_RECORD));
+  console.log('now cheking local Payload: AUTH_RECORD')
+  if (localAuth && localUser) {
+    const valThen = new Date(localAuth.then);
+    const valNow = new Date();
+    if (valNow < valThen) {   // Token still valid
+        console.log('token still valid, updating secure redux')
+        // ONLY FOR ADMIN ACTIONS
+      if (localUser.role === 'admin') {
+        console.log('admin role logged in...')
+        backendAdHome(localAuth.token).then(adminReport => {
+          backendAdminEvals({
+            id: localAuth.id,
+            auth: localAuth.token,
+          }).then(evals => {
+            return {adminReport,localAuth,localUser,evals }
+          });
+        });
+      } else {
+        return false
+      }
+
+    } else {
+      return false
+    }
+  } else {
+    return false
+  }
+}
+
 const backendSigninAction = signUpIn => dispatch => backEndSignin(signUpIn)
   .then(result => {
     if (result.auth_token) {
@@ -97,6 +134,18 @@ const backendSigninAction = signUpIn => dispatch => backEndSignin(signUpIn)
         then: decoJwt.then,
       };
 
+      // Update Local Storage auth information
+
+      localStorage.setItem(AUTH_RECORD, JSON.stringify(payload));
+      localStorage.setItem(USER_RECORD, JSON.stringify(result.user['0']));
+
+      console.log('here the LOCALSTORAGE record')
+      console.log(localStorage.getItem(AUTH_RECORD));
+      console.log(localStorage.getItem(USER_RECORD));
+
+      console.log(JSON.parse(localStorage.getItem(AUTH_RECORD)))
+      console.log(JSON.parse(localStorage.getItem(USER_RECORD)))
+
       // Fire store token in redux
       dispatch(updateAuthToken(payload));
 
@@ -107,14 +156,15 @@ const backendSigninAction = signUpIn => dispatch => backEndSignin(signUpIn)
       if (result.user[0].role === 'admin') {
         backendAdHome(result.auth_token).then(result => {
           dispatch(updateAdmIndexReport(result));
+          localStorage.setItem(ADM_INDEX_RECORD, JSON.stringify(result));
 
           // Load admin's evaluations
-
           backendAdminEvals({
             id: payload.id,
             auth: payload.token,
           }).then(result => {
             dispatch(updateAccountData({ evals: result }));
+            localStorage.setItem(ADM_EVALS_RECORD, JSON.stringify(result));
           });
         });
       }
@@ -139,6 +189,7 @@ const backendRefreshAdmin = payload => dispatch => backendAdHome(payload.token)
   .then(result => {
     dispatch(updateAdmIndexReport(result));
 
+
     // Load admin's evaluations
 
     backendAdminEvals({
@@ -146,6 +197,7 @@ const backendRefreshAdmin = payload => dispatch => backendAdHome(payload.token)
       auth: payload.token,
     }).then(result => {
       dispatch(updateAccountData({ evals: result }));
+      localStorage.setItem(ADM_EVALS_RECORD, JSON.stringify(result));
     });
 
     // dispatch(updateAccountData({update object}));
@@ -231,4 +283,5 @@ export {
   backendRefreshAdmin,
   filterUpdate,
   killAuthToken,
+  fetchAuthRecord,
 };

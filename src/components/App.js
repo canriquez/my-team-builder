@@ -15,25 +15,29 @@ import styles from '../styles/App.module.css';
 import HomePage from '../containers/HomePage';
 import ApplicationDetails from './AppicationDetails';
 import ActionMessage from './ActionMessage';
+import {updateAuthToken, updateAdmIndexReport, updateAccountData} from '../actions/index'
+import { useEffect } from 'react';
+import {fetchLocalRecord} from '../helpers/componentHelp'
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
+const App  = ({
+  secure, 
+  updateAdminSession
+})=>{
 
-    const { index_report, secure, account } = props;
+  useEffect(()=> {
+    let isMounted = true;
+    const {localUser, validToken } = fetchLocalRecord();
+    if (!secure.id && localUser.role === 'admin' && validToken && isMounted) {
+      updateAdminSession(fetchLocalRecord());
+    }
+    return () => { isMounted = false };
+  })
 
-    this.index_report = index_report;
-    this.secure = secure;
-    this.account = account;
-  }
-
-  render() {
     return (
       <Router>
         <div className={styles.appContainer}>
           <Switch>
             <Route exact path="/" component={HomePage} />
-            {/*          <Route exact path='/asset' component={AssetDetails} /> */}
             <Route path="/signin" render={() => <SigninForm />} />
             <Route path="/signup" render={() => <SignupForm />} />
             <Route
@@ -61,7 +65,26 @@ class App extends React.Component {
       </Router>
     );
   }
-}
+
+
+const mapDispatchToProps = dispatch => ({
+  fireUpdateAuthToken: (payload) => {
+    dispatch(updateAuthToken(payload));
+  },
+  fireUpdateIndex: (payload) => {
+    dispatch(updateAdmIndexReport(payload));
+  },
+  fireUpdateEvalsData: (payload)=>{
+    dispatch(updateAccountData({ evals: payload }))
+  },
+  updateAdminSession: (payload) =>{
+    dispatch(updateAccountData(payload.localUser));
+    dispatch(updateAdmIndexReport(payload.localAdmIndex));
+    dispatch(updateAuthToken(payload.localAuth));
+    dispatch(updateAccountData({evals: payload.localAdmEval}));
+
+  }
+});
 
 const mapStateToProps = state => ({
   account: state.account,
@@ -89,4 +112,4 @@ App.propTypes = {
   }).isRequired,
 };
 
-export default connect(mapStateToProps, null)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

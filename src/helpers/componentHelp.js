@@ -2,6 +2,8 @@
 import TimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en';
 import dateFormat from 'dateformat';
+import {AUTH_RECORD, USER_RECORD,  ADM_INDEX_RECORD,
+  ADM_EVALS_RECORD} from '../helpers/help'
 
 const validEmail = email => {
   // eslint-disable-next-line
@@ -112,6 +114,20 @@ const filterIndex_list = (list, filter) => {
   return result;
 };
 
+const fetchLocalRecord = () => {
+  const localAuth  = JSON.parse(localStorage.getItem(AUTH_RECORD));
+  const localUser = JSON.parse(localStorage.getItem(USER_RECORD));  
+  const localAdmIndex  = JSON.parse(localStorage.getItem(ADM_INDEX_RECORD));
+  const localAdmEval  = JSON.parse(localStorage.getItem(ADM_EVALS_RECORD));
+  console.log('now cheking local Payload: AUTH_RECORD')
+  if (localAuth) {
+    const valThen = new Date(localAuth.then);
+    const valNow = new Date();
+    return {localAuth, localUser, validToken:(valNow < valThen), localAdmIndex, localAdmEval}
+  }
+  return false
+}
+
 export {
   validEmail,
   enableSubmit,
@@ -124,4 +140,5 @@ export {
   checkFilter,
   filterIndex_list,
   humanFilter,
+  fetchLocalRecord
 };
