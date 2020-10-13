@@ -2,7 +2,7 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import { backendSignupAction, checkApiEmail, updateSignupState } from '../actions/index';
 import {
   validEmail,
@@ -13,6 +13,7 @@ import {
 } from '../helpers/componentHelp';
 import styles from '../styles/SignupForm.module.css';
 import okIcon from '../assets/icons/ok.svg';
+import exitIcon from '../assets/icons/exit.svg';
 import warningIcon from '../assets/icons/warning.svg';
 
 class SignupForm extends React.Component {
@@ -34,12 +35,13 @@ class SignupForm extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    // this.mapDispatchToProps = this.mapDispatchToProps.bind(this);
   }
 
   componentDidMount() {
-
+    const {cleanSignupState} = this.props;
+    cleanSignupState();
   }
+
 
   handleChange() {
     const { checkBackendEmail, new_email } = this.props;
@@ -97,7 +99,7 @@ class SignupForm extends React.Component {
       password_repeat,
       password_match,
     } = this.state;
-    const { new_email } = this.props;
+    const { new_email, history } = this.props;
 
     // eslint-disable-next-line
     const { signup } = this.props;
@@ -105,6 +107,16 @@ class SignupForm extends React.Component {
     return (
       <div className={styles.formblock}>
         <div className={styles.formwrap}>
+        <div className={styles.exitIcon}>
+        <Link to="/" className={styles.exitBtn}>
+        <img
+          className={styles.exitSvg}
+          src={exitIcon}
+          alt="exit icon"
+          id="exit-icon"
+        />
+        </Link>
+        </div>
           <div className={styles.formtitle}>
             <h1>Sign up</h1>
             <h3>Hi there, create a new account with us</h3>

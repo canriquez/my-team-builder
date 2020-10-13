@@ -2,7 +2,7 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import { backendSigninAction, checkApiEmail } from '../actions/index';
 import {
   validEmail,
@@ -11,6 +11,7 @@ import {
   disableSubmit,
 } from '../helpers/componentHelp';
 import styles from '../styles/SigninForm.module.css';
+import exitIcon from '../assets/icons/exit.svg';
 
 class SigninForm extends React.Component {
   constructor(props) {
@@ -72,6 +73,14 @@ class SigninForm extends React.Component {
     return (
       <div className={styles.formblock}>
         <div className={styles.formwrap}>
+        <Link to="/" className={styles.exitBtn}>
+          <img
+            className={styles.exitSvg}
+            src={exitIcon}
+            alt="exit icon"
+            id="exit-icon"
+          />
+        </Link>
           <div className={styles.demoAccess}>
             <p>Admin role: admin1@gmail.com | pass: 12345</p>
           </div>

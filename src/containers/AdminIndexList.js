@@ -74,7 +74,9 @@ class AdminIndexList extends React.Component {
       token: this.secure.token,
       id: this.account.id,
     };
-    this.fireBackendRefreshAdmin(payload);
+    if (this.secure.token && this.account.id) {
+      this.fireBackendRefreshAdmin(payload);
+    }
   }
 
   logout() {
