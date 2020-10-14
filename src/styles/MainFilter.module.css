@@ -1,0 +1,12 @@
+.categories {
+  color: #fff;
+  width: 90px;
+  height: 34px;
+  font-family: Lato, sans-serif;
+  font-weight: 800;
+  font-size: 12px;
+  border-radius: 25px;
+  text-transform: uppercase;
+  border: 1px solid rgba(205, 86, 35, 1);
+  margin: 0 10px;
+}

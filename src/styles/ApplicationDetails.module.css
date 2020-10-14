@@ -1,0 +1,125 @@
+.cardContainer {
+  margin: 96px auto;
+  width: 95%;
+  height: 85%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 4px;
+  box-shadow: 6px 6px 11px #727272, -6px -6px 11px #fff;
+  background-color: #f4f5f9;
+  z-index: 4;
+}
+
+.cardHeading {
+  position: relative;
+  margin-top: 5px;
+  padding: 5px 10px;
+}
+
+h1 {
+  font-family: Lato, sans-serif;
+  font-weight: 800;
+  font-size: 24px;
+}
+
+.sectionTitle {
+  border-bottom: 1px solid #eeeff2;
+}
+
+.sectionTitle h2 {
+  color: rgba(205, 86, 35, 1);
+}
+
+.applicantAvatar {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: auto;
+  justify-content: center;
+  align-items: center;
+}
+
+.applicantAvatar h2 {
+  color: rgba(205, 86, 35, 1);
+}
+
+.applicantAvatar h4 {
+  padding: 0;
+}
+
+.applicantAvatar img {
+  width: 160px;
+  height: 160px;
+  border-radius: 100%;
+  border: 1px solid #999;
+}
+
+.applicantInfoWrap {
+  margin-bottom: 5px;
+  padding: 5px 10px;
+}
+
+.evaluation {
+  margin: 0 auto;
+  width: 90%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.likeButton button {
+  color: #fff;
+  width: 120px;
+  height: 45px;
+  font-family: Lato, sans-serif;
+  font-weight: 800;
+  font-size: 24px;
+  border-radius: 14px;
+  margin-top: 10px;
+  background-color: #868dd0;
+  border: 1px solid #868dd0;
+}
+
+.dislikeButton button {
+  color: #fff;
+  width: 120px;
+  height: 45px;
+  font-family: Lato, sans-serif;
+  font-weight: 800;
+  font-size: 24px;
+  border-radius: 14px;
+  margin-top: 10px;
+  background-color: rgba(205, 86, 35, 1);
+  border: 1px solid rgba(205, 86, 35, 1);
+}
+
+.evalIcon {
+  position: absolute;
+  top: 40%;
+  right: 3%;
+}
+
+.evalIcon img {
+  width: 70px;
+}
+
+.navBar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.goBack {
+  position: absolute;
+  top: 50%;
+  left: 2%;
+  width: 25px;
+  height: 25px;
+  fill: #000;
+}
