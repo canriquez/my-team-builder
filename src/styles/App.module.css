@@ -1,11 +1,12 @@
 .appContainer {
-    position: relative;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    min-width: 320px;
-    width: 100%;
-    max-width: 640px;
-    height: 100vh;
-    background-color: var(--french-blue);
+  /*   position: relative;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%); */
+  min-width: 320px;
+  width: 100%;
+  max-width: 640px;
+  height: 100vh;
+  margin: 0 auto;
+  background-color: transparent;
 }
