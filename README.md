@@ -4,7 +4,7 @@
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/3c90b85f-4704-413e-be79-f041e2e346d8/deploy-status)](https://app.netlify.com/sites/my-team-builder/deploys)
 
-> This app is a catalogue manager for Job Applicantions. This Repository contains the front end applications tht works jointly with a Ruby on Rails / PostgreSQL backend located in this repo [here](https://github.com/canriquez/my-team-api)
+> This app is a catalogue manager for Job Applicantions. This Repository contains the front end applications that works jointly with a Ruby on Rails / PostgreSQL backend located in this repo [here](https://github.com/canriquez/my-team-api)
 
 ![screenshot](app_screenshot.gif)
 
